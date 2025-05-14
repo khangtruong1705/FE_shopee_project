@@ -1,0 +1,77 @@
+.navigate {
+    display: flex;
+    font-size: 0.9rem;
+    color: white;
+    justify-content: space-between;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Kiểu cho nút dropdown */
+.dropdownbutton {
+    /* background-color: #3498db; */
+    color: white;
+    /* padding: 10px 20px; */
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdowncontent {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    color: black;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdowncontent {
+    display: block;
+
+}
+
+.logocolor {
+    background-color: white !important;
+    /* Áp dụng !important */
+}
+
+.shopeeimage {
+    width: 20rem;
+    margin-left: 8rem;
+}
+
+
+.tagmarquee {
+    width: 100%;
+    overflow: hidden;
+    color: white;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.tagtrack {
+    display: flex;
+    animation: scroll-left 20s linear infinite;
+    padding-left: 100%;
+}
+
+.tagitem {
+    display: inline-block;
+    margin-right: 2rem;
+    font-size: 1rem;
+}
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
