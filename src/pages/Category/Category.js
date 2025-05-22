@@ -4,19 +4,14 @@ import axios from 'axios';
 import { NavLink, useParams } from 'react-router-dom';
 import _ from "lodash";
 import { DOMAIN } from '../../util/config';
-
+import { Segmented } from 'antd';
 
 const Category = () => {
     const { name } = useParams();
-    const [activeButton, setActiveButton] = useState(null);
     const [isDropdownSelected, setIsDropdownSelected] = useState(false);
-    const handleClick = (button) => {
-        setActiveButton(button); // Cập nhật nút được chọn
-    };
     const handleDropdownChange = (event) => {
         const selectedValue = parseInt(event.target.value, 10);
         setIsDropdownSelected(true);
-
         // Sắp xếp dựa trên lựa chọn
         let sortedarrMain;
         if (selectedValue === 1) {
@@ -32,6 +27,16 @@ const Category = () => {
 
         // Cập nhật danh sách sản phẩm
         setArrMain(sortedarrMain);
+    };
+    const handleSortChange = (value) => {
+        if (value == 'Mới Nhất') {
+            const sortedItems = _.sortBy(arrMain, ["created_at"], ["desc"]);
+            setArrMain(sortedItems)
+        } else if (value == 'Bán Chạy') {
+            const sortedItems = _.orderBy(arrMain, ["sold"], ["desc"]);
+            setArrMain(sortedItems)
+        }
+
     };
     const [arrMain, setArrMain] = useState();
     const fetchData = async () => {
@@ -70,21 +75,15 @@ const Category = () => {
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
-            <div className='d-flex justify-content-center my-4 p-3' style={{ backgroundColor: '#ededed' }}>
-                Sắp Xếp Theo
-                <button className={`mx-5 ${activeButton === "latest" ? "btn btn-danger" : ""}`}
-                    onClick={() => {
-                        handleClick("latest")
-                        const sortedItems = _.sortBy(arrMain, ["created_at"], ["desc"]);
-                        setArrMain(sortedItems)
-
-                    }}>Mới Nhất</button>
-                <button className={`mx-5 ${activeButton === "best-seller" ? "btn btn-danger" : ""}`}
-                    onClick={() => {
-                        handleClick("best-seller")
-                        const sortedItems = _.orderBy(arrMain, ["sold"], ["desc"]);
-                        setArrMain(sortedItems)
-                    }}>Bán Chạy</button>
+            <div className='d-flex justify-content-around my-4 p-3' style={{ backgroundColor: '#ededed' }}>
+                <div><strong>Sắp Xếp Theo</strong> </div>
+                <div>
+                    <Segmented options={['Mới Nhất', 'Bán Chạy',]}
+                        block
+                        style={{ minWidth: 350 }}
+                        onChange={handleSortChange}
+                    />
+                </div>
                 <div>
                     <select className={`form-select ${isDropdownSelected ? "dropdown-selected" : ""}`}
                         aria-label="Default select example"
@@ -98,30 +97,28 @@ const Category = () => {
             </div>
             <div className='row'>
                 {arrMain?.map((product, index) => {
-                    return <div className='col-3' key={index} >
-                        <NavLink to={`/productdetail/${product.product_id}`} style={{ textDecoration: 'none' }}
-                            onClick={() => {
-
-                            }}
-                        >
-                            <div className='card my-3'>
-                                <div className='card-header' style={{ height: '280px' }}>
-                                    <img className='w-100 h-100' src={`${process.env.PUBLIC_URL} ${product.image}`} />
-                                </div>
-                                <div className='card-body'>
-                                    <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.description}</div>
-                                    <div className='d-flex justify-content-between'>
-                                        <div>Đã bán {product.sold}</div>
-                                        <div>
-                                            <i className='fa-solid fa-star text-danger' />
-                                            {product.rating}
-                                        </div>
+                    return <div className='col-lg-3 col-md-4 col-sm-6' key={index}>
+                        <NavLink to={`/productdetail/${product.product_id}`} className='card m-1' style={{ borderRadius: '0', textDecoration: 'none' }}>
+                            <div className='card-header' style={{ height: '21vw', backgroundColor: '#ffffff' }}>
+                                <img
+                                    className='w-100 h-75'
+                                    alt='Product image'
+                                    src={`${process.env.PUBLIC_URL}${product.image}`}
+                                    style={{ border: '1px solid #f85902', borderRadius: '20px' }}
+                                />
+                            </div>
+                            <div className='card-body' style={{ fontSize: '1vw' }}>
+                                <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.description}</div>
+                                <div className='d-flex justify-content-between' >
+                                    <div>Đã bán {product.sold}</div>
+                                    <div>
+                                        <i className='fa-solid fa-star text-danger' />
+                                        {product.rating}
                                     </div>
-                                    <div className='text-center' style={{ color: '#f85902' }} >{product.price.toLocaleString('vi-VN')}VNĐ</div>
                                 </div>
+                                <div className='text-center' style={{ color: '#f85902' }} >{product.price.toLocaleString('vi-VN')}VNĐ</div>
                             </div>
                         </NavLink>
-
                     </div>
                 })}
             </div>

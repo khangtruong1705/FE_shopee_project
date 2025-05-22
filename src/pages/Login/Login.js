@@ -1,39 +1,66 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import axios from 'axios';
-import { useFormik } from 'formik'
-import * as yup from 'yup';
-import { useState } from "react";
-import { history } from '../../index'
 import { DOMAIN } from "../../util/config";
+import { Button, message, Checkbox, Form, Input } from 'antd';
+import styles from './Login.module.css'
+
+
 const Login = () => {
-    const [result, setResult] = useState('')
-    const frm = useFormik({
-        initialValues: {
-            email: '',
-            password: ''
-        }, validationSchema: yup.object().shape({
-            email: yup.string().required('Email can not be blank!').email('email is not valid!')
-        }),
-        onSubmit: async (values) => {
-            // Gửi dữ liệu tới API
-            try {
-                let res = await axios.post(`${DOMAIN}/api/users/login`, values);
-                localStorage.setItem('token',res.data);
-                history.push('/')
-            } catch (error) {
-                setResult(error.response.data.detail)
+    const navigate = useNavigate();
+    const onFinish = async (values) => {
+        console.log('Success:', values);
+        try {
+            const newValue = {
+                'email': values.email,
+                'password': values.password
             }
+            let res = await axios.post(`${DOMAIN}/api/users/login`, newValue);
+            localStorage.setItem('token', res.data);
+            const data = {
+                'message': 'Đăng Nhập thành công !!!',
+                'type': 'success'
+            }
+            openMessage(data)
+            setTimeout(() => {
+                navigate('/')
+            }, 2000);
+        } catch (error) {
+            const data = {
+                'message': 'Đăng Nhập thất bại !!!',
+                'type': 'error'
+            }
+            openMessage(data)
         }
-    });
+    };
+    const onFinishFailed = errorInfo => {
+        console.log('Failed:', errorInfo);
+    };
+    const [messageApi, contextHolder] = message.useMessage();
+    const key = 'updatable';
+    const openMessage = (data) => {
+        messageApi.open({
+            key,
+            type: 'loading',
+            content: 'Loading...',
+        });
+        setTimeout(() => {
+            messageApi.open({
+                key,
+                type: data.type,
+                content: data.message,
+                duration: 2,
+            });
+        }, 1000);
+    };
     return <>
         <div>
             <div className="header">
                 <div className='d-flex justify-content-between align-items-center w-75 mx-auto'>
-                    <div className='d-flex align-items-center'>
+                    <NavLink to='/' className='d-flex align-items-center'>
                         <img className="w-25" src={process.env.PUBLIC_URL + '/asset/images/shopeelogo.png'} />
-                    </div>
-                    <NavLink to='/shopeehelp' style={{ color: '#ee4d2d',textDecoration:'none' }}>
+                    </NavLink>
+                    <NavLink to='/shopeehelp' style={{ color: '#ee4d2d', textDecoration: 'none' }}>
                         Bạn cần giúp đỡ?
                     </NavLink>
                 </div>
@@ -41,35 +68,61 @@ const Login = () => {
             <div className="body p-5 d-flex justify-content-around" style={{ backgroundColor: '#ee4d2d' }}>
                 <div>
                     <h1 className="text-white">Shopee</h1>
-                    <p>Nền tảng thương mại điện tử yêu thích ở Đông Nam Á & Đài Loan</p>
+                    <div className={styles.tagmarquee}>
+                        <div className={styles.tagtrack}>
+                            <p>Nền tảng thương mại điện tử yêu thích ở Đông Nam Á & Đài Loan</p>
+                        </div>
+                    </div>
                 </div>
                 <div className="card w-25 mx-auto">
                     <div className="card-header text-center">
                         Đăng Nhập
                     </div>
                     <div className="card-body">
-                        <form onSubmit={frm.handleSubmit}>
-                            <div>
-                                <label htmlFor="email">Email đăng nhập</label>
-                                <div><input className="w-100 p-1" id='email' name='email' onChange={frm.handleChange} onBlur={frm.handleBlur}></input></div>
-                            </div>
-                            <div>
-                                <label htmlFor="password">Tạo Mật Khẩu</label>
-                                <div>
-                                    <input className="w-100 p-1" type="password"  id='password' name='password' onChange={frm.handleChange} onBlur={frm.handleBlur}></input></div></div>
-                            <div className="mt-3">
-                                <button className='p-2 mt-2 w-100 text-white' style={{ backgroundColor: '#f3826c', border: 'none' }} type='submit'>Đăng nhập</button>
-                            </div>
+                        <Form
+                            name="basic"
+                            labelCol={{ span: 8 }}
+                            wrapperCol={{ span: 16 }}
+                            style={{ maxWidth: 600 }}
+                            initialValues={{ remember: true }}
+                            onFinish={onFinish}
+                            onFinishFailed={onFinishFailed}
+                            autoComplete="off"
+                        >
+                            <Form.Item
+                                label="Email"
+                                name="email"
+                                rules={[{ required: true, message: 'Please input your email!' }]}
+                            >
+                                <Input />
+                            </Form.Item>
 
-                            <div className="d-flex justify-content-between mt-2" style={{fontSize:'0.8rem',color:'#1877f2'}}>
+                            <Form.Item
+                                label="Mật khẩu"
+                                name="password"
+                                rules={[{ required: true, message: 'Please input your password!' }]}
+                            >
+                                <Input.Password />
+                            </Form.Item>
+
+                            <Form.Item name="remember" valuePropName="checked" label={null}>
+                                <Checkbox>Remember me</Checkbox>
+                            </Form.Item>
+
+                            <Form.Item label={null}>
+                                {contextHolder}
+                                <Button type="primary"
+                                    htmlType="submit"
+                                >
+                                    Submit
+                                </Button>
+                                {contextHolder}
+                            </Form.Item>
+                            <div className="d-flex justify-content-between mt-2" style={{ fontSize: '0.8rem', color: '#1877f2' }}>
                                 <div>Quên mật khẩu</div>
                                 <div>Đăng nhập với SMS</div>
                             </div>
-
-                            <div className="text-danger text-center">
-                                {result}
-                            </div>
-                        </form>
+                        </Form>
                     </div>
                     <hr></hr>
                     <div className="d-flex justify-content-around">

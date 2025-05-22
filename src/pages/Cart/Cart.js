@@ -4,7 +4,8 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { useState, useEffect } from 'react'
 import { DOMAIN } from '../../util/config';
-
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Button, Popconfirm } from 'antd';
 
 
 const Cart = () => {
@@ -159,14 +160,23 @@ const Cart = () => {
                             </div>
                             <div className={styles.item}>₫{order.price.toLocaleString('vi-VN')}</div>
                             <div className={styles.item}>
-                                <button onClick={() => decreaseQuantity(index)}>-</button>
+                                <Button onClick={() => decreaseQuantity(index)}>-</Button>
                                 {order.quantity}
-                                <button onClick={() => increaseQuantity(index)}>+</button>
+                                <Button onClick={() => increaseQuantity(index)}>+</Button>
                             </div>
                             <div className={styles.item}>₫{(totalPrice).toLocaleString('vi-VN')}</div>
-                            <div className={styles.item} onClick={() => {
-                                deleteOrder(order.order_id)
-                            }}><button>Xóa</button></div>
+                            <div className={styles.item} >
+                                <Popconfirm
+                                    title="Delete the task"
+                                    description="Are you sure to delete this task?"
+                                    icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                                    onConfirm={() => {
+                                        deleteOrder(order.order_id)
+                                    }}
+                                >
+                                    <Button danger>Delete</Button>
+                                </Popconfirm>
+                            </div>
                         </div>
                         <div className='card-footer'>
                             Giảm ₫300.000 phí vận chuyển đơn tối thiểu ₫0; Giảm ₫500.000 phí vận chuyển đơn tối thiểu ₫500.000
@@ -177,9 +187,9 @@ const Cart = () => {
                     </div>
                 })}
             </div>
-            <div className=' mt-5 text-end'>
+            <div className=' my-5 text-end'>
                 <div>
-                    <button onClick={async () => {
+                    <Button shape="round" dashed onClick={async () => {
                         const ordertList = handleBuy()
                         const data = {
                             'ordertList': ordertList,
@@ -192,7 +202,7 @@ const Cart = () => {
                         } else {
                             alert('Bạn vẫn chưa chọn sản phẩm nào để mua.')
                         }
-                    }}>Mua Hàng</button>
+                    }}>Mua Hàng</Button>
                 </div>
             </div>
         </div>

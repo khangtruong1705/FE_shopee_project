@@ -7,12 +7,17 @@ import { useDispatch } from 'react-redux';
 import { getAmountCartApi } from '../../redux/reducers/getAmountCart'
 import { useFormik } from 'formik'
 import { DOMAIN } from '../../util/config';
-
-
+import { Button } from 'antd';
+import { notification } from 'antd';
 
 const ProductDetail = () => {
     const token = localStorage.getItem('token');
     let user_id = null;
+    notification.config({
+        placement: 'topLeft',
+        top: 60,
+        duration: 1
+    });
     if (token && typeof token === 'string') {
         try {
             const decoded = jwtDecode(token);
@@ -32,18 +37,18 @@ const ProductDetail = () => {
         initialValues: {
             comment: ''
         },
-        onSubmit: async (values) => {
-            // Gửi dữ liệu tới API
+        onSubmit: async (values, { resetForm }) => {
             try {
                 const dataComment = {
                     'user_id': user_id,
                     'product_id': productid,
                     'comment_content': values.comment
                 }
-                let res = await axios.post(`${DOMAIN}/api/comments/add-comment-by-productid', dataComment`);
+                let res = await axios.post(`${DOMAIN}/api/comments/add-comment-by-productid`, dataComment);
                 console.log('sdsdsd', res.data)
                 setComments((prevComments) => [...prevComments, res.data]);
                 setNewComment("");
+                resetForm();
             } catch (error) {
                 console.log(error)
             }
@@ -54,12 +59,12 @@ const ProductDetail = () => {
 
             const response = await axios.get(`${DOMAIN}/api/products/get-product-by-productid/${productid}`);
             console.log(response.data);
-            setProduct(response.data); // Gán dữ liệu vào arrMain
+            setProduct(response.data);
 
 
             const responseComments = await axios.get(`${DOMAIN}/api/comments/get-comments-by-productid/${productid}`);
             console.log('2222', responseComments.data);
-            setComments(responseComments.data); // Gán dữ liệu vào arrMain
+            setComments(responseComments.data);
 
 
             const responseShopName = await axios.get(`${DOMAIN}/api/shop-name/get-shop-name-by-productid/${productid}`);
@@ -74,11 +79,17 @@ const ProductDetail = () => {
         try {
 
             const response = await axios.post(`${DOMAIN}/api/carts/add-product-to-cart-by-productid`, item);
-            window.alert('success!!');
+            notification.success({
+                message: 'Cảnh báo',
+                description: 'Thêm vào giỏ hàng thành công !!!',
+            });
             setProduct(response.data); // Gán dữ liệu vào arrMain
         } catch (error) {
-            window.alert(error.response.data.detail);
-            console.error('Error fetching products:', error);
+            notification.warning({
+                message: 'Cảnh báo',
+                description: error.response.data.detail,
+            });
+            // console.error('Error fetching products:', error);
         }
     };
 
@@ -143,12 +154,16 @@ const ProductDetail = () => {
                             <div>Vận chuyển tới </div>
                         </div>
                         <div>
-                            <button
+                            <Button
                                 className='p-2 me-3'
                                 style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68' }}
                                 onClick={async () => {
                                     if (user_id === null) {
-                                        alert('Bạn cần đăng nhập !!!')
+                                        notification.warning({
+                                            message: 'Cảnh báo',
+                                            description: 'Bạn cần đăng nhập !!!',
+                                        });
+
                                         navigate(`/login`)
                                         return
                                     }
@@ -163,14 +178,20 @@ const ProductDetail = () => {
                                     await addProducttocart(item);
                                     const actionAsyns = await getAmountCartApi(user_id);
                                     dispatch(actionAsyns);
-                                    navigate('/')
-                                }}> Thêm Vào Giỏ Hàng</button>
-                            <button
-                                style={{ backgroundColor: '#ee4d2d', border: 'none', color: 'white' }}
+                                    setTimeout(() => {
+                                        navigate('/')
+                                    }, 1000);
+
+                                }}> Thêm Vào Giỏ Hàng</Button>
+                            <Button
+                                style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68' }}
                                 className='p-2'
                                 onClick={async () => {
                                     if (user_id === null) {
-                                        alert('Bạn cần đăng nhập !!!')
+                                        notification.warning({
+                                            message: 'Cảnh báo',
+                                            description: 'Bạn cần đăng nhập !!!',
+                                        });
                                         navigate(`/login`)
                                         return
                                     } let item = {
@@ -184,11 +205,13 @@ const ProductDetail = () => {
                                     await addProducttocart(item);
                                     const actionAsyns = await getAmountCartApi(user_id);
                                     dispatch(actionAsyns);
-                                    navigate('/cart',{ state:{ scrollToProductId: product.product_id }})
+                                    setTimeout(() => {
+                                        navigate('/cart', { state: { scrollToProductId: product.product_id } })
+                                    }, 1000);
                                 }}
 
 
-                            > Mua Ngay</button>
+                            > Mua Ngay</Button>
                         </div>
                     </div>
                 </div>
@@ -311,7 +334,13 @@ const ProductDetail = () => {
                         })}
                         <form onSubmit={frm.handleSubmit} className="mb-3">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Bình luận</label>
-                            <textarea id='comment' name='comment' className="form-control" onChange={frm.handleChange} onBlur={frm.handleBlur} rows={3} defaultValue={""} />
+                            <textarea id='comment'
+                                name='comment'
+                                className="form-control"
+                                onChange={frm.handleChange}
+                                onBlur={frm.handleBlur}
+                                rows={3}
+                                value={frm.values.comment} />
                             <button>Gửi</button>
                         </form>
                     </div>

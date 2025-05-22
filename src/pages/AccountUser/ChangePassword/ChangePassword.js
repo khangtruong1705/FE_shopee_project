@@ -1,76 +1,109 @@
 import { jwtDecode } from 'jwt-decode';
-import {useEffect } from 'react'
+import { useEffect } from 'react'
 import axios from 'axios';
-import * as yup from 'yup';
-import { useFormik } from 'formik'
 import { DOMAIN } from '../../../util/config';
-
+import { useNavigate } from 'react-router-dom';
+import { Button, Checkbox, Form, Input, message } from 'antd';
 const ChangePassword = () => {
-
-
-
-
+    const navigate = useNavigate();
+    const [messageApi, contextHolder] = message.useMessage();
+    const key = 'updatable';
+    const [form] = Form.useForm();
+    const openMessage = (message) => {
+        messageApi.open({
+            key,
+            type: 'loading',
+            content: 'Loading...',
+        });
+        setTimeout(() => {
+            messageApi.open({
+                key,
+                type: 'success',
+                content: message.data.detail,
+                duration: 2,
+            });
+        }, 1000);
+    };
+    const onFinish = async (values) => {
+        try {
+            const data = {
+                ...values,
+                'user_id': user_id
+            }
+            let res = await axios.post(`${DOMAIN}/api/users/change-password`, data);
+            openMessage(res)
+            setTimeout(() => {
+                navigate('/')
+            }, 2000);
+        }
+        catch (error) {
+            openMessage(error.response)
+        }
+    };
+    const onFinishFailed = errorInfo => {
+        console.log('Failed:', errorInfo);
+    };
     const token = localStorage.getItem('token')
     const { user_id } = jwtDecode(token);
+    // useEffect(() => {
 
-    const frm = useFormik({
-        initialValues: {
-            old_password: '',
-            new_password: '',
-            confirm_new_password: ''
-        }, validationSchema: yup.object().shape({
-            old_password: yup.string().required('Email can not be blank!')
-        }),
-        onSubmit: async (values) => {
-            // Gửi dữ liệu tới API
-            try {
-                const data = {
-                    ...values,
-                    'user_id': user_id
-                }
-                let res = await axios.post(`${DOMAIN}/api/users/change-password`, data);
-                console.log('Response:', res.data.message);
-                alert(res.data)
-            } catch (error) {
-                console.error('Error:', error.response);
-            }
-        }
-    });
-
-    useEffect(() => {
-
-    }, [])
+    // }, [])
     return <>
-        <form onSubmit={frm.handleSubmit}>
-            <div className='card w-50 mx-auto mt-5'>
-                <div className='card-header'>
-                    <i className="fa-solid fa-shield-virus" style={{fontSize:'2.5rem',color:'#fb5530'}} />
-                </div>
-                <div className='card-body'>
-                <label htmlFor="old_password">Mật Khẩu Cũ</label>
-                <div>
-                    <input name='old_password' onChange={frm.handleChange} onBlur={frm.handleBlur}></input>
-                </div>
-                <label htmlFor="new_password">Mật Khẩu Mới</label>
-                <div>
-                    <input name='new_password' onChange={frm.handleChange} onBlur={frm.handleBlur}></input>
-                </div>
-                <label htmlFor="confirm_new_password">Xác Nhận Mật Khẩu Mới</label>
-                <div>
-                    <input name='confirm_new_password' onChange={frm.handleChange} onBlur={frm.handleBlur}></input>
-                </div>
-                <div className='my-5'>
-                    <button className=''>Xác Nhận</button>
-                </div>
-                </div>
-                
+        <div className=' w-50 mx-auto mt-5 d-flex flex-column align-items-center' style={{ border: '1px solid', borderRadius: '20px' }}>
+            <div className='mt-4'>
+                <i className="fa-solid fa-shield-virus" style={{ fontSize: '3rem', color: '#fb5530' }} />
             </div>
+            <Form
+                className='mt-5'
+                form={form}
+                name="basic"
+                labelCol={{ span: 11 }}
+                wrapperCol={{ span: 16 }}
+                style={{ maxWidth: 600 }}
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+            >
+                <Form.Item
+                    label="Old password"
+                    name="old_password"
+                    rules={[{ required: true, message: 'Please input your old password!' }]}
 
+                >
+                    <Input.Password />
+                </Form.Item>
 
-        </form>
+                <Form.Item
+                    label="New password"
+                    name="new_password"
+                    rules={[{ required: true, message: 'Please input your new password!' }]}
+                >
+                    <Input.Password />
+                </Form.Item>
 
+                <Form.Item
+                    label="Confirm new password"
+                    name="confirm_new_password"
+                    rules={[{ required: true, message: 'Please input your confirm new password!' }]}
+                >
+                    <Input.Password />
+                </Form.Item>
 
-
+                <Form.Item name="remember" valuePropName="checked" label={null}>
+                    <Checkbox>Remember me</Checkbox>
+                </Form.Item>
+                <Form.Item label={null}>
+                    {contextHolder}
+                    <Button type="primary"
+                        htmlType="submit"
+                        style={{ backgroundColor: '#fa5130', borderColor: '#fa5130' }}
+                    >
+                        Submit
+                    </Button>
+                </Form.Item>
+            </Form>
+        </div>
     </>
 
 };

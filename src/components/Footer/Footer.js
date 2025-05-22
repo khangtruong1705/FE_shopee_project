@@ -2,11 +2,11 @@ import styles from './Footer.module.css'
 
 
 const Footer = () => {
-    return <>
-        <hr style={{height:'5px',backgroundColor:'#f6442d'}}></hr>
-        <div className="footer container">
-            <div className={styles.service}>
-                <div>
+    return <div className='container'>
+        <hr style={{ height: '5px', backgroundColor: '#f6442d' }}></hr>
+        <div className="footer w-100">
+            <div className={`${styles.service} w-100 row`}>
+                <div className='col-lg-2 col-md-4 col-sm-6'>
                     <h1 className={styles.title}>Chăm sóc khách hàng</h1>
                     <p>Trung Tâm Trợ Giúp</p>
                     <p>Shopee Blog</p>
@@ -20,7 +20,7 @@ const Footer = () => {
                     <p>Chăm Sóc Khách Hàng</p>
                     <p>Chính Sách Bảo Hành</p>
                 </div>
-                <div>
+                <div className='col-lg-2 col-md-4 col-sm-6'>
                     <h1 className={styles.title}>VỀ SHOPPE</h1>
                     <p>Giới Thiệu Về Shopee Việt Nam</p>
                     <p>Tuyển Dụng</p>
@@ -32,7 +32,7 @@ const Footer = () => {
                     <p>Chương Trình Tiếp Thị Liên Kết Shopee</p>
                     <p>Liên Hệ Với Truyền Thông</p>
                 </div>
-                <div>
+                <div className='col-lg-2 col-md-4 col-sm-6'>
                     <h1 className={styles.title}>THANH TOÁN</h1>
                     <div className={styles.gridcontainer}>
                         <div className={styles.griditem1}></div>
@@ -43,10 +43,10 @@ const Footer = () => {
                         <div className={styles.griditem6}></div>
                         <div className={styles.griditem7}></div>
                         <div className={styles.griditem8}></div>
-                        
                     </div>
-                    <hr></hr>
-                    <h1 className={styles.title}>ĐƠN VỊ VẬN CHUYỂN</h1>
+                </div>
+                <div className='col-lg-2 col-md-4 col-sm-6'>
+                     <h1 className={styles.title}>ĐƠN VỊ VẬN CHUYỂN</h1>
                     <div className={styles.transportcontainer}>
                         <div className={styles.transportitem1}></div>
                         <div className={styles.transportitem2}></div>
@@ -61,7 +61,7 @@ const Footer = () => {
                         <div className={styles.transportitem11}></div>
                     </div>
                 </div>
-                <div>
+                <div className='col-lg-2 col-md-4 col-sm-6'>
                     <h1 className={styles.title}>THEO DÕI CHÚNG TÔI</h1>
                     <p>
                         <span><i className="pe-2 fa-brands fa-facebook" />
@@ -79,7 +79,7 @@ const Footer = () => {
                         </span>
                     </p>
                 </div>
-                <div>
+                <div className='col-lg-2 col-md-4 col-sm-6'>
                     <h1 className={styles.title}>TẢI ỨNG DỤNG SHOPPE</h1>
                     <div className={styles.downloadapp}>
                         <div className={styles.downloadappitem1}></div>
@@ -112,7 +112,7 @@ const Footer = () => {
             </div>
         </div>
 
-    </>
+    </div>
 };
 
 export default Footer;

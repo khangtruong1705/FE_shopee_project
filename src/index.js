@@ -27,6 +27,9 @@ import PayMethod from './pages/ShopeePolicy/Child/PayMethod';
 import Transport from './pages/ShopeePolicy/Child/Transport';
 import Refund from './pages/ShopeePolicy/Child/Refund';
 import ShopName from './pages/ShopName/ShopName';
+import ShoppingWithShopee from './pages/ShopeePolicy/Child/ShoppingWithShopee';
+import Promotion from './pages/ShopeePolicy/Child/Promotion';
+import Notification from './pages/Notification/Notification';
 
 
 
@@ -66,8 +69,11 @@ root.render(
           <Route path='*' element={<Navigate to="" />}></Route>
         </Route>
         <Route element={<ShopeeHelp />} path="/shopeehelp"></Route>
+        <Route element={<Notification />} path="/notification"></Route>
         <Route element={<ShopeePolicy />} path="/shopeepolicy">
           <Route path='generalinfo' element={<GeneralInfo />}></Route>
+          <Route path='shoppingwithshopee' element={<ShoppingWithShopee />}></Route>
+          <Route path='promotion' element={<Promotion />}></Route>
           <Route path='paymethod' element={<PayMethod />}></Route>
           <Route path='transport' element={<Transport />}></Route>
           <Route path='refund' element={<Refund />}></Route>

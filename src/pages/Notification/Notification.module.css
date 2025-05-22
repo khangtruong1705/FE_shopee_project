@@ -1,0 +1,25 @@
+.header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: static;
+}
+
+
+.shopeelogo{
+    width: 25rem;
+    height: 10rem;
+}
+
+.shopeewelcome{
+    height: 10rem;
+    background-color: #ee4d2d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.child{
+    color: white;
+    font-size: 2rem;
+}

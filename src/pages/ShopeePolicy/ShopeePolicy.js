@@ -20,6 +20,8 @@ const ShopeePolicy = () => {
         <div className='d-flex justify-content-center '>
             <div className='d-flex flex-column mt-2 p-4' >
                 <NavLink to='/shopeepolicy/generalinfo' className='p-2 m-2'>Thông Tin Chung</NavLink>
+                <NavLink to='/shopeepolicy/shoppingwithshopee' className='p-2 m-2'>Mua Sắm Cùng Shopee</NavLink>
+                <NavLink to='/shopeepolicy/promotion' className='p-2 m-2'>Khuyến Mãi</NavLink>
                 <NavLink to='/shopeepolicy/paymethod' className='p-2 m-2'>Phương Thức Thanh Toán</NavLink>
                 <NavLink to='/shopeepolicy/transport' className='p-2 m-2'>Vận Chuyển</NavLink>
                 <NavLink to='/shopeepolicy/refund' className='p-2 m-2'>Trả Hàng & Hoàn Tiền</NavLink>

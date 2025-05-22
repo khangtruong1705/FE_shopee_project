@@ -6,23 +6,34 @@
   padding-top: 3rem;
 }
 
-/* voucher */
+/*----------------------------------------------------- voucher------------------------------------------- */
 .dgrid {
   display: flex;
+  
 }
 
 .item1 {
   display: flex;
   padding: 0.5rem;
+  width: 100;
   
 }
 
 .item2 {
   padding: 0.5rem;
+  width: 100%;
+ 
 }
+
+
 .item3 {
   padding: 0.5rem;
+  width: 100%;
+  
 }
+
+
+
 
 .container2 {
     display: grid;
@@ -148,7 +159,6 @@
 
 .itemparent{
   padding: 1rem;
-  display: flex;
   justify-content: space-between  ;
 }
 
@@ -156,7 +166,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   width: 6rem;
-  font-size:0.8rem;
+  font-size:0.8vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -188,8 +198,7 @@
   border: 2px solid transparent;
   background-color: #f0f0f0; /* Màu nền cho các item */
   border: 1px solid #ccc; /* Viền cho các item */
-/* Canh giữa theo chiều dọc */
-  height: 100px; /* Chiều cao của từng item */
+  height: 15vh;
 }
 
 
@@ -209,7 +218,7 @@
 
 .productimage {
   width: 100%;
-  height: 250px;
+  height: 35vh;
   object-fit: cover;
 
 }
@@ -217,6 +226,7 @@
 .productname {
   color: #f85902;
   text-align: center;
+  font-size: 1vw;
  }
 
  /* ---------------------------------TODAY-SUGGESTION------------------------- */
@@ -225,3 +235,4 @@
 .todaysuggestion{
   margin-top: 3rem;
 }
+

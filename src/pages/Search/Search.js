@@ -4,13 +4,23 @@ import axios from 'axios';
 import { NavLink, useParams } from 'react-router-dom';
 import _ from "lodash";
 import { DOMAIN } from '../../util/config'
-
+import { Segmented } from 'antd';
 
 const Search = () => {
     const [activeButton, setActiveButton] = useState(null);
     const [isDropdownSelected, setIsDropdownSelected] = useState(false);
-    const handleClick = (button) => {
-        setActiveButton(button); // Cập nhật nút được chọn
+    // const handleClick = (button) => {
+    //     setActiveButton(button); // Cập nhật nút được chọn
+    // };
+    const handleSortChange = (value) => {
+        if (value == 'Mới Nhất') {
+            const sortedItems = _.sortBy(arrMain, ["created_at"], ["desc"]);
+            setArrMain(sortedItems)
+        } else if (value == 'Bán Chạy') {
+            const sortedItems = _.orderBy(arrMain, ["sold"], ["desc"]);
+            setArrMain(sortedItems)
+        }
+
     };
     const handleDropdownChange = (event) => {
         const selectedValue = parseInt(event.target.value, 10);
@@ -38,7 +48,7 @@ const Search = () => {
         try {
             const response = await axios.get(`${DOMAIN}/api/products/get-products-by-search/${keyword}`);
             console.log(response.data);
-            setArrMain(response.data); // Gán dữ liệu vào arrMain
+            setArrMain(response.data);
         } catch (error) {
             console.error('Error fetching products:', error);
             setArrMain([])
@@ -52,23 +62,15 @@ const Search = () => {
             <div className='container w-75 mx-auto'>
                 <div>
                     <p>KẾT QUẢ TÌM KIẾM LIÊN QUAN ĐẾN "{keyword}"</p>
-                    <div className='d-flex justify-content-center my-4 p-3' style={{ backgroundColor: '#ededed' }}>
-                        Sắp Xếp Theo
-                        <button
-                            className={`mx-5 ${activeButton === "latest" ? "btn btn-danger" : ""}`}
-                            style={{ borderColor: 'solid 1px #f7452d', borderRadius: '50px' }}
-                            onClick={() => {
-                                handleClick("latest")
-                                const sortedItems = _.sortBy(arrMain, ["created_at"], ["desc"]);
-                                setArrMain(sortedItems)
-                            }}>Mới Nhất</button>
-                        <button className={`mx-5 ${activeButton === "best-seller" ? "btn btn-danger" : ""}`}
-                            style={{ borderColor: 'solid 1px #f7452d', borderRadius: '50px' }}
-                            onClick={() => {
-                                handleClick("best-seller")
-                                const sortedItems = _.orderBy(arrMain, ["sold"], ["desc"]);
-                                setArrMain(sortedItems)
-                            }}>Bán Chạy</button>
+                    <div className='d-flex justify-content-around my-4 p-3' style={{ backgroundColor: '#ededed' }}>
+                        <div><strong>Sắp Xếp Theo</strong> </div>
+                        <div>
+                            <Segmented options={['Mới Nhất', 'Bán Chạy',]}
+                                block
+                                style={{ minWidth: 350 }}
+                                onChange={handleSortChange}
+                            />
+                        </div>
                         <div>
                             <select className={`form-select ${isDropdownSelected ? "dropdown-selected" : ""}`}
                                 aria-label="Default select example"
@@ -82,18 +84,19 @@ const Search = () => {
                     </div>
                     <div className='row'>
                         {arrMain?.map((product, index) => {
-                            return <div className='col-3' key={index} >
-                                <NavLink to={`/productdetail/${product.product_id}`} className='card m-1' style={{ minHeight: '400px', borderRadius: '0', textDecoration: 'none' }}>
-                                    <div className='card-header' style={{ height: '280px', backgroundColor: '#ffffff' }}>
+                            return <div className='col-lg-3 col-md-4 col-sm-6' key={index}>
+                                <NavLink to={`/productdetail/${product.product_id}`} className='card m-1' style={{ borderRadius: '0', textDecoration: 'none' }}>
+                                    <div className='card-header' style={{ height: '21vw', backgroundColor: '#ffffff' }}>
                                         <img
-                                            className='w-100 h-100'
+                                            className='w-100 h-75'
                                             alt='Product image'
                                             src={`${process.env.PUBLIC_URL}${product.image}`}
+                                            style={{ border: '1px solid #f85902', borderRadius: '20px' }}
                                         />
                                     </div>
-                                    <div className='card-body'>
+                                    <div className='card-body' style={{ fontSize: '1vw' }}>
                                         <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.description}</div>
-                                        <div className='d-flex justify-content-between'>
+                                        <div className='d-flex justify-content-between' >
                                             <div>Đã bán {product.sold}</div>
                                             <div>
                                                 <i className='fa-solid fa-star text-danger' />

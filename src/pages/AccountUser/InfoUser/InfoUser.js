@@ -2,10 +2,59 @@ import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { useState, useEffect } from 'react'
 import styles from './InfoUser.module.css'
-import { Modal, Input } from 'antd';
 import { DOMAIN } from '../../../util/config';
-import { Button, message } from 'antd';
+import { Button, message, Modal, Input, Upload, Flex } from 'antd';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+
+
+
+
+const getBase64 = (img, callback) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+};
+const beforeUpload = file => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+        message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+        message.error('Image must smaller than 2MB!');
+    }
+    return isJpgOrPng && isLt2M;
+};
+
+
+
+
+
 const InfoUser = () => {
+    const [loading, setLoading] = useState(false);
+    const [imageUrl, setImageUrl] = useState();
+    const handleChange = info => {
+        if (info.file.status === 'uploading') {
+            setLoading(true);
+            return;
+        }
+        if (info.file.status === 'done') {
+            // Get this url from response in real world.
+            getBase64(info.file.originFileObj, url => {
+                setLoading(false);
+                setImageUrl(url);
+            });
+        }
+    };
+    const uploadButton = (
+        <button style={{ border: 0, background: 'none' }} type="button">
+            {loading ? <LoadingOutlined /> : <PlusOutlined />}
+            <div style={{ marginTop: 8 }}>Upload</div>
+        </button>
+    );
+
+
+
     const token = localStorage.getItem('token');
     const { user_id } = jwtDecode(token);
     const [userInfo, setUserInfo] = useState({});
@@ -79,7 +128,7 @@ const InfoUser = () => {
             messageApi.open({
                 key,
                 type: 'success',
-                content:message.data.message ,
+                content: message.data.message,
                 duration: 2,
             });
         }, 1000);
@@ -99,28 +148,28 @@ const InfoUser = () => {
                     <div>
                         <table border="0" cellpadding="8">
                             <tr>
-                                <td><strong>Email</strong></td>
-                                <td>{userInfo.email ? hideEmail(userInfo.email) : "Email không hợp lệ"}</td>
+                                <td className="text-start"><strong>Email</strong></td>
+                                <td className="text-end">{userInfo.email ? hideEmail(userInfo.email) : "Email không hợp lệ"}</td>
                             </tr>
                             <tr>
-                                <td><strong>Tên đăng nhập</strong></td>
-                                <td>{userInfo.name} <a onClick={() => openEditModal('name', 'Tên đăng nhập')} href="#">Thay Đổi</a></td>
+                                <td className="text-start"><strong>Tên đăng nhập</strong></td>
+                                <td className="text-end">{userInfo.name} <a onClick={() => openEditModal('name', 'Tên đăng nhập')} href="#">Thay Đổi</a></td>
                             </tr>
                             <tr>
-                                <td><strong>Số điện thoại</strong></td>
-                                <td>{userInfo.phone_number} <a onClick={() => openEditModal('phone_number', 'Số điện thoại')} href="#">Thay Đổi</a></td>
+                                <td className="text-start"><strong>Số điện thoại</strong></td>
+                                <td className="text-end">{userInfo.phone_number} <a onClick={() => openEditModal('phone_number', 'Số điện thoại')} href="#">Thay Đổi</a></td>
                             </tr>
                             <tr>
-                                <td><strong>Giới tính</strong></td>
-                                <td>
+                                <td className="text-start"><strong>Giới tính</strong></td>
+                                <td className="text-end">
                                     <input type="radio" name="gender" value="Nam" onChange={handleGenderChange} checked={userInfo.gender === 'Nam'} /> Nam
                                     <input type="radio" name="gender" value="Nữ" onChange={handleGenderChange} checked={userInfo.gender === 'Nữ'} /> Nữ
                                     <input type="radio" name="gender" value="Khác" onChange={handleGenderChange} checked={userInfo.gender === 'Khác'} /> Khác
                                 </td>
                             </tr>
-                            <tr>
-                                <td><strong>Ngày sinh</strong></td>
-                                <td>{userInfo.birthday} <a onClick={() => openEditModal('birthDate', 'Ngày sinh')} href="#">Thay Đổi</a></td>
+                            <tr className=''>
+                                <td  className="text-start"><strong>Ngày sinh</strong></td>
+                                <td className="text-end">{userInfo.birthday} <a onClick={() => openEditModal('birthDate', 'Ngày sinh')} href="#">Thay Đổi</a></td>
                             </tr>
                         </table>
                         <Modal
@@ -137,36 +186,34 @@ const InfoUser = () => {
                                 placeholder={`Nhập ${editLabel} mới`}
                             />
                         </Modal>
-                        {/* <button className='p-2' onClick={() => {
-                            const payload = {
-                                'user_id': user_id,
-                                'data': userInfo
-                            }
-                            updateInfoUser(payload)
-                        }} >Lưu</button> */}
+
                         {contextHolder}
-                        <Button type="primary" onClick={ async() => {
+                        <Button shape="round" onClick={async () => {
                             const payload = {
                                 'user_id': user_id,
                                 'data': userInfo
                             }
-                        const message =  await updateInfoUser(payload)
+                            const message = await updateInfoUser(payload)
                             openMessage(message)
                         }}>
                             Lưu
                         </Button>
                     </div>
-                    <div >
-                        <input
-                            type="file"
-                            id="fileInput"
-                            style={{ display: "none" }}
-
-                        />
-                        <label htmlFor="fileInput" style={{ cursor: "pointer", backgroundColor: 'red' }} >
-                            Chọn tệp
-                        </label>
-                        <p>Dung lương file tối đa 1MB</p>
+                    <div className='d-flex flex-column align-items-center' >
+                        <Flex gap="middle" wrap>
+                            <Upload
+                                name="avatar"
+                                listType="picture-circle"
+                                className="avatar-uploader"
+                                showUploadList={false}
+                                action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                                beforeUpload={beforeUpload}
+                                onChange={handleChange}
+                            >
+                                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                            </Upload>
+                        </Flex>
+                        <p>Dung lương ảnh tối đa 1MB</p>
                         <p>Định dang:JPEG,.PNG</p>
                     </div>
                 </div>

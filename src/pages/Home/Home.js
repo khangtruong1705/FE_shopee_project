@@ -68,12 +68,12 @@ const Home = () => {
         <div className={`${styles.container} container `}>
             <div className="voucher">
                 <div className={styles.dgrid}>
-                    <div id="carouselExampleInterval" className={`${styles.item1} carousel slide`} data-bs-ride="carousel">
-                        <div className="carousel-inner h-100">
+                    <div id="carouselExampleInterval" className={`${styles.item1} carousel slide  w-75`} data-bs-ride="carousel">
+                        <div className="carousel-inner">
                             <div className="carousel-item active h-100" data-bs-interval={10000}>
                                 <img src={process.env.PUBLIC_URL + '/asset/images/carousel1.jpg'} className="d-block w-100 h-100" alt="..." />
                             </div>
-                            <div className="carousel-item h-100" data-bs-interval={2000}>
+                            <div className="carousel-item h-100 " data-bs-interval={2000}>
                                 <img src={process.env.PUBLIC_URL + '/asset/images/carousel2.jpg'} className="d-block w-100 h-100" alt="..." />
                             </div>
                             <div className="carousel-item h-100">
@@ -91,16 +91,16 @@ const Home = () => {
                     </div>
                     <div>
                         <div className={styles.item2}>
-                            <img src={process.env.PUBLIC_URL + '/asset/images/voucher2.jpg'} />
+                            <img src={process.env.PUBLIC_URL + '/asset/images/voucher2.jpg'} style={{width:'100%'}} />
                         </div>
                         <div className={styles.item3}>
-                            <img src={process.env.PUBLIC_URL + '/asset/images/voucher3.jpg'} />
+                            <img src={process.env.PUBLIC_URL + '/asset/images/voucher3.jpg'} style={{width:'100%'}}/>
                         </div>
                     </div>
                 </div>
-                <div className={styles.itemparent}>
+                <div className={`${styles.itemparent} row`}>
                     {items.map((item, index) => (
-                        <div key={index} className={styles.itemchild}>
+                        <div key={index} className={`${styles.itemchild}`}>
                             <div className={styles[item.className]}></div>
                             <p>{item.label}</p>
                         </div>
@@ -161,19 +161,19 @@ const Home = () => {
                 >
                     <div className='row' style={{ boxSizing: 'border-box' }} >
                         {arrNewToOldProduct?.map((product, index) => {
-                            return <div className='col-3' key={index} >
-                                <NavLink to={`/productdetail/${product.product_id}`} className='card m-1' style={{ minHeight: '400px', borderRadius: '0', textDecoration: 'none' }}>
-                                    <div className='card-header' style={{ height: '280px', backgroundColor: '#ffffff' }}>
+                            return <div className='col-lg-3 col-md-4 col-sm-6' key={index}>
+                                <NavLink to={`/productdetail/${product.product_id}`} className='card m-1' style={{borderRadius: '0', textDecoration: 'none' }}>
+                                    <div className='card-header' style={{ height: '21vw', backgroundColor: '#ffffff'}}>
                                         <LazyLoadImage
-                                            className='w-100 h-100'
+                                            className='w-100 h-75'
                                             alt='Product image'
                                             src={`${process.env.PUBLIC_URL}${product.image}`}
-                                            effect="blur"
+                                            style={{border:'1px solid #f85902',borderRadius:'20px'}}
                                         />
                                     </div>
-                                    <div className='card-body'>
+                                    <div className='card-body' style={{fontSize:'1vw'}}>
                                         <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.description}</div>
-                                        <div className='d-flex justify-content-between'>
+                                        <div className='d-flex justify-content-between' >
                                             <div>Đã bán {product.sold}</div>
                                             <div>
                                                 <i className='fa-solid fa-star text-danger' />

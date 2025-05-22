@@ -7,6 +7,9 @@ import { DOMAIN } from '../../util/config';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik'
 import * as yup from 'yup';
+import { Button } from 'antd';
+
+
 
 const Payment = () => {
 
@@ -220,7 +223,7 @@ const Payment = () => {
                         <p style={{ alignItems: 'center' }}>Địa Chỉ Nhận Hàng Chi Tiết</p>
                         <div className='d-flex justify-content-between'>
                             <input name='address' onChange={frm.handleChange} onBlur={frm.handleBlur} className='mt-2' placeholder='Địa chỉ chi tiết'></input>
-                            <button type='submit'>Xác Nhận Thông Tin</button>
+                            <button type='submit' style={{border:'1px solid #f6432d',borderRadius:'20px',background:'white'}}>Xác Nhận Thông Tin</button>
                         </div>
                         {frm.errors.address && <p className='text-danger'>{frm.errors.address}</p>}
                     </div>
@@ -320,15 +323,15 @@ const Payment = () => {
                     <div></div>
                     <div>
                         <NavLink to='/cart'>
-                            <button className='mx-2' onClick={() => {
+                            <Button shape="round" danger className='mx-2' onClick={() => {
                                 const status = {
                                     'user_id': user_id,
                                     'status_update': 'cancel'
                                 }
                                 updateOrderItemsStatus(status)
-                            }}>Hủy Đặt Hàng</button>
+                            }}>Hủy Đặt Hàng</Button>
                         </NavLink>
-                        <button onClick={() => {
+                        <Button shape="round" dashed onClick={() => {
 
                             const paymentData = {
                                 'total_amount': totalPayment(),
@@ -362,7 +365,7 @@ const Payment = () => {
                             }
                             updateOrderItemsStatus(status)
                             navigate('/')
-                        }}>Đặt Hàng</button>
+                        }}>Đặt Hàng</Button>
                     </div>
                 </div>
             </div>

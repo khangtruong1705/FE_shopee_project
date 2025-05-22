@@ -1,16 +1,28 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './ShopeeHelp.module.css'
+import { Carousel } from 'antd';
+
+
+
 
 const ShopeeHelp = () => {
-
+    const navigate = useNavigate()
+    const contentStyle = {
+        height: '75px',
+        color: 'black',
+        textAlign: 'center',
+        background: '#fff8e4',
+        margin: 0,
+        padding:'5px'
+    };
     return <>
         <div className=''>
             <div className={styles.header}>
-                <div  className='d-flex align-items-center'>
-                   <NavLink to='/'><img className={styles.shopeelogo} src={process.env.PUBLIC_URL + '/asset/images/shopeelogo.png'}/></NavLink> 
+                <div className='d-flex align-items-center'>
+                    <NavLink to='/'><img className={styles.shopeelogo} src={process.env.PUBLIC_URL + '/asset/images/shopeelogo.png'} /></NavLink>
                     <div>Trung tâm sợ giúp Shopee VN</div>
                 </div>
-                <NavLink to='/shopeepolicy/generalinfo' style={{color:'black', textDecoration:'none'}}>
+                <NavLink to='/shopeepolicy/generalinfo' style={{ color: 'black', textDecoration: 'none' }}>
                     Shopee Policies
                 </NavLink>
             </div>
@@ -18,33 +30,64 @@ const ShopeeHelp = () => {
                 <p className={styles.child}>Xin chào,Shoppe có thể giúp gì cho bạn?</p>
             </div>
 
-            <div className='body'>
-                <div className={`${styles.notify} container`}>
-                    [Mua sắm an toàn] Không chia sẻ thông tin cá nhân: mật khẩu đăng nhập, mã OTP và mã PIN ví ShopeePay, ... với bất kỳ ai, kể cả nhân viên Shopee. Nếu tài khoản có dấu hiệu đăng nhập bất thường, hãy liên hệ Bộ Phận Chăm Sóc Khách Hàng Shopee. Tham khảo thêm Mua Sắm An Toàn tại
+            <div className='body mt-5'>
+                <div className='container w-75'>
+                    <Carousel style={{ border: '2px solid #ffecbf' }} autoplay={{ dotDuration: true }} autoplaySpeed={3500}>
+                        <div>
+                            <div style={contentStyle}>
+                                [Mua sắm an toàn] Không chia sẻ thông tin cá nhân: mật khẩu đăng nhập, mã OTP và mã PIN ví ShopeePay, ... với bất kỳ ai, kể cả nhân viên Shopee. Nếu tài khoản có dấu hiệu đăng nhập bất thường, hãy liên hệ Bộ Phận Chăm Sóc Khách Hàng Shopee. Tham khảo thêm Mua Sắm An Toàn tại
+                            </div>
+                        </div>
+                        <div>
+                            <div style={contentStyle}>
+                                [Cảnh báo] Hãy thận trọng khi nhận được lời mời làm việc từ các đối tượng lừa đảo thông qua tin nhắn, gọi điện, nhóm chat hoặc các trang Mạng xã hội. Nếu bạn nhận được tin nhắn đáng ngờ, hãy thông báo ngay với Bộ phận CSKH qua tính năng Gọi tổng đài Shopee (miễn phí) trên ứng dụng Shopee.
+                            </div>
+                        </div>
+                        <div>
+                            <div style={contentStyle}>Vui lòng xác thực tài khoản ngân hàng/ShopeePay bằng NFC để không bị gián đoạn khi thanh toán đơn hàng.
+                                Đối với tài khoản ngân hàng/thẻ tín dụng: vui lòng thực hiện xác minh trên ứng dụng ngân hàng/liên hệ ngân hàng phát hành để được hướng dẫn.
+                                Đối với Ví ShopeePay: Xem hướng dẫn tại
+                            </div>
+                        </div>
+                        <div>
+                            <div style={contentStyle}>Từ ngày 1/1/2025, theo quy định mới của Shopee, Người dùng (Người mua &amp; Người bán) sẽ được miễn phí rút tiền 1 lần/tháng, không phân biệt rút tiền tự động hay thủ công. Từ lần rút tiền thứ 2 trở đi trong tháng, sẽ có phí xử lý ngân hàng là 11.000Đ/lần rút.</div>
+                        </div>
+                    </Carousel>
+
                 </div>
                 <div className='container w-75 mt-5'>
                     <h2>Danh mục</h2>
                     <div>
                         <div className={styles.gridcontainer}>
-                            <div className={styles.griditem}>
+                            <div className={styles.griditem} onClick={() => {
+                                navigate('/shopeepolicy/shoppingwithshopee')
+                            }}>
                                 <div><i className="fa-solid fa-shop" style={{ color: 'red' }} /></div>
                                 <div> Mua Sắm Cùng Shopee</div>
                             </div>
-                            <div className={styles.griditem}>
+                            <div className={styles.griditem} onClick={() => {
+                                navigate('/shopeepolicy/promotion')
+                            }}>
                                 <div><i className="fa-solid fa-tag" style={{ color: 'orange' }}></i></div>
                                 <div>
                                     Khuyến mãi & Ưu Đãi
                                 </div>
                             </div>
-                            <div className={styles.griditem}>
+                            <div className={styles.griditem} onClick={() => {
+                                navigate('/shopeepolicy/paymethod')
+                            }}>
                                 <div><i className="fa-solid fa-money-check" style={{ color: 'orange' }}></i></div>
                                 <div>Thanh Toán</div>
                             </div>
-                            <div className={styles.griditem}>
+                            <div className={styles.griditem} onClick={() => {
+                                navigate('/shopeepolicy/transport')
+                            }}>
                                 <div><i className="fa-solid fa-truck" style={{ color: 'green' }}></i></div>
                                 <div>Đơn Hàng & Vận Chuyển</div>
                             </div>
-                            <div className={styles.griditem}>
+                            <div className={styles.griditem} onClick={() => {
+                                navigate('/shopeepolicy/refund')
+                            }}>
                                 <div>
                                     <i className="fa-solid fa-arrow-down-up-across-line " style={{ color: 'orange' }}></i>
                                 </div>
@@ -52,7 +95,9 @@ const ShopeeHelp = () => {
                                     Trả Hàng & Hoàn Tiền
                                 </div>
                             </div>
-                            <div className={styles.griditem}>
+                            <div className={styles.griditem} onClick={() => {
+                                navigate('/shopeepolicy/generalinfo')
+                            }}>
                                 <div><i className="fa-solid fa-book-open" style={{ color: 'blue' }}></i></div>
                                 <div>Thông Tin Chung</div>
                             </div>
