@@ -27,7 +27,6 @@ const Home = () => {
                 const response1 = await axios.get(`${DOMAIN}/api/products/get-top-views-products`);
                 setArrTopViewsProduct(response1.data);
             }
-
             const response2 = await axios.get(`${DOMAIN}/api/products/get-all-products?page=${pageNum}&limit=12`);
             console.log(response2.data);
             let newProducts = _.orderBy(response2.data.results, ["created_at"], ["desc"]);

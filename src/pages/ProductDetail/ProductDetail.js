@@ -7,8 +7,7 @@ import { useDispatch } from 'react-redux';
 import { getAmountCartApi } from '../../redux/reducers/getAmountCart'
 import { useFormik } from 'formik'
 import { DOMAIN } from '../../util/config';
-import { Button } from 'antd';
-import { notification } from 'antd';
+import { Button,notification } from 'antd';
 
 const ProductDetail = () => {
     const token = localStorage.getItem('token');

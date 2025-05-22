@@ -7,11 +7,7 @@ import { DOMAIN } from '../../util/config'
 import { Segmented } from 'antd';
 
 const Search = () => {
-    const [activeButton, setActiveButton] = useState(null);
     const [isDropdownSelected, setIsDropdownSelected] = useState(false);
-    // const handleClick = (button) => {
-    //     setActiveButton(button); // Cập nhật nút được chọn
-    // };
     const handleSortChange = (value) => {
         if (value == 'Mới Nhất') {
             const sortedItems = _.sortBy(arrMain, ["created_at"], ["desc"]);
@@ -26,20 +22,16 @@ const Search = () => {
         const selectedValue = parseInt(event.target.value, 10);
         setIsDropdownSelected(true);
 
-        // Sắp xếp dựa trên lựa chọn
+       
         let sortedarrMain;
         if (selectedValue === 1) {
-            // Giá: Từ Thấp Đến Cao
             sortedarrMain = _.orderBy(arrMain, ["price"], ["asc"]);
         } else if (selectedValue === 2) {
-            // Giá: Từ Cao Đến Thấp
             sortedarrMain = _.orderBy(arrMain, ["price"], ["desc"]);
-        } else {
-            // Không sắp xếp
+        } else {   
             sortedarrMain = [...arrMain];
         }
 
-        // Cập nhật danh sách sản phẩm
         setArrMain(sortedarrMain);
     };
     const { keyword } = useParams();
@@ -110,11 +102,6 @@ const Search = () => {
                         })}
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </div>
     </>

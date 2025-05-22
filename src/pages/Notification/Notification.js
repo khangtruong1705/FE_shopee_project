@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import styles from './Notification.module.css'
 import { Button } from 'antd';
 const Notification = () => {
