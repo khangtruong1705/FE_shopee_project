@@ -79,7 +79,7 @@ const ProductDetail = () => {
 
             const response = await axios.post(`${DOMAIN}/api/carts/add-product-to-cart-by-productid`, item);
             notification.success({
-                message: 'Cảnh báo',
+                message: 'Thành công',
                 description: 'Thêm vào giỏ hàng thành công !!!',
             });
             setProduct(response.data); // Gán dữ liệu vào arrMain

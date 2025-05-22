@@ -98,7 +98,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div className={`${styles.itemparent} row`}>
-                    {items.map((item, index) => (
+                    {items?.map((item, index) => (
                         <div key={index} className={`${styles.itemchild}`}>
                             <div className={styles[item.className]}></div>
                             <p>{item.label}</p>
@@ -109,7 +109,7 @@ const Home = () => {
             <div className={styles.category}>
                 <div>DANH MỤC</div>
                 <div className={styles.gridcategory}>
-                    {categories.map((category) => (
+                    {categories?.map((category) => (
                         <div key={category} className={styles.gridcategoryitem}>
                             <NavLink to={`/category/${category}`}>
                                 <img
@@ -131,7 +131,7 @@ const Home = () => {
                         slidesPerView={6}
                         navigation
                     >
-                        {arrTopViewsProduct.map((product, index) => (
+                        {arrTopViewsProduct?.map((product, index) => (
                             <SwiperSlide key={index}>
                                 <NavLink to={`/productdetail/${product.product_id}`}>
                                     <img className={styles.productimage} src={`${process.env.PUBLIC_URL} ${product.image}`} />
@@ -191,8 +191,6 @@ const Home = () => {
         <hr></hr>
     </>
 };
-
-
 
 
 export default Home
