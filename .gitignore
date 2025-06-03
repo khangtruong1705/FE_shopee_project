@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+.env.*
+!.env.example  # Giữ file mẫu nếu có
+
+# Logs
+*.log
+
+# Testing
+/coverage
+.pytest_cache/
+
+# IDE and editors
+.idea/  # PyCharm
+.vscode/  # VS Code
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Dependencies (if you have Node.js for frontend)
+node_modules/
+.pnp
+.pnp.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Production (if applicable)
+/build
+/static  # Nếu bạn thu thập static files (như Django)

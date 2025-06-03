@@ -1,0 +1,56 @@
+.item {
+    width: 20%;
+    text-align: center;
+}
+
+.coupon {
+    position: relative;
+    background-color: #f5c6cb;
+    /* border: 1px solid #f5c6cb; */
+    padding: 16px;
+}
+
+.coupontopbefore{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1rem;      /* kích thước "cắt góc" */
+    height: 1rem;
+    border: none;
+    background-color: #f5f5f5; /* màu nền trang */
+}
+
+
+.coupon::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 1rem;      /* kích thước "cắt góc" */
+    height: 1rem;
+    border: none;
+    background-color: #f5f5f5; /* màu nền trang */
+}
+
+.coupon::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 1rem;      /* kích thước "cắt góc" */
+    height: 1rem;
+    border: none;
+    background-color: #f5f5f5; /* màu nền trang */
+}
+
+.coupontopafter {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1rem;      /* kích thước "cắt góc" */
+    height: 1rem;
+    border: none;
+    background-color: #f5f5f5; /* màu nền trang */
+}

@@ -1,0 +1,19 @@
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    max-width: 500px;
+}
+
+.label {
+    width: 150px;
+    font-weight: bold;
+}
+
+.value {
+    flex: 1;
+}
+
+input[type="text"] {
+    width: 100%;
+}

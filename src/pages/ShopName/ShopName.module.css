@@ -1,0 +1,75 @@
+.topviews {
+    padding: 0.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    background-color: #ffffff;
+   
+}
+
+
+
+
+.coupon {
+    position: relative;
+    background-color: #f5c6cb;
+    /* border: 1px solid #f5c6cb; */
+    margin: 1.5rem;
+    padding: 0.5rem;
+    min-width: 10rem;
+}
+
+
+
+
+.coupontopbefore {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1rem;
+    /* kích thước "cắt góc" */
+    height: 1rem;
+    border: none;
+    background-color: #ffff;
+    /* màu nền trang */
+}
+
+
+.coupon::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 1rem;
+    /* kích thước "cắt góc" */
+    height: 1rem;
+    border: none;
+    background-color: #ffff;
+    /* màu nền trang */
+}
+
+.coupon::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 1rem;
+    /* kích thước "cắt góc" */
+    height: 1rem;
+    border: none;
+    background-color: #ffff;
+    /* màu nền trang */
+}
+
+.coupontopafter {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1rem;
+    /* kích thước "cắt góc" */
+    height: 1rem;
+    border: none;
+    background-color: #ffff;
+    /* màu nền trang */
+}

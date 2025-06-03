@@ -1,0 +1,280 @@
+/* GridExample.module.css */
+/* File: styles.css */
+
+
+.container {
+  padding-top: 3rem;
+}
+
+/*----------------------------------------------------- voucher------------------------------------------- */
+.dgrid {
+  display: flex;
+
+}
+
+.item1 {
+  display: flex;
+  padding: 0.5rem;
+  width: 100;
+
+}
+
+.item2 {
+  padding: 0.5rem;
+  width: 100%;
+
+}
+
+
+.item3 {
+  padding: 0.5rem;
+  width: 100%;
+
+}
+
+
+
+
+.container2 {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  height: 40vh;
+}
+
+.item {
+  background-color: #f6442e;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-size: 1.5rem;
+  border: 10px solid #ddd;
+}
+
+.voucherextra {
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  border: rgb(173, 163, 163) solid 1px;
+  border-radius: 10px;
+  background-image: url('/public/asset/images/voucherextra.webp');
+  /* Đường dẫn tới hình ảnh */
+  background-size: contain;
+  /* Tùy chọn để hình ảnh phủ kín toàn bộ phần tử */
+  background-repeat: no-repeat;
+  /* Không lặp lại hình ảnh */
+  background-position: center;
+}
+
+.freeshipextra {
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  border: rgb(173, 163, 163) solid 1px;
+  border-radius: 10px;
+  background-image: url('/public/asset/images/freeshipextra.webp');
+  /* Đường dẫn tới hình ảnh */
+  background-size: contain;
+  /* Tùy chọn để hình ảnh phủ kín toàn bộ phần tử */
+  background-repeat: no-repeat;
+  /* Không lặp lại hình ảnh */
+  background-position: center;
+}
+
+.huntsale {
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  border: rgb(173, 163, 163) solid 1px;
+  border-radius: 10px;
+  background-image: url('/public/asset/images/huntsale.jpg');
+  /* Đường dẫn tới hình ảnh */
+  background-size: contain;
+  /* Tùy chọn để hình ảnh phủ kín toàn bộ phần tử */
+  background-repeat: no-repeat;
+  /* Không lặp lại hình ảnh */
+  background-position: center;
+}
+
+.discountcode {
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  border: rgb(173, 163, 163) solid 1px;
+  border-radius: 10px;
+  background-image: url('/public/asset/images/shopeevoucher.png');
+  /* Đường dẫn tới hình ảnh */
+  background-size: contain;
+  /* Tùy chọn để hình ảnh phủ kín toàn bộ phần tử */
+  background-repeat: no-repeat;
+  /* Không lặp lại hình ảnh */
+  background-position: center;
+}
+
+
+
+.verycheap {
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  border: rgb(173, 163, 163) solid 1px;
+  border-radius: 10px;
+  background-image: url('/public/asset/images/shopeesieure.png');
+  /* Đường dẫn tới hình ảnh */
+  background-size: contain;
+  /* Tùy chọn để hình ảnh phủ kín toàn bộ phần tử */
+  background-repeat: no-repeat;
+  /* Không lặp lại hình ảnh */
+  background-position: center;
+}
+
+.shopeestyle {
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  border: rgb(173, 163, 163) solid 1px;
+  border-radius: 10px;
+  background-image: url('/public/asset/images/shopeestyle.png');
+  /* Đường dẫn tới hình ảnh */
+  background-size: contain;
+  /* Tùy chọn để hình ảnh phủ kín toàn bộ phần tử */
+  background-repeat: no-repeat;
+  /* Không lặp lại hình ảnh */
+  background-position: center;
+}
+
+
+.internationalitem {
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  border: rgb(173, 163, 163) solid 1px;
+  border-radius: 10px;
+  background-image: url('/public/asset/images/hangquocte.jpg');
+  /* Đường dẫn tới hình ảnh */
+  background-size: contain;
+  /* Tùy chọn để hình ảnh phủ kín toàn bộ phần tử */
+  background-repeat: no-repeat;
+  /* Không lặp lại hình ảnh */
+  background-position: center;
+}
+
+
+.shopeeservice {
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  border: rgb(173, 163, 163) solid 1px;
+  border-radius: 10px;
+  background-image: url('/public/asset/images/shopeeservice.webp');
+  /* Đường dẫn tới hình ảnh */
+  background-size: contain;
+  /* Tùy chọn để hình ảnh phủ kín toàn bộ phần tử */
+  background-repeat: no-repeat;
+  /* Không lặp lại hình ảnh */
+  background-position: center;
+}
+
+
+
+
+.itemparent {
+  padding: 1rem;
+  justify-content: space-between;
+}
+
+.itemchild {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  width: 6rem;
+  font-size: 0.8vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  /* color: black; */
+}
+
+.itemchild:hover {
+  transform: translateY(-3px);
+}
+
+
+/* catarogy */
+
+.category {
+  padding: 0.5rem;
+  background-color: #ffffff;
+}
+
+.gridcategory {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  /* Tạo 10 cột có chiều rộng bằng nhau */
+  grid-template-rows: repeat(2, 1fr);
+  /* Tạo 2 hàng có chiều cao bằng nhau */
+  gap: 10px;
+  /* Khoảng cách giữa các item */
+  padding: 10px;
+}
+
+.gridcategoryitem {
+  transition: border 0.3s ease;
+  border: 2px solid transparent;
+  background-color: #f0f0f0;
+  /* Màu nền cho các item */
+  border: 1px solid #ccc;
+  /* Viền cho các item */
+  height: 15vh;
+}
+
+
+.gridcategoryitem:hover {
+  border: 2px solid orange;
+  /* Hiển thị border màu cam khi hover */
+
+}
+
+
+/* --------------------------------TOP-VIEW------------------------------ */
+
+.topviews {
+  padding: 0.5rem;
+  margin-top: 1.5rem;
+  background-color: #ffffff;
+}
+
+.productimage {
+  width: 100%;
+  height: 35vh;
+  object-fit: cover;
+
+}
+
+.productname {
+  color: #f85902;
+  text-align: center;
+  font-size: 1vw;
+}
+
+/* ---------------------------------TODAY-SUGGESTION------------------------- */
+
+
+.todaysuggestion {
+  margin-top: 3rem;
+}
+
+.carditem {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  border-radius: 0;
+}
+
+.carditem:hover {
+  transform: translateY(-2px);
+  border: 2px solid orange;
+}
