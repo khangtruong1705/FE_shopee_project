@@ -11,13 +11,13 @@
     "axios": "^1.7.7",
     "formik": "^2.4.6",
     "history": "^5.3.0",
-    "i18next": "^25.2.1",
-    "i18next-browser-languagedetector": "^8.1.0",
+    "i18next": "^23.6.18",
+    "i18next-browser-languagedetector": "^6.1.5",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-i18next": "^15.5.2",
+    "react-i18next": "^13.0.2",
     "react-infinite-scroll-component": "^6.1.0",
     "react-lazy-load-image-component": "^1.6.3",
     "react-redux": "^9.1.2",
@@ -38,6 +38,9 @@
       "react-app",
       "react-app/jest"
     ]
+  },
+  "devDependencies": {
+    "typescript": "4.9.5"
   },
   "browserslist": {
     "production": [
