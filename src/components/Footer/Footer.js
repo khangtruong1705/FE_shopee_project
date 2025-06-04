@@ -1,6 +1,6 @@
 import styles from './Footer.module.css'
 import { useTranslation } from 'react-i18next';
-
+import { NavLink} from 'react-router-dom';
 const Footer = () => {
      const { t } = useTranslation();
     return <div className='container'>
@@ -9,26 +9,26 @@ const Footer = () => {
             <div className={`${styles.service} w-100 row`}>
                 <div className='col-lg-2 col-md-4 col-sm-6 text-center'>
                     <h1 className={styles.title}>{t('customerservice')}</h1>
-                    <p>{t('helpcenter')}</p>
-                    <p>{t('shopeeblog')}</p>
-                    <p>{t('shopeemall')}</p>
-                    <p>{t('howtobuy')}</p>
-                    <p>{t('howtosell')}</p>
-                    <p>{t('payment')}</p>
-                    <p>{t('shopeecoin')}</p>
-                    <p>{t('shipping')}</p>
-                    <p>{t('return&refund')}</p>
-                    <p>{t('contactus')}</p>
-                    <p>{t('warrantypolicy')}</p>
+                    <NavLink to='/shopeehelp'><p>{t('shopeeblog')}</p></NavLink>
+                    <NavLink to='/shopeepolicy/shoppingwithshopee'><p>{t('shopeemall')}</p></NavLink>
+                    <NavLink to='/shopeehelp'><p>{t('howtobuy')}</p></NavLink>
+                    <NavLink to='/shopeehelp'><p>{t('howtosell')}</p></NavLink>
+                    <NavLink to='/shopeepolicy/paymethod'><p>{t('payment')}</p></NavLink>
+                    <NavLink to='/shopeehelp'><p>{t('shopeecoin')}</p></NavLink>
+                    <NavLink to='/shopeepolicy/transport'><p>{t('shipping')}</p></NavLink>
+                    <NavLink to='/shopeepolicy/refund'><p>{t('return&refund')}</p></NavLink>
+                    <NavLink to='//shopeepolicy/generalinfo'><p>{t('contactus')}</p></NavLink>
+                    <NavLink to='/shopeepolicy/generalinfo'><p>{t('warrantypolicy')}</p></NavLink>
+                   
                 </div>
                 <div className='col-lg-2 col-md-4 col-sm-6 text-center'>
                     <h1 className={styles.title}>{t('aboutshopee')}</h1>
                     <p>{t('aboutus')}</p>
                     <p>{t('shopeecareers')}</p>
-                    <p>{t('shopeepolicies')}</p>
-                    <p>{t('privacypolicy')}</p>
-                    <p>{t('shopeemall')}</p>
-                    <p>{t('sellercenter')}</p>
+                    <NavLink to='/shopeepolicy/generalinfo'><p>{t('shopeepolicies')}</p></NavLink>
+                    <NavLink to='/shopeepolicy/generalinfo'> <p>{t('privacypolicy')}</p></NavLink>            
+                    <NavLink to='/shopeepolicy/shoppingwithshopee'><p>{t('shopeemall')}</p></NavLink>
+                    <NavLink to='/sellercenter'><p>{t('sellercenter')}</p></NavLink> 
                     <p>{t('flashdeals')}</p>
                     <p>{t('shopeeambassadorprogramme')}</p>
                     <p>{t('mediacontact')}</p>

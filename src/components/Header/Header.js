@@ -47,7 +47,7 @@ const Header = () => {
         } else {
             fetchData(token)
         }
-    }, [amountCart,avatarUrl])
+    }, [amountCart, avatarUrl])
     const tags = [
         t('hairwax'), t('mensperfume'), t('corksandals'), t('zaramen'), t('health'),
         t('mensfashion'), t('womensfashion'), t('camera'), t('motorbike'), t('beauty')];
@@ -184,9 +184,22 @@ const Header = () => {
         <div className={`${styles.header} container-fluid p-0`}>
             <div className={`${styles.navigate} mx-auto`}>
                 <div className={`${styles.navigateLeftItem} left`}>
-                    <div className="border-end p-1">{t('sellercenter')}</div>
+                    <NavLink to='/sellercenter'  className="border-end p-1" style={{ textDecoration: 'none', color: 'white' }} >{t('sellercenter')}</NavLink>
                     <div className="border-end p-1">{t('startselling')}</div>
-                    <div className="border-end p-1" >{t('download')}</div>
+                    <div className="border-end p-1" >
+                        <div className={styles.dropdown}>
+                            <span className={styles.dropdownbutton}>{t('download')}</span>
+                            <div className={styles.dropdowndownloadapp}>
+                                <div >
+                                    <img  className='w-100' src={process.env.PUBLIC_URL + '/asset/images/qrcode.png'}></img>
+                                    <div className='d-flex'>
+                                        <img className='w-50' src={process.env.PUBLIC_URL + '/asset/images/applewatchlogo.png'}></img>
+                                        <img className='w-50' src={process.env.PUBLIC_URL + '/asset/images/googleplaylogo.png'}></img>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="p-1">
                         <span className="pe-1">{t('followuson')}</span>
                         <a href='https://www.facebook.com/ShopeeVN'><i className="pe-1 fa-brands fa-facebook text-light" /></a>

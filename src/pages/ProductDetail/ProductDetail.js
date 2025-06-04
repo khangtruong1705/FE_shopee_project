@@ -51,6 +51,8 @@ const ProductDetail = () => {
                 resetForm();
             } catch (error) {
                 console.log(error)
+                alert(t('needlogin'))
+                navigate('/login')
             }
         }
     });
@@ -103,7 +105,7 @@ const ProductDetail = () => {
                 <div className={styles.itempolicy}>
                     <div className=''>
                         <div>
-                            <span className={styles.favourite}>Yêu Thích</span>
+                            <span className={styles.favourite}>{t('favorite')}</span>
                             {product.description}
                         </div>
                         <div className="p-1 d-flex left ">
@@ -112,15 +114,15 @@ const ProductDetail = () => {
                                     <i key={index} className={`${styles.star} fa-solid fa-star`} />
                                 ))}
                             </div>
-                            <div className="border-end px-3">334 Đánh Giá</div>
-                            <div className="border-end px-3" >{product.sold} Đã Bán</div>
+                            <div className="border-end px-3">334 {t('reviews')}</div>
+                            <div className="border-end px-3" >{product.sold} {t('sold')}</div>
                         </div>
                     </div>
                     <div className={styles.price}>
                         {product.price} VNĐ
                         <span className={styles.discount}>{t('discount')} {t('price')} 9%</span>
                     </div>
-                    <div className='d-flex align-items-center'>
+                    <div className='d-flex align-items-center' style={{fontSize:'1vw'}}>
                         <div >{t('shopvouchers')} : </div>
                         <div className={styles.discount}>{t('discount')} 25k</div>
                         <div className={styles.discount}>{t('discount')} 15k</div>
@@ -148,7 +150,7 @@ const ProductDetail = () => {
                     <div>
                         <Button
                             className='p-2 me-3'
-                            style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68' }}
+                            style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68',fontSize:'1vw' }}
                             onClick={async () => {
                                 if (user_id === null) {
                                     notification.warning({
@@ -177,7 +179,7 @@ const ProductDetail = () => {
                              <i style={{color:'#f9502f'}} className='fa-solid fa-cart-shopping' />
                             </Button>
                         <Button
-                            style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68' }}
+                            style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68',fontSize:'1vw' }}
                             className='p-2'
                             onClick={async () => {
                                 if (user_id === null) {
@@ -216,15 +218,15 @@ const ProductDetail = () => {
                         <img style={{ width: '100%', borderRadius: '200px' }} src={`${process.env.PUBLIC_URL}${shopName.image}`} />
                     </div>
                     <div>
-                        <h5>{shopName.name}</h5>
-                        <NavLink to={`/shopname/${shopName.shop_name_id}`} className='border border-primary' style={{ textAlign: 'center' }} state={{ fromProductId: productid }} >{t('view')} Shop</NavLink>
+                        <h5 style={{fontSize:'1.3vw'}}>{shopName.name}</h5>
+                        <NavLink style={{ textAlign: 'center',fontSize:'1vw' }} to={`/shopname/${shopName.shop_name_id}`} className='border border-primary'  state={{ fromProductId: productid }} >{t('view')} Shop</NavLink>
                     </div>
                 </div>
-                <h5 style={{ width: '30%' }}>{t('rating')} :{shopName.rating}<i className='fa-solid fa-star' /></h5>
-                <h5 style={{ width: '30%' }}>{t('joindate')}:{shopName.created_at}</h5>
+                <h5 style={{ width: '30%',fontSize:'1.4vw' }}>{t('rating')} :{shopName.rating}<i style={{color:'#f7d22c'}} className='fa-solid fa-star' /></h5>
+                <h5 style={{ width: '30%',fontSize:'1.4vw' }}>{t('joindate')}:{shopName.created_at}</h5>
             </div>
         </div>
-        <div className='detailinfo card w-75 mx-auto'>
+        <div className='detailinfo card w-75 mx-auto' style={{fontSize:'1vw'}}>
             <div className='iteminfo w-50'>
                 {productInfo.map((item, index) => (
                     <div key={index} className='d-flex justify-content-between'>
@@ -235,7 +237,7 @@ const ProductDetail = () => {
             </div>
             <div className='itemdescribe'>
                 <div>
-                    <h3>MÔ TẢ SẢN PHẨM</h3>
+                    <h3 style={{fontSize:'1.6vw'}}>MÔ TẢ SẢN PHẨM</h3>
                     Hương đầu: Cam Bergamot, Tiêu
                     Hương giữa: Tiêu Sichuan, Hoa Oải Hương, Tiêu Hồng, Cỏ Hương Bài, Hoắc Hương, Phong Lữ, Nhựa Elemi
                     Hương cuối: Ambroxan, Tuyết Tùng, Labannum
@@ -249,11 +251,11 @@ const ProductDetail = () => {
             </div>
         </div>
         <div className={`${styles.itemratecontainer} itemrate card`}>
-            <h2>{t('rating')} {t('product')}</h2>
+            <h2 style={{fontSize:'2vw'}}>{t('rating')} {t('product')}</h2>
             <div className={styles.itemrateparent}>
-                <div>
+                <div style={{fontSize:'1vw'}}>
                     {product.rating} / 5
-                    <div>
+                    <div style={{fontSize:'1vw'}}>
                         {[...Array(5)].map((_, index) => (
                             <i
                                 key={index}
@@ -285,7 +287,7 @@ const ProductDetail = () => {
                             </>
                         })}
                         <form onSubmit={frm.handleSubmit} className="mb-3">
-                            <label htmlFor="exampleFormControlTextarea1" className="form-label">{t('comment')}</label>
+                            <label style={{fontSize:'1vw'}} htmlFor="exampleFormControlTextarea1" className="form-label">{t('comment')}</label>
                             <textarea id='comment'
                                 name='comment'
                                 className="form-control"
@@ -295,7 +297,7 @@ const ProductDetail = () => {
                                 value={frm.values.comment} />
                             <button
                                 className='mt-4 px-3'
-                                style={{ border: '1px solid #f84a2e', borderRadius: '20px', background: '#fffbf8' }}
+                                style={{fontSize:'1vw', border: '1px solid #f84a2e', borderRadius: '20px', background: '#fffbf8' }}
                             >{t('submit')}
                             </button>
                         </form>

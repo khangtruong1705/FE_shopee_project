@@ -38,6 +38,7 @@ import EnterCodePassword from './pages/EnterCodePassword/EnterCodePassword';
 import EnterPhoneNumber from './pages/EnterPhoneNumber/EnterPhoneNumber';
 import NotificationSetting from './pages/AccountUser/NotificationSetting/NotificationSetting';
 import MyVoucher from './pages/AccountUser/MyVoucher/MyVoucher';
+import SellerCenter from './pages/SellerCenter/SellerCenter';
 
 
 
@@ -77,8 +78,9 @@ root.render(
           </Route>
           <Route path='*' element={<Navigate to="" />}></Route>
         </Route>
-        <Route element={<ShopeeHelp />} path="/shopeehelp"></Route>
+        <Route element={<SellerCenter />} path="/sellercenter"></Route>
         <Route element={<Notification />} path="/notification"></Route>
+        <Route element={<ShopeeHelp />} path="/shopeehelp"></Route>
         <Route element={<ShopeePolicy />} path="/shopeepolicy">
           <Route path='generalinfo' element={<GeneralInfo />}></Route>
           <Route path='shoppingwithshopee' element={<ShoppingWithShopee />}></Route>

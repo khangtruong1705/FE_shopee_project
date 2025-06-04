@@ -1,5 +1,4 @@
 import { jwtDecode } from 'jwt-decode';
-import { useEffect } from 'react'
 import axios from 'axios';
 import { DOMAIN } from '../../../util/config';
 import { useNavigate } from 'react-router-dom';

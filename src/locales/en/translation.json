@@ -1,5 +1,6 @@
 {
   "welcome": "Welcome to our website",
+  "welcomeshopee": "Welcome to our Shopee",
   "login": "Login",
   "signup": "Sign Up",
   "notifications": "Notifications",
@@ -171,5 +172,10 @@
   "invalidtoken":"Invalid Token",
   "entertokenreceived":"Enter the Token Received via Email",
   "createnewpassword":"Create a New Password",
-  "newpassword":"New Password"
+  "newpassword":"New Password",
+  "becomeseller":"Become Seller",
+  "provideinfomation":"Please provide the information to set up a seller account on Shopee.",
+  "favorite":"Favorite",
+  "reviews": "reviews",
+  "needlogin":"You Need Login"
 }
