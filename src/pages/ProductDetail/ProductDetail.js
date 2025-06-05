@@ -81,6 +81,7 @@ const ProductDetail = () => {
         try {
             const response = await axios.get(`${DOMAIN}/api/products/get-product-by-productid/${productid}`);
             setProduct(response.data);
+            console.log('product',response.data)
             const responseComments = await axios.get(`${DOMAIN}/api/comments/get-comments-by-productid/${productid}`);
             setComments(responseComments.data);
             const responseShopName = await axios.get(`${DOMAIN}/api/shop-name/get-shop-name-by-productid/${productid}`);
@@ -91,6 +92,7 @@ const ProductDetail = () => {
     };
     useEffect(() => {
         fetchData()
+        
     }, [productid])
 
     return <>

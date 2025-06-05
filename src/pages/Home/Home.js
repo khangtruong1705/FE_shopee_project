@@ -1,5 +1,5 @@
 import styles from './Home.module.css' // Import CSS Module
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { DOMAIN } from '../../util/config';
@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 
 
 const Home = () => {
+    const navigate = useNavigate()
     const [bgColor, setBgColor] = useState('#ee4e2e');
     const [timeLeft, setTimeLeft] = useState(9 * 3600 + 18 * 60 + 28);
     const [arrTopViewsProduct, setArrTopViewsProduct] = useState([]);
@@ -154,7 +155,15 @@ const Home = () => {
                         }}
                     />
                 </div>
-                <div className='w-75 mx-auto' style={{ backgroundColor: bgColor, color: 'white', padding: '4vw', fontWeight: 'bold', fontSize: '2.4vw' }}>
+                <div onClick={() => { navigate('/flashsale') }} className='w-75 mx-auto'
+                    style={{
+                        cursor: 'pointer',
+                        backgroundColor: bgColor,
+                        color: 'white',
+                        padding: '4vw',
+                        fontWeight: 'bold',
+                        fontSize: '2.4vw'
+                    }}>
                     <span>⚡ FLASH SALE CHỚP NHOÁNG </span>
                     <span style={{ float: 'right' }}>{formatTime(timeLeft)}</span>
                 </div>

@@ -1,37 +1,42 @@
 import styles from './Footer.module.css'
 import { useTranslation } from 'react-i18next';
-import { NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 const Footer = () => {
-     const { t } = useTranslation();
+    const { t } = useTranslation();
+    const CustomNavLink = ({ to, children }) => (
+        <NavLink to={to} style={{ textDecoration: 'none', color: 'black' }}>
+            <p>{children}</p>
+        </NavLink>
+    );
     return <div className='container'>
         <hr style={{ height: '5px', backgroundColor: '#f6442d' }}></hr>
         <div className="footer w-100">
             <div className={`${styles.service} w-100 row`}>
-                <div className='col-lg-2 col-md-4 col-sm-6 text-center'>
+                <div className='col-lg-2 col-md-4 col-sm-6 text-center' >
                     <h1 className={styles.title}>{t('customerservice')}</h1>
-                    <NavLink to='/shopeehelp'><p>{t('shopeeblog')}</p></NavLink>
-                    <NavLink to='/shopeepolicy/shoppingwithshopee'><p>{t('shopeemall')}</p></NavLink>
-                    <NavLink to='/shopeehelp'><p>{t('howtobuy')}</p></NavLink>
-                    <NavLink to='/shopeehelp'><p>{t('howtosell')}</p></NavLink>
-                    <NavLink to='/shopeepolicy/paymethod'><p>{t('payment')}</p></NavLink>
-                    <NavLink to='/shopeehelp'><p>{t('shopeecoin')}</p></NavLink>
-                    <NavLink to='/shopeepolicy/transport'><p>{t('shipping')}</p></NavLink>
-                    <NavLink to='/shopeepolicy/refund'><p>{t('return&refund')}</p></NavLink>
-                    <NavLink to='//shopeepolicy/generalinfo'><p>{t('contactus')}</p></NavLink>
-                    <NavLink to='/shopeepolicy/generalinfo'><p>{t('warrantypolicy')}</p></NavLink>
-                   
+                    <CustomNavLink to='/shopeehelp'>{t('shopeeblog')}</CustomNavLink>
+                    <CustomNavLink to='/shopeepolicy/shoppingwithshopee'>{t('shopeemall')}</CustomNavLink>
+                    <CustomNavLink to='/shopeehelp'>{t('howtobuy')}</CustomNavLink>
+                    <CustomNavLink to='/shopeehelp'>{t('howtosell')}</CustomNavLink>
+                    <CustomNavLink to='/shopeepolicy/paymethod'>{t('payment')}</CustomNavLink>
+                    <CustomNavLink to='/shopeehelp'>{t('shopeecoin')}</CustomNavLink>
+                    <CustomNavLink to='/shopeepolicy/transport'>{t('shipping')}</CustomNavLink>
+                    <CustomNavLink to='/shopeepolicy/refund'>{t('return&refund')}</CustomNavLink>
+                    <CustomNavLink to='/shopeepolicy/generalinfo'>{t('contactus')}</CustomNavLink>
+                    <CustomNavLink to='/shopeepolicy/generalinfo'>{t('warrantypolicy')}</CustomNavLink>
+
                 </div>
                 <div className='col-lg-2 col-md-4 col-sm-6 text-center'>
                     <h1 className={styles.title}>{t('aboutshopee')}</h1>
-                    <p>{t('aboutus')}</p>
-                    <p>{t('shopeecareers')}</p>
-                    <NavLink to='/shopeepolicy/generalinfo'><p>{t('shopeepolicies')}</p></NavLink>
-                    <NavLink to='/shopeepolicy/generalinfo'> <p>{t('privacypolicy')}</p></NavLink>            
-                    <NavLink to='/shopeepolicy/shoppingwithshopee'><p>{t('shopeemall')}</p></NavLink>
-                    <NavLink to='/sellercenter'><p>{t('sellercenter')}</p></NavLink> 
-                    <p>{t('flashdeals')}</p>
-                    <p>{t('shopeeambassadorprogramme')}</p>
-                    <p>{t('mediacontact')}</p>
+                    <p><a href='https://careers.shopee.vn/about' style={{ textDecoration: 'none', color: 'black' }}>{t('aboutus')}</a></p>
+                    <p><a href='https://careers.shopee.vn/jobs' style={{ textDecoration: 'none', color: 'black' }}>{t('shopeecareers')}</a></p>
+                    <CustomNavLink to='/shopeepolicy/generalinfo'><p>{t('shopeepolicies')}</p></CustomNavLink>
+                    <CustomNavLink to='/shopeepolicy/generalinfo'> <p>{t('privacypolicy')}</p></CustomNavLink>
+                    <CustomNavLink to='/shopeepolicy/shoppingwithshopee'><p>{t('shopeemall')}</p></CustomNavLink>
+                    <CustomNavLink to='/sellercenter'><p>{t('sellercenter')}</p></CustomNavLink>
+                    <CustomNavLink to='/flashsale'><p>{t('flashsale')}</p></CustomNavLink>
+                    <p><a href='https://shopee.vn/affiliate/' style={{ textDecoration: 'none', color: 'black' }}>{t('shopeeambassadorprogramme')}</a></p>
+                    <a href='https://www.facebook.com/ShopeeVN' style={{ textDecoration: 'none', color: 'black' }}>{t('mediacontact')}</a>
                 </div>
                 <div className='col-lg-2 col-md-4 col-sm-6'>
                     <h1 className={styles.title}>{t('payment').toUpperCase()}</h1>
@@ -47,7 +52,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className='col-lg-2 col-md-4 col-sm-6'>
-                     <h1 className={styles.title}>{t('logistics')}</h1>
+                    <h1 className={styles.title}>{t('logistics')}</h1>
                     <div className={styles.transportcontainer}>
                         <div className={styles.transportitem1}></div>
                         <div className={styles.transportitem2}></div>
@@ -65,19 +70,19 @@ const Footer = () => {
                 <div className='col-lg-2 col-md-4 col-sm-6 text-center'>
                     <h1 className={styles.title}>{t('followus')}</h1>
                     <p>
-                        <span><i className="pe-2 fa-brands fa-facebook" />
+                        <a href='https://www.facebook.com/ShopeeVN' style={{textDecoration:'none'}}><i className="pe-2 fa-brands fa-facebook" />
                             Facebook
-                        </span>
+                        </a>
                     </p>
                     <p>
-                        <span><i className="pe-2 fa-brands fa-instagram" />
+                        <a href='https://www.instagram.com/Shopee_VN' style={{textDecoration:'none',color:'#fc4ebd'}}><i className="pe-2 fa-brands fa-instagram" />
                             Instagram
-                        </span>
+                        </a>
                     </p>
                     <p>
-                        <span><i className="pe-2 fa-brands fa-linkedin" />
+                        <a href='https://www.linkedin.com/company/shopee/' style={{textDecoration:'none',color:'#0a66c2'}}><i className="pe-2 fa-brands fa-linkedin" />
                             LinkerIn
-                        </span>
+                        </a>
                     </p>
                 </div>
                 <div className='col-lg-2 col-md-4 col-sm-6'>
@@ -106,7 +111,7 @@ const Footer = () => {
                 {t('informationmanagement')}: Nguyễn Bùi Anh Tuấn
             </div>
             <div className="part3 text-center">
-                 {t('registrationcertificate')}
+                {t('registrationcertificate')}
             </div>
             <div className="part3 text-center">
                 © 2015 - {t('copyright')}

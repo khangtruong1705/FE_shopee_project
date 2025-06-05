@@ -147,10 +147,10 @@ const Header = () => {
         if (token == null) {
             return <>
                 <div className="border-start p-1">
-                    <NavLink to='/register'>{t('signup')}</NavLink>
+                    <NavLink to='/register' style={{textDecoration:'none'}}>{t('signup')}</NavLink>
                 </div>
                 <div className="border-start p-1">
-                    <NavLink to='/login'>{t('login')}</NavLink>
+                    <NavLink to='/login' style={{textDecoration:'none'}}>{t('login')}</NavLink>
                 </div>
             </>
         }

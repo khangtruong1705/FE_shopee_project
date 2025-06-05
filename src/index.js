@@ -39,6 +39,7 @@ import EnterPhoneNumber from './pages/EnterPhoneNumber/EnterPhoneNumber';
 import NotificationSetting from './pages/AccountUser/NotificationSetting/NotificationSetting';
 import MyVoucher from './pages/AccountUser/MyVoucher/MyVoucher';
 import SellerCenter from './pages/SellerCenter/SellerCenter';
+import FlashSale from './pages/FlashSale/FlashSale';
 
 
 
@@ -67,6 +68,7 @@ root.render(
           <Route path="/shopname">
             <Route path=':shopnameid' element={<ShopName />}></Route>
           </Route>
+          <Route element={<FlashSale />} path="/flashsale"></Route>
           <Route element={<AccountUser />} path="/accountuser">
             <Route path='infouser' element={<InfoUser />}></Route>
             <Route path='bankuser' element={<BankUser />}></Route>
