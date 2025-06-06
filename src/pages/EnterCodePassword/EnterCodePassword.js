@@ -2,8 +2,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import axios from 'axios';
 import { DOMAIN } from "../../util/config";
-import { Button, message, Checkbox, Form, Input } from 'antd';
-import styles from './ForgotPassword.module.css'
+import { Button, message, Form, Input } from 'antd';
+// import styles from './ForgotPassword.module.css'
 import { useTranslation } from 'react-i18next';
 
 const EnterCodePassword = () => {

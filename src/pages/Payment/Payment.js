@@ -1,4 +1,4 @@
-import { NavLink, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useSearchParams, useNavigate } from 'react-router-dom';
 import styles from './Payment.module.css' // Import CSS Module
 import axios from 'axios';
 import { useState, useEffect } from 'react'
@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 
 
 const Payment = () => {
-
     const frm = useFormik({
         initialValues: {
             name: '',
@@ -34,7 +33,6 @@ const Payment = () => {
             }
         }
     });
-    const location = useLocation();
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const orderItemId = searchParams.get('order_item_id');
@@ -64,7 +62,6 @@ const Payment = () => {
         return () => clearTimeout(timer);
     }, [])
     useEffect(() => {
-       
         window.history.pushState(null, null, window.location.href);
         const handlePopstate = (event) => {
             event.preventDefault();
@@ -85,9 +82,7 @@ const Payment = () => {
                 window.history.pushState(null, null, window.location.href);
             }
         };
-
         window.addEventListener('popstate', handlePopstate);
-
         return () => {
             window.removeEventListener('popstate', handlePopstate);
         };

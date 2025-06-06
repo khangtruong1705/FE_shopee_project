@@ -5,8 +5,7 @@ import { DOMAIN } from "../../util/config";
 import { Button, message, Checkbox, Form, Input } from 'antd';
 import styles from './Login.module.css'
 import { useTranslation } from 'react-i18next';
-
-
+import { GoogleLogin } from '@react-oauth/google';
 
 
 
@@ -58,6 +57,38 @@ const Login = () => {
             });
         }, 1000);
     };
+    const handleLoginSuccess = async (credentialResponse) => {
+        try {
+            const token = {
+                'token': credentialResponse.credential
+
+            }
+            const response = await axios.post('http://localhost:8000/api/users/auth/google', token);
+            localStorage.setItem('token', response.data);
+            const data = {
+                'message': t('loginsuccessful'),
+                'type': 'success'
+            }
+           
+            openMessage(data)
+            setTimeout(() => {
+                navigate('/')
+            }, 2000);
+        } catch (error) {
+            console.error('Error sending token to backend:', error);
+            console.log('Login Failed');
+        }
+    };
+
+    const handleLoginFailure = () => {
+        const data = {
+            'message': t('loginfailed'),
+            'type': 'error'
+        }
+        openMessage(data)
+        console.log('Login Failed');
+    };
+
     return <>
         <div>
             <div className="header">
@@ -121,7 +152,6 @@ const Login = () => {
                                 >
                                     {t('submit')}
                                 </Button>
-                                {contextHolder}
                             </Form.Item>
                             <div className="d-flex justify-content-between mt-2" style={{ fontSize: '0.8rem', color: '#1877f2' }}>
                                 <NavLink to={`/forgotpassword`}>{t('forgotpassword')}</NavLink>
@@ -131,14 +161,14 @@ const Login = () => {
                     </div>
                     <hr></hr>
                     <div className="d-flex justify-content-around">
-                        <div className="p-2" style={{ border: '1px solid' }}>
+                        <div className="p-2" style={{ border: '1px solid #e7e9eb',borderRadius:'4px' }}>
                             <i className="fa-brands fa-facebook mx-1" style={{ color: '#1877f2' }}></i>
                             <span>Facebook</span>
                         </div>
-                        <div className="p-2" style={{ border: '1px solid' }}>
-                            <i className="fa-brands fa-google mx-1" style={{ color: '#ea4335' }}></i>
-                            <span>Google</span>
-                        </div>
+                        <GoogleLogin
+                            onSuccess={handleLoginSuccess}
+                            onError={handleLoginFailure}
+                        />
                     </div>
                     <div className="mt-3 text-center">
                         {t('youknowshopee')} <NavLink to='/register'>{t('signup')}</NavLink>

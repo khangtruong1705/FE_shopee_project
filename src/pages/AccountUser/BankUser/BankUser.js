@@ -1,16 +1,9 @@
-import { useState, useEffect } from 'react'
-import { Switch } from 'antd';
+import { useEffect } from 'react'
 
 
 
 
 const BankUser = () => {
-    const onChange = checked => {
-        console.log(`switch to ${checked}`);
-    };
-
-
-
     const fetchData = async () => {
         try {
 

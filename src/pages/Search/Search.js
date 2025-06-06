@@ -17,10 +17,10 @@ const Search = () => {
     const { t } = useTranslation();
     const [isDropdownSelected, setIsDropdownSelected] = useState(false);
     const handleSortChange = (value) => {
-        if (value == 'Newest' || value == 'Mới Nhất') {
+        if (value === 'Newest' || value ==='Mới Nhất') {
             const sortedItems = _.sortBy(arrMain, ["created_at"], ["desc"]);
             setArrMain(sortedItems)
-        } else if (value == 'Best Seller' || value == 'Bán Chạy') {
+        } else if (value === 'Best Seller' || value === 'Bán Chạy') {
             const sortedItems = _.orderBy(arrMain, ["sold"], ["desc"]);
             setArrMain(sortedItems)
         }
@@ -49,7 +49,7 @@ const Search = () => {
     };
     useEffect(() => {
         fetchData()
-    }, [keyword])
+    },[keyword])
     return <>
         <div>
             <div className='container w-75 mx-auto'>
@@ -82,7 +82,7 @@ const Search = () => {
                                     <div className='card-header' style={{ height: '21vw', backgroundColor: '#ffffff' }}>
                                         <img
                                             className='w-100 h-75'
-                                            alt='Product image'
+                                            alt='...'
                                             src={`${process.env.PUBLIC_URL}${product.image}`}
                                             style={{ border: '1px solid #f85902', borderRadius: '20px' }}
                                         />
