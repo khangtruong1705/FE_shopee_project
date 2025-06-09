@@ -45,6 +45,7 @@ const ProductDetail = () => {
                     'product_id': productid,
                     'comment_content': values.comment
                 }
+                console.log('dataComment', dataComment)
                 let res = await axios.post(`${DOMAIN}/api/comments/add-comment-by-productid`, dataComment);
                 console.log('sdsdsd', res.data)
                 setComments((prevComments) => [...prevComments, res.data]);
@@ -52,7 +53,7 @@ const ProductDetail = () => {
             } catch (error) {
                 console.log(error)
                 alert(t('needlogin'))
-                navigate('/login')
+                // navigate('/login')
             }
         }
     });

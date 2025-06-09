@@ -1,19 +1,12 @@
 import { useEffect } from 'react'
-
-
-
-
 const BankUser = () => {
     const fetchData = async () => {
         try {
-
-
         } catch (error) {
 
 
         }
     };
-
     useEffect(() => {
         fetchData()
     }, [])
