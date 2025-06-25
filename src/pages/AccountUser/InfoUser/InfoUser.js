@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { getAvatarUrlApi } from '../../../redux/reducers/getAvatarUrl'
 import { DatePicker, Space } from 'antd';
+import dayjs from 'dayjs';
 
 
 
@@ -92,7 +93,9 @@ const InfoUser = () => {
         }
     };
     const dateOnChange = (date, dateString) => {
-        console.log(date, dateString);
+        console.log(dateString);
+        setUserInfo({ ...userInfo, birthday: dateString });
+        console.log('userInfo', userInfo)
     };
     const fetchData = async () => {
         try {
@@ -172,10 +175,14 @@ const InfoUser = () => {
                                 <td className="text-start">
                                     <strong>{t('dateofbirth')}</strong>
                                 </td>
-                                <td className="text-end">{userInfo.birthday}
+                                <td className="text-end">
                                     <Space direction="vertical">
-                                        <DatePicker onChange={dateOnChange} />
-                                    </Space></td>
+                                        <DatePicker
+                                            value={userInfo.birthday ? dayjs(userInfo.birthday) : null}
+                                            onChange={dateOnChange}
+                                        />
+                                    </Space>
+                                </td>
                             </tr>
                         </table>
                         <Modal

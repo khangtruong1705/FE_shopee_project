@@ -177,5 +177,10 @@
   "provideinfomation":"Please provide the information to set up a seller account on Shopee.",
   "favorite":"Favorite",
   "reviews": "reviews",
-  "needlogin":"You Need Login"
+  "needlogin":"You Need Login",
+  "owner":"Owner",
+  "phone":"Phone",
+  "yourproduct":" YOUR PRODUCTS",
+  "newproduct":"New Product",
+  "edit":"Edit"
 }

@@ -6,18 +6,19 @@ import _ from "lodash";
 import { DOMAIN } from '../../util/config'
 import { Segmented } from 'antd';
 import { useTranslation } from 'react-i18next';
-
+import { jwtDecode } from 'jwt-decode';
 
 
 
 
 const Search = () => {
+    const token = localStorage.getItem('token');
     const { keyword } = useParams();
     const [arrMain, setArrMain] = useState();
     const { t } = useTranslation();
     const [isDropdownSelected, setIsDropdownSelected] = useState(false);
     const handleSortChange = (value) => {
-        if (value === 'Newest' || value ==='Mới Nhất') {
+        if (value === 'Newest' || value === 'Mới Nhất') {
             const sortedItems = _.sortBy(arrMain, ["created_at"], ["desc"]);
             setArrMain(sortedItems)
         } else if (value === 'Best Seller' || value === 'Bán Chạy') {
@@ -49,7 +50,7 @@ const Search = () => {
     };
     useEffect(() => {
         fetchData()
-    },[keyword])
+    }, [keyword])
     return <>
         <div>
             <div className='container w-75 mx-auto'>
@@ -78,7 +79,31 @@ const Search = () => {
                     <div className='row'>
                         {arrMain?.map((product, index) => {
                             return <div className='col-lg-3 col-md-4 col-sm-6' key={index}>
-                                <NavLink to={`/productdetail/${product.product_id}`} className={`${styles.carditem} card m-1`}>
+                                <NavLink to={`/productdetail/${product.product_id}`}
+                                    className={`${styles.carditem} card m-1`}
+                                    onClick={async () => {
+                                        try {
+                                            let data = {};
+                                            if (token == null) {
+                                                data = {
+                                                    user_id: 0,
+                                                    product_id: product.product_id,
+                                                    name: product.name
+                                                };
+                                            } else {
+                                                const { user_id } = jwtDecode(token);
+                                                data = {
+                                                    user_id: user_id,
+                                                    product_id: product.product_id,
+                                                    name: product.name
+                                                };
+                                            }
+                                            await axios.post(`${DOMAIN}/api/view-product/add-view-by-productid`, data);
+                                        } catch (error) {
+                                            console.log('error', error)
+                                        }
+                                    }}
+                                >
                                     <div className='card-header' style={{ height: '21vw', backgroundColor: '#ffffff' }}>
                                         <img
                                             className='w-100 h-75'

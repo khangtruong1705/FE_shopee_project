@@ -14,7 +14,7 @@ const Header = () => {
     const navigate = useNavigate();
     const searchKeyword = useRef();
     const location = useLocation();
-    const token = localStorage.getItem('token');
+    const [token, setToken] = useState(localStorage.getItem('token'));
     const [amount, setAmount] = useState(0);
     const amountCart = useSelector((state) => state.getAmountCart.amountCart);
     const avatarUrl = useSelector((state) => state.getAvatarUrl.avatarUrl);
@@ -33,12 +33,12 @@ const Header = () => {
             const response = await axios.get(`${DOMAIN}/api/carts/get-amount-item-of-cart-by-user-id/${user_id}`);
             setAmount(response.data)
 
-
             const res = await axios.get(`${DOMAIN}/api/users/get-user-by-user-id/${user_id}`);
             setUserInfo(res.data);
 
         } catch (error) {
             console.error('Error fetching products:', error);
+            setToken(null)
         }
     };
     useEffect(() => {
@@ -55,11 +55,29 @@ const Header = () => {
         const { value } = e.target;
         searchKeyword.current = value;
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const frm = document.getElementById('frm');
         frm.reset();
-        navigate(`/search/${searchKeyword.current}`);
+        try {
+            let data = {};
+            if (token == null) {
+                data = {
+                    user_id: 0,
+                    keyword: searchKeyword.current
+                };
+            } else {
+                const { user_id } = jwtDecode(token);
+                data = {
+                    user_id: user_id,
+                    keyword: searchKeyword.current
+                };
+            }
+            await axios.post(`${DOMAIN}/api/search/add-search-by-keyword`, data);
+            navigate(`/search/${searchKeyword.current}`);
+        } catch (error) {
+            console.log('error', error)
+        }
     };
     const renderLogo = () => {
         if (location.pathname === '/cart') {
@@ -91,7 +109,13 @@ const Header = () => {
                     </div>
                     <div className='' style={{ width: '53vw' }}>
                         <form id='frm' className={styles.inputform}>
-                            <input className="form-control w-100 " list="datalistOptions" id="exampleDataList" style={{ border: 'none' }} onChange={handleChange} />
+                            <input
+                                className="form-control w-100 "
+                                list="datalistOptions"
+                                id="exampleDataList"
+                                style={{ border: 'none' }}
+                                onChange={handleChange}
+                            />
                             <datalist id="datalistOptions">
                                 <option value="Giày Nam">
                                 </option><option value="Nước Hoa">
@@ -147,10 +171,10 @@ const Header = () => {
         if (token == null) {
             return <>
                 <div className="border-start p-1">
-                    <NavLink to='/register' style={{textDecoration:'none'}}>{t('signup')}</NavLink>
+                    <NavLink to='/register' style={{ textDecoration: 'none' }}>{t('signup')}</NavLink>
                 </div>
                 <div className="border-start p-1">
-                    <NavLink to='/login' style={{textDecoration:'none'}}>{t('login')}</NavLink>
+                    <NavLink to='/login' style={{ textDecoration: 'none' }}>{t('login')}</NavLink>
                 </div>
             </>
         }
@@ -184,14 +208,39 @@ const Header = () => {
         <div className={`${styles.header} container-fluid p-0`}>
             <div className={`${styles.navigate} mx-auto`}>
                 <div className={`${styles.navigateLeftItem} left`}>
-                    <NavLink to='/sellercenter'  className="border-end p-1" style={{ textDecoration: 'none', color: 'white' }} >{t('sellercenter')}</NavLink>
+                    <div
+                        onClick={async () => {
+                            if (token == null) {
+                                notification.warning({
+                                    message: 'Cảnh báo',
+                                    description: 'Bạn cần đăng nhập để vào trung tâm bán hàng!',
+                                });
+                                setTimeout(() => {
+                                    navigate(`/login`)
+                                }, 1200);
+                            } else {
+                                const { email } = jwtDecode(token);
+                                const data = {
+                                    'email': email
+                                }
+                                console.log('data', data)
+                                const response = await axios.post(`${DOMAIN}/api/shop-name/check-existing-shop`, data);
+                                console.log('xxx', response.data)
+                                if (response.data === true) {
+                                    navigate(`/manageshop/${email}`)
+                                } if (response.data === false)
+                                    navigate(`/becomeseller`)
+                            }
+                        }}
+                        className="border-end p-1"
+                        style={{ cursor: 'pointer', }} >{t('sellercenter')}</div>
                     <div className="border-end p-1">{t('startselling')}</div>
                     <div className="border-end p-1" >
                         <div className={styles.dropdown}>
                             <span className={styles.dropdownbutton}>{t('download')}</span>
                             <div className={styles.dropdowndownloadapp}>
                                 <div >
-                                    <img  className='w-100' src={process.env.PUBLIC_URL + '/asset/images/qrcode.png'}></img>
+                                    <img className='w-100' src={process.env.PUBLIC_URL + '/asset/images/qrcode.png'}></img>
                                     <div className='d-flex'>
                                         <img className='w-50' src={process.env.PUBLIC_URL + '/asset/images/applewatchlogo.png'}></img>
                                         <img className='w-50' src={process.env.PUBLIC_URL + '/asset/images/googleplaylogo.png'}></img>
@@ -265,7 +314,6 @@ const Header = () => {
                                         setLanguage('Tiếng Việt')
                                         changeLanguage('vi')
                                     }}>Tiếng Việt</span>
-
                                 </div>
                             </div>
                         </div>

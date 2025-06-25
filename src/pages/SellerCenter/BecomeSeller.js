@@ -1,20 +1,19 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
-import axios from 'axios';
-import { DOMAIN } from "../../util/config";
-import { Button, message, Checkbox, Form, Input } from 'antd';
 import styles from './SellerCenter.module.css'
 import { useTranslation } from 'react-i18next';
 
 
 
 
-
-const SellerCenter = () => {
+const BecomeSeller = () => {
+    const token = localStorage.getItem('token');
     const { t } = useTranslation();
+    const navigate = useNavigate()
+    let user_id = null;
 
     return <>
-        <div style={{ backgroundColor: '#f6f6f6',position:'relative' }}>
+        <div style={{ backgroundColor: '#f6f6f6', position: 'relative' }}>
             <div className="header mb-5" style={{ backgroundColor: '#ffffff', }}>
                 <div className='d-flex justify-content-between align-items-center w-75 mx-auto'>
                     <div className="d-flex align-items-center justify-content-start w-50">
@@ -36,7 +35,23 @@ const SellerCenter = () => {
                     </div>
                     <div style={{ fontSize: '1.5vw' }} className="text-center p-2">{t('welcomeshopee')}</div>
                     <div style={{ fontSize: '0.9vw' }} className="text-center p-2">{t('provideinfomation')}</div>
-                    <button style={{ background: '#f1582c', border: 'none', borderRadius: '3px', color: 'white' }} className="w-50 mx-auto p-2">{t('signup')}</button>
+                    <button onClick={() => {
+                            navigate('/registershop')
+                        // } else {
+                        //     notification.warning({
+                        //         message: 'Cảnh báo',
+                        //         description: t('needlogin'),
+                        //     });
+                        //     const timer = setTimeout(() => {
+                        //         navigate('/login')
+                        //     }, 1000);
+                        //     return () => clearTimeout(timer);
+                        // }
+                    }}
+                        style={{ background: '#f1582c', border: 'none', borderRadius: '3px', color: 'white' }}
+                        className="w-50 mx-auto p-2">{t('signup')}
+
+                    </button>
                 </div>
             </div>
             <div className={styles.sidebar}>
@@ -50,4 +65,4 @@ const SellerCenter = () => {
 };
 
 
-export default SellerCenter
+export default BecomeSeller

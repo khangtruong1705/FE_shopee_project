@@ -80,7 +80,6 @@ const Login = () => {
             console.log('Login Failed');
         }
     };
-
     const handleLoginFailure = () => {
         const data = {
             'message': t('loginfailed'),

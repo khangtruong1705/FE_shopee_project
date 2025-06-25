@@ -52,6 +52,10 @@ const ProductDetail = () => {
                 resetForm();
             } catch (error) {
                 console.log(error)
+                notification.warning({
+                    message: 'Cảnh báo',
+                    description: t('needlogin'),
+                });
                 alert(t('needlogin'))
                 // navigate('/login')
             }
@@ -82,7 +86,7 @@ const ProductDetail = () => {
         try {
             const response = await axios.get(`${DOMAIN}/api/products/get-product-by-productid/${productid}`);
             setProduct(response.data);
-            console.log('product',response.data)
+            console.log('product', response.data)
             const responseComments = await axios.get(`${DOMAIN}/api/comments/get-comments-by-productid/${productid}`);
             setComments(responseComments.data);
             const responseShopName = await axios.get(`${DOMAIN}/api/shop-name/get-shop-name-by-productid/${productid}`);
@@ -93,7 +97,7 @@ const ProductDetail = () => {
     };
     useEffect(() => {
         fetchData()
-        
+
     }, [productid])
 
     return <>
@@ -121,16 +125,24 @@ const ProductDetail = () => {
                             <div className="border-end px-3" >{product.sold} {t('sold')}</div>
                         </div>
                     </div>
-                    <div className={styles.price}>
+                    <div className={styles.price}
+                     style={{ fontSize: '1.4vw' }}
+                    >
                         {product.price} VNĐ
-                        <span className={styles.discount}>{t('discount')} {t('price')} 9%</span>
+                        <span
+                            className={styles.discount}
+                            style={{ fontSize: '0.9vw' }}
+                        >{t('discount')} {t('price')} 9%</span>
                     </div>
-                    <div className='d-flex align-items-center' style={{fontSize:'1vw'}}>
+                    <div className='d-flex align-items-center' style={{ fontSize: '1vw' }}>
                         <div >{t('shopvouchers')} : </div>
-                        <div className={styles.discount}>{t('discount')} 25k</div>
-                        <div className={styles.discount}>{t('discount')} 15k</div>
-                        <div className={styles.discount}>{t('discount')} 30k</div>
-                        <div className={styles.discount}>{t('discount')} 35k</div>
+                        {[25, 15, 30, 35].map((amount, index) => (
+                            <div key={index}
+                                style={{ fontSize: '0.9vw' }}
+                                className={styles.discount}>
+                                {t('discount')} {amount}k
+                            </div>
+                        ))}
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
                         <div>{t('returnpolicy')} :</div>
@@ -139,7 +151,10 @@ const ProductDetail = () => {
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
                         <div>{t('hotdeal')}</div>
-                        <div className={styles.discount}> {t('attackhotdeal')}</div>
+                        <div className={styles.discount}
+                            style={{ fontSize: '0.9vw' }}>
+                            {t('attackhotdeal')}
+                        </div>
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
                         <div>{t('insurance')} :</div>
@@ -153,7 +168,7 @@ const ProductDetail = () => {
                     <div>
                         <Button
                             className='p-2 me-3'
-                            style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68',fontSize:'1vw' }}
+                            style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68', fontSize: '1vw' }}
                             onClick={async () => {
                                 if (user_id === null) {
                                     notification.warning({
@@ -179,10 +194,10 @@ const ProductDetail = () => {
                                     navigate('/')
                                 }, 1000);
                             }}> {t('addtocart')}
-                             <i style={{color:'#f9502f'}} className='fa-solid fa-cart-shopping' />
-                            </Button>
+                            <i style={{ color: '#f9502f' }} className='fa-solid fa-cart-shopping' />
+                        </Button>
                         <Button
-                            style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68',fontSize:'1vw' }}
+                            style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68', fontSize: '1vw' }}
                             className='p-2'
                             onClick={async () => {
                                 if (user_id === null) {
@@ -208,7 +223,7 @@ const ProductDetail = () => {
                                 }, 1000);
                             }}
                         > {t('buynow')}
-                        <i style={{color:'#f9502f'}} className="fa-solid fa-money-bill-trend-up" />
+                            <i style={{ color: '#f9502f' }} className="fa-solid fa-money-bill-trend-up" />
                         </Button>
                     </div>
                 </div>
@@ -216,20 +231,20 @@ const ProductDetail = () => {
         </div>
         <div className='shopName card w-75 mx-auto mb-5'>
             <div className='d-flex align-items-center'>
-                <div className='d-flex align-items-center' style={{ width: '40%' }}>
-                    <div className='w-50 p-3'>
-                        <img style={{ width: '100%', borderRadius: '200px' }} src={`${process.env.PUBLIC_URL}${shopName.image}`} />
+                <div className='d-flex align-items-center' >
+                    <div className='p-3' style={{ width: '22vw', height: '9vw' }}>
+                        <img style={{ width: '100%', height: '100%', borderRadius: '200px', objectFit: 'cover' }} src={`${process.env.PUBLIC_URL}${shopName.image}`} />
                     </div>
                     <div>
-                        <h5 style={{fontSize:'1.3vw'}}>{shopName.name}</h5>
-                        <NavLink style={{ textAlign: 'center',fontSize:'1vw' }} to={`/shopname/${shopName.shop_name_id}`} className='border border-primary'  state={{ fromProductId: productid }} >{t('view')} Shop</NavLink>
+                        <h5 style={{ fontSize: '1.3vw' }}>{shopName.name}</h5>
+                        <NavLink style={{ textAlign: 'center', fontSize: '1vw' }} to={`/shopname/${shopName.shop_name_id}`} className='border border-primary' state={{ fromProductId: productid }} >{t('view')} Shop</NavLink>
                     </div>
                 </div>
-                <h5 style={{ width: '30%',fontSize:'1.4vw' }}>{t('rating')} :{shopName.rating}<i style={{color:'#f7d22c'}} className='fa-solid fa-star' /></h5>
-                <h5 style={{ width: '30%',fontSize:'1.4vw' }}>{t('joindate')}:{shopName.created_at}</h5>
+                <h5 className='text-center' style={{ width: '30%', fontSize: '1.4vw' }}>{t('rating')} :{shopName.rating}<i style={{ color: '#f7d22c' }} className='fa-solid fa-star' /></h5>
+                <h5 className='text-center' style={{ width: '30%', fontSize: '1.4vw' }}>{t('joindate')}:{shopName.created_at}</h5>
             </div>
         </div>
-        <div className='detailinfo card w-75 mx-auto' style={{fontSize:'1vw'}}>
+        <div className='detailinfo card w-75 mx-auto' style={{ fontSize: '1vw' }}>
             <div className='iteminfo w-50'>
                 {productInfo.map((item, index) => (
                     <div key={index} className='d-flex justify-content-between'>
@@ -240,7 +255,7 @@ const ProductDetail = () => {
             </div>
             <div className='itemdescribe'>
                 <div>
-                    <h3 style={{fontSize:'1.6vw'}}>MÔ TẢ SẢN PHẨM</h3>
+                    <h3 style={{ fontSize: '1.6vw' }}>MÔ TẢ SẢN PHẨM</h3>
                     Hương đầu: Cam Bergamot, Tiêu
                     Hương giữa: Tiêu Sichuan, Hoa Oải Hương, Tiêu Hồng, Cỏ Hương Bài, Hoắc Hương, Phong Lữ, Nhựa Elemi
                     Hương cuối: Ambroxan, Tuyết Tùng, Labannum
@@ -254,11 +269,11 @@ const ProductDetail = () => {
             </div>
         </div>
         <div className={`${styles.itemratecontainer} itemrate card`}>
-            <h2 style={{fontSize:'2vw'}}>{t('rating')} {t('product')}</h2>
+            <h2 style={{ fontSize: '2vw' }}>{t('rating')} {t('product')}</h2>
             <div className={styles.itemrateparent}>
-                <div style={{fontSize:'1vw'}}>
+                <div style={{ fontSize: '1vw' }}>
                     {product.rating} / 5
-                    <div style={{fontSize:'1vw'}}>
+                    <div style={{ fontSize: '1vw' }}>
                         {[...Array(5)].map((_, index) => (
                             <i
                                 key={index}
@@ -290,7 +305,7 @@ const ProductDetail = () => {
                             </>
                         })}
                         <form onSubmit={frm.handleSubmit} className="mb-3">
-                            <label style={{fontSize:'1vw'}} htmlFor="exampleFormControlTextarea1" className="form-label">{t('comment')}</label>
+                            <label style={{ fontSize: '1vw' }} htmlFor="exampleFormControlTextarea1" className="form-label">{t('comment')}</label>
                             <textarea id='comment'
                                 name='comment'
                                 className="form-control"
@@ -300,7 +315,7 @@ const ProductDetail = () => {
                                 value={frm.values.comment} />
                             <button
                                 className='mt-4 px-3'
-                                style={{fontSize:'1vw', border: '1px solid #f84a2e', borderRadius: '20px', background: '#fffbf8' }}
+                                style={{ fontSize: '1vw', border: '1px solid #f84a2e', borderRadius: '20px', background: '#fffbf8' }}
                             >{t('submit')}
                             </button>
                         </form>
@@ -311,6 +326,5 @@ const ProductDetail = () => {
     </>
 
 };
-
 
 export default ProductDetail

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { DOMAIN } from '../../util/config';
 import { ColorPicker } from 'antd';
+import { jwtDecode } from 'jwt-decode';
 import _ from "lodash";
 
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -21,16 +22,13 @@ const Home = () => {
     const navigate = useNavigate()
     const [bgColor, setBgColor] = useState('#ee4e2e');
     const [timeLeft, setTimeLeft] = useState(9 * 3600 + 18 * 60 + 28);
+    const token = localStorage.getItem('token');
+    const [categories, setCategories] = useState([]);
     const [arrTopViewsProduct, setArrTopViewsProduct] = useState([]);
     const [arrNewToOldProduct, setArrarNewToOldProduct] = useState([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const { t } = useTranslation();
-    const categories = [
-        'thoitrangnam', 'dienthoai', 'thietbidientu', 'maytinhvalaptop', 'mayanh', 'dongho',
-        'giaydepnam', 'thietbidiengiadung', 'thethaodulich', 'otoxemayxedap', 'thoitrangnu',
-        'mevabe', 'nhacuavadoisong', 'sacdep', 'suckhoe', 'tuivinu', 'giaydepnu',
-        'phukientrangsucnu', 'bachhoaonline', 'nhasachonline'];
     const items = [
         { className: 'voucherextra', label: t('discountvoucher') },
         { className: 'freeshipextra', label: t('freeship') },
@@ -47,6 +45,8 @@ const Home = () => {
         { src: '/asset/images/carousel3.jpg' },
     ];
     const fetchData = async (pageNum) => {
+        const response = await axios.get(`${DOMAIN}/api/products/get-all-categories`);
+        setCategories(response.data);
         try {
             if (pageNum === 1) {
                 const response1 = await axios.get(`${DOMAIN}/api/products/get-top-views-products`);
@@ -132,11 +132,36 @@ const Home = () => {
                 <div><strong>{t('categories')}</strong></div>
                 <div className={styles.gridcategory}>
                     {categories?.map((category) => (
-                        <div key={category} className={styles.gridcategoryitem}>
-                            <NavLink to={`/category/${category}`}>
+                        <div key={category.category_id} className={styles.gridcategoryitem}>
+                            <NavLink
+                                to={`/category/${category.name}`}
+                                onClick={async () => {
+                                    try {
+                                        let data = {};
+                                        if (token == null) {
+                                            data = {
+                                                user_id: 0,
+                                                category_id: category.category_id,
+                                                name: category.name
+                                            };
+                                        } else {
+                                            const { user_id } = jwtDecode(token);
+                                            data = {
+                                                user_id: user_id,
+                                                category_id: category.category_id,
+                                                name: category.name
+                                            };
+                                        }
+                                        console.log('data', data)
+                                        await axios.post(`${DOMAIN}/api/view-category/add-view-by-categoryid`, data);
+                                    } catch (error) {
+                                        console.log('error', error)
+                                    }
+                                }}
+                            >
                                 <img
                                     className="w-100 h-100"
-                                    src={`${process.env.PUBLIC_URL}/asset/images/${category}.webp`}
+                                    src={`${process.env.PUBLIC_URL}/asset/images/${category.name}.webp`}
                                     alt={category}
                                 />
                             </NavLink>
@@ -179,7 +204,31 @@ const Home = () => {
                     >
                         {arrTopViewsProduct?.map((product, index) => (
                             <SwiperSlide key={index}>
-                                <NavLink to={`/productdetail/${product.product_id}`}>
+                                <NavLink
+                                    to={`/productdetail/${product.product_id}`}
+                                    onClick={async () => {
+                                        try {
+                                            let data = {};
+                                            if (token == null) {
+                                                data = {
+                                                    user_id: 0,
+                                                    product_id: product.product_id,
+                                                    name:product.name
+                                                };
+                                            } else {
+                                                const { user_id } = jwtDecode(token);
+                                                data = {
+                                                    user_id: user_id,
+                                                    product_id: product.product_id,
+                                                    name:product.name
+                                                };
+                                            }
+                                            await axios.post(`${DOMAIN}/api/view-product/add-view-by-productid`, data);
+                                        } catch (error) {
+                                            console.log('error', error)
+                                        }
+                                    }}
+                                >
                                     <img className={styles.productimage} src={`${process.env.PUBLIC_URL} ${product.image}`} />
                                 </NavLink>
                                 <p className={styles.productname} >{product.name}</p>
@@ -207,8 +256,34 @@ const Home = () => {
                     <div className='row' style={{ boxSizing: 'border-box' }} >
                         {arrNewToOldProduct?.map((product, index) => {
                             return <div className='col-lg-3 col-md-4 col-sm-6' key={index}>
-                                <NavLink to={`/productdetail/${product.product_id}`} className={`${styles.carditem} card m-1`}>
-                                    <div className='card-header' style={{ height: '21vw', backgroundColor: '#ffffff' }}>
+                                <NavLink
+                                    to={`/productdetail/${product.product_id}`}
+                                    className={`${styles.carditem} card m-1`}>
+                                    <div className='card-header'
+                                        style={{ height: '21vw', backgroundColor: '#ffffff' }}
+                                        onClick={async () => {
+                                            try {
+                                                let data = {};
+                                                if (token == null) {
+                                                    data = {
+                                                        user_id: 0,
+                                                        product_id: product.product_id,
+                                                        name: product.name
+                                                    };
+                                                } else {
+                                                    const { user_id } = jwtDecode(token);
+                                                    data = {
+                                                        user_id: user_id,
+                                                        product_id: product.product_id,
+                                                        name: product.name
+                                                    };
+                                                }
+                                                await axios.post(`${DOMAIN}/api/view-product/add-view-by-productid`, data);
+                                            } catch (error) {
+                                                console.log('error', error)
+                                            }
+                                        }}
+                                    >
                                         <LazyLoadImage
                                             className='w-100 h-75'
                                             alt='Product image'

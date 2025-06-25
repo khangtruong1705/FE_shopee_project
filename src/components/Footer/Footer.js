@@ -5,7 +5,7 @@ const Footer = () => {
     const { t } = useTranslation();
     const CustomNavLink = ({ to, children }) => (
         <NavLink to={to} style={{ textDecoration: 'none', color: 'black' }}>
-            <p>{children}</p>
+            <div className='mt-2 mb-3'>{children}</div>
         </NavLink>
     );
     return <div className='container'>
