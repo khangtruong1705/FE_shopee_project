@@ -2,13 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { embedDashboard } from '@superset-ui/embedded-sdk';
 import { useLocation } from 'react-router-dom';
-import { DOMAIN } from '../../util/config';
 
 
 const Chart = () => {
     const containerRef = useRef(null);
-    const dashboardId = process.env.REACT_APP_API_URL;
-    const supersetDomain = DOMAIN;
+    const dashboardId = process.env.REACT_APP_SUPERSET_DASHBOARDID;
+    const supersetDomain = process.env.REACT_APP_SUPERSET_DOMAIN;
     const location = useLocation();
     const state = location.state;
     const getGuestToken = async () => {
@@ -49,7 +48,7 @@ const Chart = () => {
     }, []);
     return (
         <div>
-            <h1 className='text-center'>Statistical Chart Dashboard</h1>
+            <h1 className='text-center'>Superset Dashboard</h1>
             <div ref={containerRef} />
         </div>
     );
