@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 const Home = () => {
     const navigate = useNavigate()
     const [bgColor, setBgColor] = useState('#ee4e2e');
+    const [loading, setLoading] = useState(true);
     const [timeLeft, setTimeLeft] = useState(9 * 3600 + 18 * 60 + 28);
     const token = localStorage.getItem('token');
     const [categories, setCategories] = useState([]);
@@ -45,9 +46,10 @@ const Home = () => {
         { src: '/asset/images/carousel3.jpg' },
     ];
     const fetchData = async (pageNum) => {
-        const response = await axios.get(`${DOMAIN}/api/products/get-all-categories`);
-        setCategories(response.data);
         try {
+            setLoading(true);
+            const response = await axios.get(`${DOMAIN}/api/products/get-all-categories`);
+            setCategories(response.data);
             if (pageNum === 1) {
                 const response1 = await axios.get(`${DOMAIN}/api/products/get-top-views-products`);
                 setArrTopViewsProduct(response1.data);
@@ -64,12 +66,13 @@ const Home = () => {
             console.error('Error fetching products:', error);
             setArrTopViewsProduct([])
             setHasMore(false);
+        } finally {
+            setLoading(false);
         }
     };
     useEffect(() => {
         fetchData(page)
     }, [page])
-
     useEffect(() => {
         const timer = setInterval(() => {
             setTimeLeft((prev) => {
@@ -90,7 +93,14 @@ const Home = () => {
         return `${h} : ${m} : ${s}`;
     };
     return <>
-        <div className={`${styles.container} container `}>
+        {loading ? (
+            <div className={styles.loadingOverlay}>
+                <div className="spinner-border text-danger" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>):(
+                <>
+                <div className={`${styles.container} container `}>
             <div className="voucher">
                 <div className={styles.dgrid}>
                     <div id="carouselExampleInterval" className={`${styles.item1} carousel slide  w-75`} data-bs-ride="carousel">
@@ -213,14 +223,14 @@ const Home = () => {
                                                 data = {
                                                     user_id: 0,
                                                     product_id: product.product_id,
-                                                    name:product.name
+                                                    name: product.name
                                                 };
                                             } else {
                                                 const { user_id } = jwtDecode(token);
                                                 data = {
                                                     user_id: user_id,
                                                     product_id: product.product_id,
-                                                    name:product.name
+                                                    name: product.name
                                                 };
                                             }
                                             await axios.post(`${DOMAIN}/api/view-product/add-view-by-productid`, data);
@@ -311,8 +321,9 @@ const Home = () => {
                 </InfiniteScroll>
             </div>
         </div >
-        <hr></hr>
-    </>
+        <hr></hr></>
+        )}
+    </> 
 };
 
 
