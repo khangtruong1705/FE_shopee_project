@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Drawer, Input, Button, List } from 'antd';
-import { MessageOutlined } from '@ant-design/icons';
+import {AndroidOutlined } from '@ant-design/icons';
 import styles from './ChatWidge.module.css';
 
 
@@ -74,17 +74,17 @@ const ChatWidget = () => {
       <Button
         type="primary"
         className={styles.chatwidgetant}
-        icon={<MessageOutlined />}
+        icon={<AndroidOutlined />}
         onClick={toggleDrawer}
         style={{
-          backgroundColor: '#fa8c16',
+          backgroundColor: '#ee6d77',
           position: 'fixed',
           bottom: 20,
-          right: 20,
+          left: 20,
           zIndex: visible ? 0 : 1000,
         }}
       >
-        Chat
+        Chat Bot
       </Button>
       <Drawer
         title="💬 Hỗ trợ trực tuyến"

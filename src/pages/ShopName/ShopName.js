@@ -99,6 +99,7 @@ const ShopName = () => {
     ];
     return <>
         <div className="container">
+                    <div className='py-1'></div>
             <div className="card shop-name p-3" style={{ borderRadius: '0' }}>
                 <div className="store-container d-flex justify-content-around">
                     <div className="store-left">

@@ -111,9 +111,44 @@ const ProductDetail = () => {
                 </div>
                 <div className={styles.itempolicy}>
                     <div className=''>
+                        <div className='d-flex' style={{ fontSize: '0.65vw' }}>
+                            <div style={{
+                                padding: '2px',
+                                color: '#d93843',
+                                backgroundColor: '#fff0f1',
+                                borderRadius: '10px'
+                            }}
+                                className='me-2'
+                            >
+                                <i className="fa-solid fa-thumbs-up me-1" />
+                                <strong>TOP DEAL</strong>
+                            </div>
+                            <div style={{
+                                padding: '2px',
+                                color: '#0a68ff',
+                                backgroundColor: '#ffe880',
+                                borderRadius: '10px'
+                            }}
+                                className='me-2'
+                            >
+                                <i className="fa-solid fa-box me-1" />
+                                <strong>30 NGÀY ĐỔI TRẢ</strong>
+                            </div>
+                            <div style={{
+                                padding: '2px',
+                                color: '#0157e0',
+                                backgroundColor: '#f2f7ff',
+                                borderRadius: '10px'
+                            }}
+
+                            >
+                                <i className="fa-solid fa-circle-check me-1" />
+                                <strong>CHÍNH HÃNG</strong>
+                            </div>
+                        </div>
                         <div>
                             <span className={styles.favourite}>{t('favorite')}</span>
-                            {product.description}
+                            <strong style={{ fontSize: '1.2vw' }}>{product.description}</strong>
                         </div>
                         <div className="p-1 d-flex left ">
                             <div className="border-end pe-3">{product.rating}
@@ -126,9 +161,9 @@ const ProductDetail = () => {
                         </div>
                     </div>
                     <div className={styles.price}
-                     style={{ fontSize: '1.4vw' }}
+                        style={{ fontSize: '1.4vw' }}
                     >
-                        {product.price} VNĐ
+                        <strong>{product.price?.toLocaleString('vi-VN')}₫</strong>
                         <span
                             className={styles.discount}
                             style={{ fontSize: '0.9vw' }}
@@ -136,7 +171,7 @@ const ProductDetail = () => {
                     </div>
                     <div className='d-flex align-items-center' style={{ fontSize: '1vw' }}>
                         <div >{t('shopvouchers')} : </div>
-                        {[25, 15, 30, 35].map((amount, index) => (
+                        {[ 15,25, 30, 35].map((amount, index) => (
                             <div key={index}
                                 style={{ fontSize: '0.9vw' }}
                                 className={styles.discount}>
@@ -146,24 +181,40 @@ const ProductDetail = () => {
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
                         <div>{t('returnpolicy')} :</div>
-                        <div>{t('15dayreturns')}</div>
-                        <div>{t('freeexchanges')}</div>
+                        <strong style={{ color: '#de4384' }}>
+                            {t('15dayreturns')}
+                            <i className="fa-solid fa-rotate ms-1" />
+                        </strong>
+                        <strong style={{ color: '#4babff' }}>
+
+                            {t('freeexchanges')}
+                            <i className="fa-solid fa-arrow-right-arrow-left ms-1" />
+                        </strong>
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
                         <div>{t('hotdeal')}</div>
-                        <div className={styles.discount}
-                            style={{ fontSize: '0.9vw' }}>
+                        <strong
+                            style={{ fontSize: '0.9vw',color:'#6556fd' }}>
+                            <i className="fa-solid fa-bolt me-1" />
                             {t('attackhotdeal')}
-                        </div>
+                        </strong>
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
                         <div>{t('insurance')} :</div>
-                        <div>{t('consumerprotection')}</div>
+                        <strong style={{color:'#fe0d1b'}}>
+                            <i className="fa-solid fa-truck-medical me-1" />
+                            {t('consumerprotection')}
+                        </strong>
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
                         <div>{t('shipping')} : </div>
-                        <div>{t('freeship')}</div>
-                        <div>{t('shipsto')} </div>
+                        <div style={{ color: '#01ab57' }}>
+                            <i className="fa-solid fa-truck me-1" />
+                            <strong>{t('freeship')}</strong>
+                        </div>
+                        <div style={{
+                            color: '#ff424e'
+                        }}><strong>NOW</strong></div>
                     </div>
                     <div>
                         <Button
@@ -297,7 +348,6 @@ const ProductDetail = () => {
                                     <div>khang123</div>
                                 </div>
                                 <div>{comment.created_at}</div>
-
                                 <div>
                                     {comment.comment_content}
                                 </div>
@@ -323,6 +373,7 @@ const ProductDetail = () => {
                 </div>
             </div>
         </div>
+        <div className='py-5' style={{ background: '#f5f5f5' }}></div>
     </>
 
 };

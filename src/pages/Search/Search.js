@@ -79,50 +79,80 @@ const Search = () => {
                     <div className='row'>
                         {arrMain?.map((product, index) => {
                             return <div className='col-lg-3 col-md-4 col-sm-6' key={index}>
-                                <NavLink to={`/productdetail/${product.product_id}`}
-                                    className={`${styles.carditem} card m-1`}
-                                    onClick={async () => {
-                                        try {
-                                            let data = {};
-                                            if (token == null) {
-                                                data = {
-                                                    user_id: 0,
-                                                    product_id: product.product_id,
-                                                    name: product.name
-                                                };
-                                            } else {
-                                                const { user_id } = jwtDecode(token);
-                                                data = {
-                                                    user_id: user_id,
-                                                    product_id: product.product_id,
-                                                    name: product.name
-                                                };
+                                <NavLink
+                                    to={`/productdetail/${product.product_id}`}
+                                    className={`${styles.carditem} card m-1`}>
+                                    <div className='card-header d-flex' style={{ fontSize: '0.65vw' }}>
+                                        <div style={{
+                                            padding: '2px',
+                                            color: '#d93843',
+                                            backgroundColor: '#fff0f1',
+                                            borderRadius: '10px'
+                                        }}
+                                            className='me-2'
+                                        >
+                                            <i className="fa-solid fa-thumbs-up me-1" />
+                                            <strong>TOP DEAL</strong>
+                                        </div>
+                                        <div style={{
+                                            padding: '2px',
+                                            color: '#0157e0',
+                                            backgroundColor: '#f2f7ff',
+                                            borderRadius: '10px'
+                                        }}
+                                        >
+                                            <i className="fa-solid fa-circle-check me-1" />
+                                            <strong>CHÍNH HÃNG</strong>
+                                        </div>
+                                    </div>
+                                    <div className='card-body'
+                                        style={{ height: '21vw', backgroundColor: '#ffffff' }}
+                                        onClick={async () => {
+                                            try {
+                                                let data = {};
+                                                if (token == null) {
+                                                    data = {
+                                                        user_id: 0,
+                                                        product_id: product.product_id,
+                                                        name: product.name
+                                                    };
+                                                } else {
+                                                    const { user_id } = jwtDecode(token);
+                                                    data = {
+                                                        user_id: user_id,
+                                                        product_id: product.product_id,
+                                                        name: product.name
+                                                    };
+                                                }
+                                                await axios.post(`${DOMAIN}/api/view-product/add-view-by-productid`, data);
+                                            } catch (error) {
+                                                console.log('error', error)
                                             }
-                                            await axios.post(`${DOMAIN}/api/view-product/add-view-by-productid`, data);
-                                        } catch (error) {
-                                            console.log('error', error)
-                                        }
-                                    }}
-                                >
-                                    <div className='card-header' style={{ height: '21vw', backgroundColor: '#ffffff' }}>
+                                        }}
+                                    >
                                         <img
                                             className='w-100 h-75'
-                                            alt='...'
+                                            alt='Product image'
                                             src={`${process.env.PUBLIC_URL}${product.image}`}
                                             style={{ border: '1px solid #f85902', borderRadius: '20px' }}
                                         />
                                     </div>
-                                    <div className='card-body' style={{ fontSize: '1vw' }}>
-                                        <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.description}</div>
+                                    <div className='card-footer' style={{ fontSize: '1vw' }}>
+                                        <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><strong>{product.description}</strong></div>
                                         <div className='d-flex justify-content-between' >
-                                            <div>{t('sold')}:{product.sold}</div>
-                                            <div className='text-center' style={{ color: '#f85902' }} >{product.price.toLocaleString('vi-VN')}VNĐ</div>
+                                            <strong style={{ color: '#0a68ff' }}>{t('sold')}<i className="fa-solid fa-shuffle ms-1" /> :{product.sold}</strong>
+                                            <strong className='text-center' style={{ color: '#f85902' }} >{product.price.toLocaleString('vi-VN')}VNĐ</strong>
                                         </div>
-                                        <div>
+                                        <strong>
                                             {Array.from({ length: 5 }).map((_, index) => (
                                                 <i key={index} className="fa-solid fa-star" style={{ color: '#f7d22c' }} />
                                             ))}
                                             {product.rating}
+                                        </strong>
+                                        <hr></hr>
+                                        <div className='d-flex align-items-center'>
+                                            <img style={{ width: '2vw', height: '1vw' }} src='https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png'></img>
+                                            <div className='mx-2' style={{ color: '#adadb3', fontSize: '0.75vw' }}>Giao siêu tốc 2h</div>
                                         </div>
                                     </div>
                                 </NavLink>

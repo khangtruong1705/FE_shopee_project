@@ -1,9 +1,10 @@
-.chatwidgetant {
+
+/* .chatwidgetant {
   position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 9999;
-}
+} */
 
 .chatbutton {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
