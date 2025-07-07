@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-import Footer from "../../components/Footer/Footer";
 import axios from 'axios';
 import { DOMAIN } from "../../util/config";
 import styles from './ManageShop.module.css'
@@ -9,10 +8,13 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { jwtDecode } from 'jwt-decode';
 import { Button, Col, Drawer, Form, Input, Row, Select, Space, message, Upload, Flex, Popconfirm } from 'antd';
 import useOpenMessage from '../../customhook/useOpenMessage';
+import ChatWithUser from '../../components/ChatWithUser/ChatWithUser';
+
+
 
 
 const ManageShop = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [shopInfo, setShopInfo] = useState({});
     const [arrProducts, setArrProducts] = useState([]);
     const token = localStorage.getItem('token');
@@ -63,7 +65,7 @@ const ManageShop = () => {
                 'image': '',
                 'description_detail': values.description_detail
             }
-            const res = await axios.post(`${DOMAIN}/api/products/add-product`, data);
+            await axios.post(`${DOMAIN}/api/products/add-product`, data);
             fetchData()
             setOpen(false);
             const message = {
@@ -86,7 +88,7 @@ const ManageShop = () => {
         }
     };
     const uploadButton = (isLoading = false) => (
-        <button style={{ border: 0, background: 'none' }} type="button">
+        <button style={{ border: '1px dashed black', borderRadius: '50px', background: 'none' }} type="button">
             {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
             <div style={{ marginTop: 8 }}>Upload</div>
         </button>
@@ -158,10 +160,7 @@ const ManageShop = () => {
                     shop_name_id: shopData.shop_name_id
                 }
             });
-            console.log('setArrProducts', response)
             setArrProducts(response.data);
-            // const actionAsyns = await getAvatarUrlApi(user_id);
-            // dispatch(actionAsyns);
         } catch (error) {
 
             console.error('Error fetching products:', error);
@@ -259,21 +258,21 @@ const ManageShop = () => {
                             </Upload>
                         </Flex>
                         <div className='ms-5'>
-                            <div className="w-100" style={{ fontSize: '2.4vw',color:'#fb5530' }}>
+                            <div className="w-100" style={{ fontSize: '2.4vw', color: '#fb5530' }}>
                                 <strong>
                                     <i className="fa-solid fa-shop" />:
                                 </strong>
                                 {shopInfo.name}
                             </div>
-                            <div className="w-100" style={{ fontSize: '1.2vw', whiteSpace: 'nowrap',color:'#1677ff' }}>
+                            <div className="w-100" style={{ fontSize: '1.2vw', whiteSpace: 'nowrap', color: '#1677ff' }}>
                                 <strong>
                                     <i className="fa-solid fa-house-user" />:
                                 </strong>{shopInfo.email_owner}
 
                             </div>
-                            <div className="w-100" style={{ fontSize: '1.1vw',color:'#2cbb00'}}>
+                            <div className="w-100" style={{ fontSize: '1.1vw', color: '#2cbb00' }}>
                                 <strong>
-                                    <i class="fa-solid fa-phone-volume"></i>:
+                                    <i className="fa-solid fa-phone-volume"></i>:
                                 </strong>
                                 {shopInfo.phone_owner}
                             </div>
@@ -354,16 +353,32 @@ const ManageShop = () => {
                                 </div>
                                 <div className="card-body d-flex align-items-center justify-content-around" style={{ backgroundColor: '#ffffff' }}>
                                     <div>
-                                        <table border="0" cellpadding="8" style={{ fontSize: '1vw' }}>
-                                            <tr>
-                                                <td style={{maxWidth:'10vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} className="text-start" ><strong>Description:</strong>{product.description}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="text-start"><strong>Price:</strong>{product.price}VNĐ</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="text-start"><strong>Create_at:</strong>{product.created_at}</td>
-                                            </tr>
+                                        <table border="0" cellPadding="8" style={{ fontSize: '1vw' }}>
+                                            <tbody>
+                                                <tr>
+                                                    <td
+                                                        style={{
+                                                            maxWidth: '10vw',
+                                                            whiteSpace: 'nowrap',
+                                                            overflow: 'hidden',
+                                                            textOverflow: 'ellipsis'
+                                                        }}
+                                                        className="text-start"
+                                                    >
+                                                        <strong>Description:</strong> {product.description}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="text-start">
+                                                        <strong>Price:</strong> {product.price} VNĐ
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="text-start">
+                                                        <strong>Create_at:</strong> {product.created_at}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                     <div className=''>
@@ -581,8 +596,8 @@ const ManageShop = () => {
 
                 />
             </div>
-            <Footer></Footer>
         </div>
+        <ChatWithUser></ChatWithUser>
     </>
 };
 

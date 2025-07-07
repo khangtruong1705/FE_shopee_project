@@ -63,14 +63,12 @@ const Login = () => {
                 'token': credentialResponse.credential
 
             }
-            console.log('token',token.token)
             const response = await axios.post(`${DOMAIN}/api/users/auth/google`,token);
             localStorage.setItem('token', response.data);
             const data = {
                 'message': t('loginsuccessful'),
                 'type': 'success'
             }
-           
             openMessage(data)
             setTimeout(() => {
                 navigate('/')

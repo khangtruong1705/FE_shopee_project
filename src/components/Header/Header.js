@@ -3,13 +3,16 @@ import styles from './Header.module.css'
 import { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-
 import { DOMAIN } from '../../util/config';
-import { notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { Badge, Space, notification } from 'antd';
+import { BellOutlined } from '@ant-design/icons';
 
-const Header = () => {
+
+
+
+const Header = ({ count, setCount }) => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const searchKeyword = useRef();
@@ -20,6 +23,9 @@ const Header = () => {
     const avatarUrl = useSelector((state) => state.getAvatarUrl.avatarUrl);
     const [userInfo, setUserInfo] = useState({});
     const [language, setLanguage] = useState('English');
+
+
+
     const limitCharacters = (text, limit = 6) => {
         if (!text) return "";
         return text.length > limit ? text.slice(0, limit) + "..." : text;
@@ -29,12 +35,13 @@ const Header = () => {
     };
     const fetchData = async (token) => {
         try {
-            const { user_id } = jwtDecode(token);
-            const response = await axios.get(`${DOMAIN}/api/carts/get-amount-item-of-cart-by-user-id/${user_id}`);
-            setAmount(response.data)
 
-            const res = await axios.get(`${DOMAIN}/api/users/get-user-by-user-id/${user_id}`);
-            setUserInfo(res.data);
+            const { user_id } = jwtDecode(token);
+            const res1 = await axios.get(`${DOMAIN}/api/carts/get-amount-item-of-cart-by-user-id/${user_id}`);
+            setAmount(res1.data)
+
+            const res2 = await axios.get(`${DOMAIN}/api/users/get-user-by-user-id/${user_id}`);
+            setUserInfo(res2.data);
 
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -43,11 +50,15 @@ const Header = () => {
     };
     useEffect(() => {
         if (token == null) {
-            setAmount(0)
+            setAmount(0);
         } else {
-            fetchData(token)
+            if(token !==null){
+                fetchData(token);
+            }
         }
-    }, [amountCart, avatarUrl])
+       
+    }, [amountCart, avatarUrl]);
+
     const tags = [
         t('hairwax'), t('mensperfume'), t('corksandals'), t('zaramen'), t('health'),
         t('mensfashion'), t('womensfashion'), t('camera'), t('motorbike'), t('beauty')];
@@ -79,6 +90,7 @@ const Header = () => {
             console.log('error', error)
         }
     };
+
     const renderLogo = () => {
         if (location.pathname === '/cart') {
             return <>
@@ -204,129 +216,162 @@ const Header = () => {
             </div>
         </>
     }
-    return <>
-        <div className={`${styles.header} container-fluid p-0`}>
-            <div className={`${styles.navigate} mx-auto`}>
-                <div className={`${styles.navigateLeftItem} left`}>
-                    <div
-                        onClick={async () => {
-                            if (token == null) {
-                                notification.warning({
-                                    message: 'Cảnh báo',
-                                    description: 'Bạn cần đăng nhập để vào trung tâm bán hàng!',
-                                });
-                                setTimeout(() => {
-                                    navigate(`/login`)
-                                }, 1200);
-                            } else {
-                                const { email } = jwtDecode(token);
-                                const data = {
-                                    'email': email
+    const renderManageShop = () => {
+        let email
+        if(token !== null){
+            email  = jwtDecode(token).email;
+        }
+        if (location.pathname === `/manageshop/${email}`) {
+            return <></>
+        } else {
+            return <div className={`${styles.header} container-fluid p-0`}>
+                <div className={`${styles.navigate} mx-auto`}>
+                    <div className={`${styles.navigateLeftItem} left`}>
+                        <div
+                            className={`${styles.dropdown} border-end p-1`}
+                            style={{ cursor: 'pointer', }}
+                            onClick={async () => {
+                                if (token == null) {
+                                    notification.warning({
+                                        message: 'Cảnh báo',
+                                        description: 'Bạn cần đăng nhập để vào trung tâm bán hàng!',
+                                    });
+                                    setTimeout(() => {
+                                        navigate(`/login`)
+                                    }, 1200);
+                                } else {
+                                    const { email } = jwtDecode(token);
+                                    const data = {
+                                        'email': email
+                                    }
+                                    const response = await axios.post(`${DOMAIN}/api/shop-name/check-existing-shop`, data);
+                                    if (response.data === true) {
+                                        navigate(`/manageshop/${email}`)
+                                        setCount(0)
+                                    } if (response.data === false)
+                                        navigate(`/becomeseller`)
                                 }
-                                console.log('data', data)
-                                const response = await axios.post(`${DOMAIN}/api/shop-name/check-existing-shop`, data);
-                                console.log('xxx', response.data)
-                                if (response.data === true) {
-                                    navigate(`/manageshop/${email}`)
-                                } if (response.data === false)
-                                    navigate(`/becomeseller`)
-                            }
-                        }}
-                        className="border-end p-1"
-                        style={{ cursor: 'pointer', }} >{t('sellercenter')}</div>
-                    <div className="border-end p-1">{t('startselling')}</div>
-                    <div className="border-end p-1" >
-                        <div className={styles.dropdown}>
-                            <span className={styles.dropdownbutton}>{t('download')}</span>
-                            <div className={styles.dropdowndownloadapp}>
-                                <div >
-                                    <img className='w-100' src={process.env.PUBLIC_URL + '/asset/images/qrcode.png'}></img>
-                                    <div className='d-flex'>
-                                        <img className='w-50' src={process.env.PUBLIC_URL + '/asset/images/applewatchlogo.png'}></img>
-                                        <img className='w-50' src={process.env.PUBLIC_URL + '/asset/images/googleplaylogo.png'}></img>
+                            }}
+                        >
+                            <div className={styles.dropdownbutton}>
+                                <Space direction="vertical" className='me-2'>
+                                    <Space size="small">
+                                        <Badge
+                                            style={{
+                                                backgroundColor: 'white',
+                                                color: '#f84b2e'
+                                            }}
+                                            count={count}
+                                            size="small"
+                                            offset={[-2, 2]}
+                                        >
+                                            <BellOutlined style={{ fontSize: '1.2vw', color: 'white' }} />
+                                        </Badge>
+                                    </Space>
+                                </Space>
+                                {t('sellercenter')}
+                            </div>
+                            <div className={styles.dropdownnotification}>
+                                Bạn có Tin Nhắn Mới
+                            </div>
+                        </div>
+                        <div className="border-end p-1">{t('startselling')}</div>
+                        <div className="border-end p-1" >
+                            <div className={styles.dropdown}>
+                                <span className={styles.dropdownbutton}>{t('download')}</span>
+                                <div className={styles.dropdowndownloadapp}>
+                                    <div >
+                                        <img className='w-100' src={process.env.PUBLIC_URL + '/asset/images/qrcode.png'}></img>
+                                        <div className='d-flex'>
+                                            <img className='w-50' src={process.env.PUBLIC_URL + '/asset/images/applewatchlogo.png'}></img>
+                                            <img className='w-50' src={process.env.PUBLIC_URL + '/asset/images/googleplaylogo.png'}></img>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div className="p-1">
+                            <span className="pe-1">{t('followuson')}</span>
+                            <a href='https://www.facebook.com/ShopeeVN'><i className="pe-1 fa-brands fa-facebook text-light" /></a>
+                            <a href='https://www.instagram.com/Shopee_VN/'><i className="fa-brands fa-instagram text-light" /></a>
+                        </div>
                     </div>
-                    <div className="p-1">
-                        <span className="pe-1">{t('followuson')}</span>
-                        <a href='https://www.facebook.com/ShopeeVN'><i className="pe-1 fa-brands fa-facebook text-light" /></a>
-                        <a href='https://www.instagram.com/Shopee_VN/'><i className="fa-brands fa-instagram text-light" /></a>
-                    </div>
-                </div>
-                <div className={`${styles.navigateRightItem} right`}>
-                    <div className={`${styles.notificationwrapper} p-1`}>
+                    <div className={`${styles.navigateRightItem} right`}>
+                        <div className={`${styles.notificationwrapper} p-1`}>
 
-                        <div className={styles.dropdown}>
-                            <span className={`${styles.dropdownbutton}`}>
-                                <span><i className="pe-1 fa-regular fa-bell" /></span>
-                                {t('notifications')}
-                            </span>
-                            <div className={styles.dropdowncontent2}>
-                                <div className=''>
-                                    <p>🎉 Voucher đầy ví chần chừ gì nữa!</p>
-                                    <p>
-                                        ⚡Voucher điện tử giảm đến 2 triệu 💖Voucher thời trang giảm 100k
-                                    </p>
-                                </div>
-                                <hr></hr>
-                                <div className=''>
-                                    <p>21H LÊN SÓNG LIVE SĂN DEAL 50%</p>
-                                    <p>💗 Deal giảm sốc, quà tặng hấp dẫn cho Bạn</p>
-                                </div>
-                                <hr></hr>
-                                <div className='' >
-                                    <p>🎁 ƯU ĐÃI SHOPEEPAY</p>
-                                    <p>Nhận ngay 45k khi kích hoạt ShopeePay trước 20/05/2025</p>
-                                </div>
-                                <hr></hr>
-                                <div>
-                                    <button
-                                        className='p-2 h-100 w-100'
-                                        style={{ border: 'none' }}
-                                        onClick={() => {
-                                            navigate(`/notification`)
-                                        }}
-                                    >{t('viewall')}</button>
+                            <div className={styles.dropdown}>
+                                <span className={`${styles.dropdownbutton}`}>
+                                    <span><i className="pe-1 fa-regular fa-bell" /></span>
+                                    {t('notifications')}
+                                </span>
+                                <div className={styles.dropdowncontent2}>
+                                    <div className=''>
+                                        <p>🎉 Voucher đầy ví chần chừ gì nữa!</p>
+                                        <p>
+                                            ⚡Voucher điện tử giảm đến 2 triệu 💖Voucher thời trang giảm 100k
+                                        </p>
+                                    </div>
+                                    <hr></hr>
+                                    <div className=''>
+                                        <p>21H LÊN SÓNG LIVE SĂN DEAL 50%</p>
+                                        <p>💗 Deal giảm sốc, quà tặng hấp dẫn cho Bạn</p>
+                                    </div>
+                                    <hr></hr>
+                                    <div className='' >
+                                        <p>🎁 ƯU ĐÃI SHOPEEPAY</p>
+                                        <p>Nhận ngay 45k khi kích hoạt ShopeePay trước 20/05/2025</p>
+                                    </div>
+                                    <hr></hr>
+                                    <div>
+                                        <button
+                                            className='p-2 h-100 w-100'
+                                            style={{ border: 'none' }}
+                                            onClick={() => {
+                                                navigate(`/notification`)
+                                            }}
+                                        >{t('viewall')}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="border-start p-1">
-                        <span><i className="pe-1 fa-solid fa-question" /></span>
-                        <NavLink to='/shopeehelp' style={{ textDecoration: 'none', color: 'white' }}>{t('help')}</NavLink>
-                    </div>
-                    <div className="border-start p-1">
-                        <span><i className="pe-1 fa-solid fa-earth-americas" /></span>
-                        <div className={styles.dropdown}>
-                            <span className={styles.dropdownbutton}>{language}</span>
-                            <div className={styles.dropdowncontent}>
-                                <div >
-                                    <span style={{ cursor: 'pointer' }} onClick={() => {
-                                        setLanguage('English')
-                                        changeLanguage('en')
-                                    }}>English</span>
+                        <div className="border-start p-1">
+                            <span><i className="pe-1 fa-solid fa-question" /></span>
+                            <NavLink to='/shopeehelp' style={{ textDecoration: 'none', color: 'white' }}>{t('help')}</NavLink>
+                        </div>
+                        <div className="border-start p-1">
+                            <span><i className="pe-1 fa-solid fa-earth-americas" /></span>
+                            <div className={styles.dropdown}>
+                                <span className={styles.dropdownbutton}>{language}</span>
+                                <div className={styles.dropdowncontent}>
+                                    <div >
+                                        <span style={{ cursor: 'pointer' }} onClick={() => {
+                                            setLanguage('English')
+                                            changeLanguage('en')
+                                        }}>English</span>
 
-                                </div>
-                                <div >
-                                    <span style={{ cursor: 'pointer' }} onClick={() => {
-                                        setLanguage('Tiếng Việt')
-                                        changeLanguage('vi')
-                                    }}>Tiếng Việt</span>
+                                    </div>
+                                    <div >
+                                        <span style={{ cursor: 'pointer' }} onClick={() => {
+                                            setLanguage('Tiếng Việt')
+                                            changeLanguage('vi')
+                                        }}>Tiếng Việt</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className='mx-2 d-flex align-items-center'>
-                        {renderLogin()}
+                        <div className='mx-2 d-flex align-items-center'>
+                            {renderLogin()}
+                        </div>
                     </div>
                 </div>
+                <div className='w-100 mx-auto'>
+                    {renderLogo()}
+                </div>
             </div>
-            <div className='w-100 mx-auto'>
-                {renderLogo()}
-            </div>
-        </div>
+        }
+    }
+    return <>
+        {renderManageShop()}
     </>
 };
 

@@ -45,9 +45,7 @@ const ProductDetail = () => {
                     'product_id': productid,
                     'comment_content': values.comment
                 }
-                console.log('dataComment', dataComment)
                 let res = await axios.post(`${DOMAIN}/api/comments/add-comment-by-productid`, dataComment);
-                console.log('sdsdsd', res.data)
                 setComments((prevComments) => [...prevComments, res.data]);
                 resetForm();
             } catch (error) {
@@ -57,7 +55,6 @@ const ProductDetail = () => {
                     description: t('needlogin'),
                 });
                 alert(t('needlogin'))
-                // navigate('/login')
             }
         }
     });
@@ -86,7 +83,6 @@ const ProductDetail = () => {
         try {
             const response = await axios.get(`${DOMAIN}/api/products/get-product-by-productid/${productid}`);
             setProduct(response.data);
-            console.log('product', response.data)
             const responseComments = await axios.get(`${DOMAIN}/api/comments/get-comments-by-productid/${productid}`);
             setComments(responseComments.data);
             const responseShopName = await axios.get(`${DOMAIN}/api/shop-name/get-shop-name-by-productid/${productid}`);

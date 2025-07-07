@@ -1,8 +1,9 @@
 import styles from './ShopName.module.css'
 import { useParams, useNavigate, NavLink } from 'react-router-dom';
+import { useDispatch } from "react-redux";
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom';
 import { DOMAIN } from '../../util/config'
 import { Button } from 'antd';
@@ -10,8 +11,14 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import ChatWithShop from '../../components/ChatWithShop/ChatWithShop';
+// import { getUserToShopMessageAction } from '../../redux/reducers/getUserToShopMessage'
+
+
 
 const ShopName = () => {
+    const dispatch = useDispatch();
+    const chatRef = useRef();
     const location = useLocation();
     const fromProductId = location.state?.fromProductId;
     const [isFollowing, setIsFollowing] = useState(false);
@@ -99,7 +106,7 @@ const ShopName = () => {
     ];
     return <>
         <div className="container">
-                    <div className='py-1'></div>
+            <div className='py-1'></div>
             <div className="card shop-name p-3" style={{ borderRadius: '0' }}>
                 <div className="store-container d-flex justify-content-around">
                     <div className="store-left">
@@ -130,7 +137,19 @@ const ShopName = () => {
                                 <i className="fa-solid fa-plus" />
                                 {renderFollowShop()}
                             </Button>
-                            <Button type="primary" ghost shape="round" className="p-1" >
+                            <Button
+                                type="primary"
+                                ghost
+                                shape="round"
+                                className="p-1"
+                                onClick={() => {
+                                    if (chatRef.current) {
+                                        chatRef.current.openChat();
+                                        chatRef.current.resetCount();
+                                    }
+
+                                }}
+                            >
                                 <i className="fa-solid fa-comment" />
                                 Chat
                             </Button>
@@ -214,6 +233,7 @@ const ShopName = () => {
                     })}
                 </div>
             </div>
+            <ChatWithShop ref={chatRef} shop_id={shopnameid} user_id={jwtDecode(token)?.user_id}/>
         </div>
     </>
 }

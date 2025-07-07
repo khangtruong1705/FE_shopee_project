@@ -4,8 +4,9 @@ import axios from 'axios';
 import { NavLink, useParams } from 'react-router-dom';
 import _ from "lodash";
 import { DOMAIN } from '../../util/config';
-import { Segmented } from 'antd';
 import { useTranslation } from 'react-i18next';
+
+
 
 const FlashSale = () => {
     const [timeLeft, setTimeLeft] = useState(7200);

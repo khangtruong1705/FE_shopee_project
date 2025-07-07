@@ -41,9 +41,11 @@ const Home = () => {
         { className: 'shopeeservice', label: t('topupservicesmovietickets') }
     ];
     const carouselItems = [
-        { src: '/asset/images/carousel1.jpg', interval: 10000, active: true },
+        { src: '/asset/images/carousel1.jpg', interval: 5000, active: true },
         { src: '/asset/images/carousel2.jpg', interval: 2000 },
         { src: '/asset/images/carousel3.jpg' },
+        { src: '/asset/images/carousel4.jpg' },
+        { src: '/asset/images/carousel5.jpg' },
     ];
     const fetchData = async (pageNum) => {
         try {
