@@ -5,7 +5,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import _ from "lodash";
 import { DOMAIN } from '../../util/config';
 import { useTranslation } from 'react-i18next';
-
+import ProductCard from '../../components/ProductCard/ProductCard';
 
 
 const FlashSale = () => {
@@ -102,33 +102,13 @@ const FlashSale = () => {
                 }}><strong>SHOPEE ĐƯỢC QUAN TÂM</strong></NavLink>
             </div>
             <div className='row'>
-                {arrMain?.map((product, index) => {
-                    return <div className='col-lg-3 col-md-4 col-sm-6' key={index}>
-                        <NavLink to={`/productdetail/${product.product_id}`} className={`${styles.carditem} card m-1`}>
-                            <div className='card-header' style={{ height: '21vw', backgroundColor: '#ffffff' }}>
-                                <img
-                                    className='w-100 h-75'
-                                    alt='Product image'
-                                    src={`${process.env.PUBLIC_URL}${product.image}`}
-                                    style={{ border: '1px solid #f85902', borderRadius: '20px' }}
-                                />
-                            </div>
-                            <div className='card-body' style={{ fontSize: '1vw' }}>
-                                <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.description}</div>
-                                <div className='d-flex justify-content-between' >
-                                    <div>{t('sold')}:{product.sold}</div>
-                                    <div className='text-center' style={{ color: '#f85902' }} >{product.price.toLocaleString('vi-VN')}VNĐ</div>
-                                </div>
-                                <div>
-                                    {Array.from({ length: 5 }).map((_, index) => (
-                                        <i key={index} className="fa-solid fa-star" style={{ color: '#f7d22c' }} />
-                                    ))}
-                                    {product.rating}
-                                </div>
-                            </div>
-                        </NavLink>
-                    </div>
-                })}
+                {arrMain?.map((product, index) => (
+                            <ProductCard
+                                key={index}
+                                product={product}
+                                t={t}
+                            />
+                        ))}
             </div>
         </div>
 

@@ -52,11 +52,11 @@ const Header = ({ count, setCount }) => {
         if (token == null) {
             setAmount(0);
         } else {
-            if(token !==null){
+            if (token !== null) {
                 fetchData(token);
             }
         }
-       
+
     }, [amountCart, avatarUrl]);
 
     const tags = [
@@ -218,8 +218,8 @@ const Header = ({ count, setCount }) => {
     }
     const renderManageShop = () => {
         let email
-        if(token !== null){
-            email  = jwtDecode(token).email;
+        if (token !== null) {
+            email = jwtDecode(token).email;
         }
         if (location.pathname === `/manageshop/${email}`) {
             return <></>
@@ -271,9 +271,11 @@ const Header = ({ count, setCount }) => {
                                 </Space>
                                 {t('sellercenter')}
                             </div>
-                            <div className={styles.dropdownnotification}>
-                                Bạn có Tin Nhắn Mới
-                            </div>
+                            {count > 0 && (
+                                <div className={styles.dropdownnotification}>
+                                    Bạn có Tin Nhắn Mới
+                                </div>
+                            )}
                         </div>
                         <div className="border-end p-1">{t('startselling')}</div>
                         <div className="border-end p-1" >

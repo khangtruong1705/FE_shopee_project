@@ -34,11 +34,17 @@ const HeaderAndFooter = () => {
             setToken(null)
         }
     };
-
     useEffect(() => {
         if (token == null) return;
         fetchData();
-        const socket = io(DOMAIN);
+        const socket = io(DOMAIN, {
+            transports: ["websocket", "polling"],
+            withCredentials: true, 
+            reconnection: true,                 
+            reconnectionAttempts: 5,           
+            reconnectionDelay: 2000,          
+            timeout: 10000                   
+        });
         socketRef.current = socket;
         socket.on('connect', () => {
             console.log('✅ Đã kết nối tới server với ID:', socket.id);
@@ -77,8 +83,8 @@ const HeaderAndFooter = () => {
                     chatUserId: chatUserId,
                     chatShopId: chatShopId,
                     socket: socketRef.current,
-                    count:count,
-                    setCount:setCount
+                    count: count,
+                    setCount: setCount
                 }} />
             </div>
 
