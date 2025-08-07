@@ -1,19 +1,22 @@
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import styles from './Header.module.css'
+import styles from './Header.module.scss'
 import { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { DOMAIN } from '../../util/config';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Badge, Space, notification } from 'antd';
-import { BellOutlined } from '@ant-design/icons';
-
+import { notification, Popover } from 'antd';
+import { categoriesData, tagsData, getLoginContent, downloadAppContent, getNotificationsContent, getContentLanguage, getInputContent,getCartContent  } from './headerRawData'
 
 
 
 const Header = ({ count, setCount }) => {
+    const [categoryProducts, setCategoryProducts] = useState({});
+    const [cartArray, setCartArray] = useState([]);
     const { t, i18n } = useTranslation();
+    const tags = tagsData.map(item => t(item));
+    const categories = categoriesData.map(item => ({ name: item.name, label: t(item.label) }));
     const navigate = useNavigate();
     const searchKeyword = useRef();
     const location = useLocation();
@@ -23,9 +26,10 @@ const Header = ({ count, setCount }) => {
     const avatarUrl = useSelector((state) => state.getAvatarUrl.avatarUrl);
     const [userInfo, setUserInfo] = useState({});
     const [language, setLanguage] = useState('English');
-
-
-
+    const [isFocused, setIsFocused] = useState(false);
+    const handleFocus = () => setIsFocused(true);
+    const handleBlur = () => setIsFocused(false);
+    const inputRef = useRef(null);
     const limitCharacters = (text, limit = 6) => {
         if (!text) return "";
         return text.length > limit ? text.slice(0, limit) + "..." : text;
@@ -33,35 +37,6 @@ const Header = ({ count, setCount }) => {
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
     };
-    const fetchData = async (token) => {
-        try {
-
-            const { user_id } = jwtDecode(token);
-            const res1 = await axios.get(`${DOMAIN}/api/carts/get-amount-item-of-cart-by-user-id/${user_id}`);
-            setAmount(res1.data)
-
-            const res2 = await axios.get(`${DOMAIN}/api/users/get-user-by-user-id/${user_id}`);
-            setUserInfo(res2.data);
-
-        } catch (error) {
-            console.error('Error fetching products:', error);
-            setToken(null)
-        }
-    };
-    useEffect(() => {
-        if (token == null) {
-            setAmount(0);
-        } else {
-            if (token !== null) {
-                fetchData(token);
-            }
-        }
-
-    }, [amountCart, avatarUrl]);
-
-    const tags = [
-        t('hairwax'), t('mensperfume'), t('corksandals'), t('zaramen'), t('health'),
-        t('mensfashion'), t('womensfashion'), t('camera'), t('motorbike'), t('beauty')];
     const handleChange = (e) => {
         const { value } = e.target;
         searchKeyword.current = value;
@@ -70,6 +45,9 @@ const Header = ({ count, setCount }) => {
         e.preventDefault();
         const frm = document.getElementById('frm');
         frm.reset();
+        if (inputRef.current) {
+            inputRef.current.blur();
+        }
         try {
             let data = {};
             if (token == null) {
@@ -89,105 +67,76 @@ const Header = ({ count, setCount }) => {
         } catch (error) {
             console.log('error', error)
         }
+        handleBlur()
     };
+    const fetchData = async (token) => {
+        try {
+            const { user_id } = jwtDecode(token);
+            const res1 = await axios.get(`${DOMAIN}/api/carts/get-amount-item-of-cart-by-user-id/${user_id}`);
+            setAmount(res1.data)
 
-    const renderLogo = () => {
-        if (location.pathname === '/cart') {
-            return <>
-                <div className={`${styles.logocolor2}`}>
-                    <NavLink to='/'>
-                        <img className={styles.shopeeimage2} src={process.env.PUBLIC_URL + '/asset/images/shopeelogo.png'} />
-                    </NavLink>
-                    <div className={styles.carttext}>{t('shoppingcart')}</div>
-                </div>
-            </>
-        } else if (location.pathname === '/payments') {
-            return <>
-                <div className={`${styles.logocolor2}`}>
-                    <NavLink to='/'>
-                        <img className={styles.shopeeimage2} src={process.env.PUBLIC_URL + '/asset/images/shopeelogo.png'} />
-                    </NavLink>
-                    <div className={styles.carttext}>{t('payment')}</div>
-                </div>
-            </>
-        } else {
-            return <div className='w-75 mx-auto'>
-                <div className={`${styles.search} mx-auto `}  >
-                    <div className="text-align-center">
-                        <NavLink className='d-flex' to='/' style={{ textDecoration: 'none' }}  >
-                            <i className={`${styles.shopeeimageicon} fa-solid fa-basket-shopping me-2`} />
-                            <span className={styles.shopeeimagetext}>Shopee</span>
-                        </NavLink>
-                    </div>
-                    <div className='' style={{ width: '53vw' }}>
-                        <form id='frm' className={styles.inputform}>
-                            <input
-                                className="form-control w-100 "
-                                list="datalistOptions"
-                                id="exampleDataList"
-                                style={{ border: 'none' }}
-                                onChange={handleChange}
-                            />
-                            <datalist id="datalistOptions">
-                                <option value="Giày Nam">
-                                </option><option value="Nước Hoa">
-                                </option><option value="Áo Khoát">
-                                </option><option value="Đồng Hồ">
-                                </option><option value="Máy Ảnh">
-                                </option>
-                            </datalist>
-                            <div className='p-1'>
-                                <button className={styles.inputbutton} onClick={handleSubmit}>
-                                    <i className="fa-solid fa-magnifying-glass" style={{ color: 'white' }}></i>
-                                </button>
-                            </div>
-                        </form>
-                        <div className={styles.tagmarquee}>
-                            <div className={styles.tagtrack}>
-                                {tags.map((tag, index) => (
-                                    <div key={index} className="m-1">
-                                        {tag}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="cart">
-                        <div className={styles.cart} onClick={() => {
-                            if (token === null) {
-                                notification.config({
-                                    placement: 'topLeft',
-                                    top: 60,
-                                    duration: 1
-                                });
-                                notification.warning({
-                                    message: 'Cảnh báo',
-                                    description: 'Bạn cần đăng nhập để tiếp tục mua hàng!',
-                                });
-                                setTimeout(() => {
-                                    navigate(`/login`)
-                                }, 1600);
-                            } else {
-                                navigate(`/cart`)
-                            }
-                        }}>
-                            <i className={`fa-solid fa-cart-shopping my-auto ${styles.carticon}`} />
-                            <div className={`rounded-circle ${styles.cartamount}`}>{amount}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            const res2 = await axios.get(`${DOMAIN}/api/users/get-user-by-user-id/${user_id}`);
+            setUserInfo(res2.data);
+
+            const cartResponse = await axios.get(`${DOMAIN}/api/carts/get-cart-by-userid/${user_id}`);
+            setCartArray(cartResponse.data)
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            setToken(null)
         }
-    }
+    };
+    const fetchCategories = async () => {
+        try {
+            const results = await Promise.all(
+                categories.map(async (category) => {
+                    try {
+                        const { data } = await axios.get(
+                            `${DOMAIN}/api/products/get-products-by-category/${category.name}`
+                        );
+                        const random8 = data.sort(() => Math.random() - 0.5).slice(0, 8);
+                        return { name: category.name, products: random8 };
+                    } catch (err) {
+                        console.error(`Error fetching ${category.name}:`, err);
+                        return { name: category.name, products: [] };
+                    }
+                })
+            );
+            const merged = {};
+            for (const { name, products } of results) {
+                merged[name] = products;
+            }
+            setCategoryProducts(merged);
+        } catch (err) {
+            console.error("Error fetching categories:", err);
+        }
+    };
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+    useEffect(() => {
+        if (token == null) {
+            setAmount(0);
+        } else {
+            if (token !== null) {
+                fetchData(token);
+            }
+        }
+    }, [amountCart, avatarUrl]);
+    const loginContent = getLoginContent(t, navigate);
+    const cartContent = getCartContent(cartArray, navigate);
+    const notificationsContent = getNotificationsContent(t, navigate);
+    const contentLanguage = getContentLanguage(setLanguage, changeLanguage);
+    const inputContent = getInputContent();
     const renderLogin = () => {
         if (token == null) {
             return <>
-                <div className="border-start p-1">
-                    <NavLink to='/register' style={{ textDecoration: 'none' }}>{t('signup')}</NavLink>
+                <div className="border-end p-1">
+                    <NavLink to='/login' style={{ textDecoration: 'none', color: 'white' }}>{t('login')}</NavLink>
                 </div>
-                <div className="border-start p-1">
-                    <NavLink to='/login' style={{ textDecoration: 'none' }}>{t('login')}</NavLink>
+                <div className=" p-1">
+                    <NavLink to='/register' style={{ textDecoration: 'none', color: 'white' }}>{t('signup')}</NavLink>
                 </div>
+
             </>
         }
         return <>
@@ -195,25 +144,9 @@ const Header = ({ count, setCount }) => {
                 <img src={userInfo.avatar_url} className='p-1 mx-1' alt="avatar" style={{ width: '2vw', height: '2vw', borderRadius: '50px' }} />
                 : <i className="fa-solid fa-user p-1 mx-1" style={{ border: 'solid 1.5px', borderRadius: '50px' }}></i>
             }
-            <div className={styles.dropdown}>
-                <span className={styles.dropdownbutton}>{limitCharacters(userInfo.name) || limitCharacters(userInfo.email)}</span>
-                <div className={styles.dropdowncontent}>
-                    <div>
-                        <NavLink to='/accountuser/infouser' style={{ textDecoration: 'none', color: 'black' }}>{t('myaccount')}</NavLink>
-                    </div>
-                    <div>
-                        <NavLink to='/accountuser/purchaseorder' style={{ textDecoration: 'none', color: 'black' }} >{t('mypurchase')}</NavLink>
-                    </div>
-                    <div >
-                        <span style={{ cursor: 'pointer' }} onClick={() => {
-                            localStorage.removeItem("token");
-                            navigate(`/`)
-                            window.location.reload()
-                        }}>{t('logout')}</span>
-
-                    </div>
-                </div>
-            </div>
+            <Popover content={loginContent} placement="bottom">
+                <span style={{ fontSize: '0.9vw' }} className={styles.dropdownbutton}>{limitCharacters(userInfo.name) || limitCharacters(userInfo.email)}</span>
+            </Popover>
         </>
     }
     const renderManageShop = () => {
@@ -224,13 +157,11 @@ const Header = ({ count, setCount }) => {
         if (location.pathname === `/manageshop/${email}`) {
             return <></>
         } else {
-            return <div className={`${styles.header} container-fluid p-0`}>
-                <div className={`${styles.navigate} mx-auto`}>
-                    <div className={`${styles.navigateLeftItem} left`}>
-                        <div
-                            className={`${styles.dropdown} border-end p-1`}
-                            style={{ cursor: 'pointer', }}
-                            onClick={async () => {
+            return <div className={`${styles.header}`}>
+                <div className={styles.containerHeader} >
+                    <div className={`${styles.topHeader}`}>
+                        <div className={`${styles.topHeaderLeft}`}>
+                            <div className={styles.sellerCenter} onClick={async () => {
                                 if (token == null) {
                                     notification.warning({
                                         message: 'Cảnh báo',
@@ -251,124 +182,214 @@ const Header = ({ count, setCount }) => {
                                     } if (response.data === false)
                                         navigate(`/becomeseller`)
                                 }
-                            }}
-                        >
-                            <div className={styles.dropdownbutton}>
-                                <Space direction="vertical" className='me-2'>
-                                    <Space size="small">
-                                        <Badge
-                                            style={{
-                                                backgroundColor: 'white',
-                                                color: '#f84b2e'
-                                            }}
-                                            count={count}
-                                            size="small"
-                                            offset={[-2, 2]}
-                                        >
-                                            <BellOutlined style={{ fontSize: '1.2vw', color: 'white' }} />
-                                        </Badge>
-                                    </Space>
-                                </Space>
+                            }}>
                                 {t('sellercenter')}
                             </div>
-                            {count > 0 && (
-                                <div className={styles.dropdownnotification}>
-                                    Bạn có Tin Nhắn Mới
-                                </div>
-                            )}
-                        </div>
-                        <div className="border-end p-1">{t('startselling')}</div>
-                        <div className="border-end p-1" >
-                            <div className={styles.dropdown}>
-                                <span className={styles.dropdownbutton}>{t('download')}</span>
-                                <div className={styles.dropdowndownloadapp}>
-                                    <div >
-                                        <img className='w-100' src={process.env.PUBLIC_URL + '/asset/images/qrcode.png'}></img>
-                                        <div className='d-flex'>
-                                            <img className='w-50' src={process.env.PUBLIC_URL + '/asset/images/applewatchlogo.png'}></img>
-                                            <img className='w-50' src={process.env.PUBLIC_URL + '/asset/images/googleplaylogo.png'}></img>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className={styles.startSelling}>{t('startselling')}</div>
+                            <div className={styles.downloadApp} >
+                                <Popover content={downloadAppContent}>
+                                    <span>{t('download')}</span>
+                                    <i className='fa-solid fa-clipboard mx-1' />
+                                </Popover>
+                            </div>
+                            <div className={styles.followUs}>
+                                <span className="pe-1">{t('followuson')}</span>
+                                <a href='https://www.facebook.com/ShopeeVN'><i className="pe-1 fa-brands fa-facebook text-light" /></a>
+                                <a href='https://www.instagram.com/Shopee_VN/'><i className="fa-brands fa-instagram text-light" /></a>
                             </div>
                         </div>
-                        <div className="p-1">
-                            <span className="pe-1">{t('followuson')}</span>
-                            <a href='https://www.facebook.com/ShopeeVN'><i className="pe-1 fa-brands fa-facebook text-light" /></a>
-                            <a href='https://www.instagram.com/Shopee_VN/'><i className="fa-brands fa-instagram text-light" /></a>
-                        </div>
-                    </div>
-                    <div className={`${styles.navigateRightItem} right`}>
-                        <div className={`${styles.notificationwrapper} p-1`}>
-
-                            <div className={styles.dropdown}>
-                                <span className={`${styles.dropdownbutton}`}>
+                        <div className={`${styles.topHeaderRight}`}>
+                            <div className={`${styles.notifications}`}>
+                                <Popover content={notificationsContent}>
                                     <span><i className="pe-1 fa-regular fa-bell" /></span>
                                     {t('notifications')}
-                                </span>
-                                <div className={styles.dropdowncontent2}>
-                                    <div className=''>
-                                        <p>🎉 Voucher đầy ví chần chừ gì nữa!</p>
-                                        <p>
-                                            ⚡Voucher điện tử giảm đến 2 triệu 💖Voucher thời trang giảm 100k
-                                        </p>
-                                    </div>
-                                    <hr></hr>
-                                    <div className=''>
-                                        <p>21H LÊN SÓNG LIVE SĂN DEAL 50%</p>
-                                        <p>💗 Deal giảm sốc, quà tặng hấp dẫn cho Bạn</p>
-                                    </div>
-                                    <hr></hr>
-                                    <div className='' >
-                                        <p>🎁 ƯU ĐÃI SHOPEEPAY</p>
-                                        <p>Nhận ngay 45k khi kích hoạt ShopeePay trước 20/05/2025</p>
-                                    </div>
-                                    <hr></hr>
-                                    <div>
-                                        <button
-                                            className='p-2 h-100 w-100'
-                                            style={{ border: 'none' }}
-                                            onClick={() => {
-                                                navigate(`/notification`)
-                                            }}
-                                        >{t('viewall')}</button>
-                                    </div>
-                                </div>
+                                </Popover>
+                            </div>
+                            <div className={`${styles.help}`}>
+                                <i className="pe-1 fa-solid fa-question" />
+                                <NavLink className={styles.helpText} to='/shopeehelp'>{t('help')}</NavLink>
+                            </div>
+                            <div className={`${styles.language}`}>
+                                <Popover content={contentLanguage}>
+                                    <span><i className="pe-1 fa-solid fa-earth-americas" /></span>
+                                    <span>{language}</span>
+                                </Popover>
                             </div>
                         </div>
-                        <div className="border-start p-1">
-                            <span><i className="pe-1 fa-solid fa-question" /></span>
-                            <NavLink to='/shopeehelp' style={{ textDecoration: 'none', color: 'white' }}>{t('help')}</NavLink>
+                    </div>
+                    <div className={styles.mainHeader}>
+                        <div className={styles.mainHeaderLeft}>
+                            <NavLink className={styles.mainHeaderLeftContainer} to='/'>
+                                <img className={styles.mainHeaderLeftLogo} style={{ width: '100%' }} src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'}></img>
+                            </NavLink>
                         </div>
-                        <div className="border-start p-1">
-                            <span><i className="pe-1 fa-solid fa-earth-americas" /></span>
-                            <div className={styles.dropdown}>
-                                <span className={styles.dropdownbutton}>{language}</span>
-                                <div className={styles.dropdowncontent}>
-                                    <div >
-                                        <span style={{ cursor: 'pointer' }} onClick={() => {
-                                            setLanguage('English')
-                                            changeLanguage('en')
-                                        }}>English</span>
-
+                        <div className={styles.mainHeaderCenter}>
+                            {isFocused && <div className={styles.overlay} onClick={handleBlur}></div>}
+                            <form id="frm" className={styles.inputForm}>
+                                <Popover
+                                    arrow={false}
+                                    trigger="focus"
+                                    content={inputContent}
+                                    styles={{
+                                        root: {
+                                            width: '45%',
+                                        },
+                                    }}
+                                >
+                                    <input
+                                        ref={inputRef}
+                                        className={`${styles.input} form-control w-100`}
+                                        style={{ border: 'none', borderRadius: '99px' }}
+                                        onChange={handleChange}
+                                        onFocus={handleFocus}
+                                    />
+                                    {!isFocused && (
+                                        <span className={styles.animatedPlaceholder}>
+                                            {
+                                                "Tìm Kiếm Sản Phẩm Mong Muốn !!!".split("").map((char, index) => (
+                                                    <span
+                                                        key={index}
+                                                        className={styles.char}
+                                                        style={{
+                                                            animationDelay: `${index * 0.05}s`,
+                                                        }}
+                                                    >
+                                                        {char === " " ? "\u00A0" : char}
+                                                    </span>
+                                                ))
+                                            }
+                                        </span>
+                                    )}
+                                    <div className={`${styles.inputButtonContainer} p-1`}>
+                                        <button className={styles.inputButton} onClick={handleSubmit}>
+                                            <i className="fa-solid fa-magnifying-glass"></i>
+                                        </button>
                                     </div>
-                                    <div >
-                                        <span style={{ cursor: 'pointer' }} onClick={() => {
-                                            setLanguage('Tiếng Việt')
-                                            changeLanguage('vi')
-                                        }}>Tiếng Việt</span>
+                                </Popover>
+                            </form>
+                            <div className={styles.tagmarquee}>
+                                {tags.map((tag, index) => (
+                                    <div key={index}
+                                        className={`m-2`}
+                                        style={{ fontSize: '0.9vw' }}
+                                    >
+                                        {tag}
                                     </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
-                        <div className='mx-2 d-flex align-items-center'>
-                            {renderLogin()}
+                        <div className={styles.mainHeaderRight}>
+                            <div className={styles.loginContainer}>
+                                {renderLogin()}
+                            </div>
+                            <div className={styles.cardContainer} >
+                                <Popover
+                                    content={cartContent}
+                                    placement="bottom"
+                                    className={styles.cart} onClick={() => {
+                                        if (token === null) {
+                                            notification.config({
+                                                placement: 'topLeft',
+                                                top: 60,
+                                                duration: 1
+                                            });
+                                            notification.warning({
+                                                message: 'Cảnh báo',
+                                                description: 'Bạn cần đăng nhập để tiếp tục mua hàng!',
+                                            });
+                                            setTimeout(() => {
+                                                navigate(`/login`)
+                                            }, 1600);
+                                        } else {
+                                            navigate(`/cart`)
+                                        }
+                                    }}>
+                                    <i className={`fa-solid fa-cart-shopping my-auto ${styles.carticon}`} />
+                                    <div className={`rounded-circle ${styles.cartamount}`}>{amount}</div>
+                                    <div className='mx-2' style={{ fontSize: '0.82vw',minWidth:'3.4vw',textAlign:'center' }}>{t('cart')}</div>
+                                </Popover>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className='w-100 mx-auto'>
-                    {renderLogo()}
+                <div className={styles.bottomHeader}>
+                    {categories.map((category, index) => {
+                        return <div
+                            className={styles.dropdown} key={index}
+                        >
+                            <div
+                                onMouseEnter={() => setIsFocused(true)}
+                                onMouseLeave={() => setIsFocused(false)}
+                                className={styles.dropdownButton}>
+                                <span className={styles.tagMain}>{category.label}</span>
+                                <span className={styles.tagHover}>{category.label}</span>
+                                <div className={styles.iconWrapper}>
+                                    <i className="fa-solid fa-angle-down" />
+                                </div>
+                            </div>
+                            {isFocused && (<div
+                                onMouseEnter={() => setIsFocused(true)}
+                                onMouseLeave={() => setIsFocused(false)}
+                                className={styles.dropdownContent}>
+                                <div className={styles.topDropdownContent} >
+                                    {(categoryProducts[category.name]?.slice(0, 8) || []).map((product, index) => (
+                                        <NavLink
+
+                                            to={`/productdetail/${product.product_id}`}
+                                            className='card ' key={index}
+                                            style={{ textDecoration: 'none', padding: '0', border: 'none', width: '16vw', height: '4.8vw' }}
+                                            onClick={() => setIsFocused(false)}
+                                        >
+                                            <div className='card-body  d-flex align-items-center justify-content-around h-100'>
+                                                <img
+                                                    style={{ width: '3.5vw', height: '3.5vw' }}
+                                                    src={process.env.PUBLIC_URL + product.image}
+                                                    alt="icon"
+                                                />
+                                                <div style={{ fontSize: '0.9vw', fontWeight: '500' }} className="ms-1">{product.name}</div>
+                                            </div>
+                                        </NavLink>
+                                    ))}
+                                </div>
+                                <hr className='w-75 mx-auto'></hr>
+                                <div className='d-flex justify-content-between px-4 mb-3'>
+                                    <div style={{ fontWeight: '500' }}>Sản Phẩm Bán Chạy</div>
+                                    <NavLink
+                                        onClick={() => setIsFocused(false)}
+                                        style={{ fontWeight: '500', textDecoration: 'none' }}
+                                        to={`/category/${category.name}`}>
+                                        <span>Xem Tất Cả</span>
+                                        <i className="fa-solid fa-angles-right mx-1" />
+                                    </NavLink>
+                                </div>
+                                <div className='row px-4 align-items-center justify-content-around'>
+                                    {(categoryProducts[category.name]?.slice(1, 7) || []).map((product, index) => (
+                                        <NavLink
+                                            onClick={() => setIsFocused(false)}
+                                            to={`/productdetail/${product.product_id}`}
+                                            className='col-2 ' key={index}
+                                            style={{ textDecoration: 'none', border: 'none', width: '9vw', height: '9vw' }}
+                                        >
+                                            <div style={{ border: 'none', width: '9vw', height: '9vw' }} className="card border-none">
+                                                <div className='w-100 h-100 card-body d-flex align-items-center justify-content-center'>
+                                                    <img
+                                                        style={{ width: '100%', height: '100%' }}
+                                                        src={process.env.PUBLIC_URL + product.image}
+                                                        alt="icon"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div style={{ fontSize: '0.9vw', fontWeight: '500', color: 'black', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} className="ms-1">{product.description}</div>
+                                            <div style={{ fontSize: '0.9vw', fontWeight: '500', color: '#246adf' }} className="ms-1">{product.price.toLocaleString('vi-VN')}đ</div>
+                                            <div style={{ fontSize: '0.75vw', fontWeight: '500', color: '#7c8896', textDecoration: 'line-through' }} className="ms-1">299.000đ</div>
+                                        </NavLink>
+                                    ))}
+                                </div>
+                            </div>)}
+                        </div>
+                    })}
                 </div>
+                <div className={`${styles.overlay}`} />
             </div>
         }
     }

@@ -5,8 +5,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import _ from "lodash";
 import { DOMAIN } from '../../util/config';
 import { useTranslation } from 'react-i18next';
-import ProductCard from '../../components/ProductCard/ProductCard';
-
+import ProductItem from '../../components/ProductItem/ProductItem';
 
 const FlashSale = () => {
     const [timeLeft, setTimeLeft] = useState(7200);
@@ -43,7 +42,7 @@ const FlashSale = () => {
     };
     const [h, m, s] = formatTime(timeLeft);
     return <>
-        <div className={styles.timeleft}>
+        <div style={{ background: '#eaeffb' }} className={styles.timeleft}>
             <div className={styles.line} />
             <div className={styles.content}>
                 <span className={styles.title}>⚡<strong>FLASH SALE</strong></span>
@@ -59,10 +58,10 @@ const FlashSale = () => {
             </div>
             <div className={styles.line} />
         </div>
+        <div style={{ background: '#eaeffb' }}>
+            <img style={{ height: '31vw', width: '100%' }} src={process.env.PUBLIC_URL + '/asset/images/flashsalebackground.webp'} className="d-block w-100" alt="..." />
+        </div>
         <div className='container w-75 mx-auto'>
-            <div >
-                <img style={{ height: '250px' }} src={process.env.PUBLIC_URL + '/asset/images/flashsale.jpg'} className="d-block w-100" alt="..." />
-            </div>
             <div className='d-flex justify-content-around my-4 p-3' style={{ backgroundColor: '#ededed' }}>
                 <NavLink style={{ textDecoration: 'none' }} onClick={() => {
                     const sortedItems = _.orderBy(
@@ -102,18 +101,18 @@ const FlashSale = () => {
                 }}><strong>SHOPEE ĐƯỢC QUAN TÂM</strong></NavLink>
             </div>
             <div className='row'>
-                {arrMain?.map((product, index) => (
-                            <ProductCard
-                                key={index}
-                                product={product}
-                                t={t}
-                            />
-                        ))}
+                {arrMain?.map((product, index) => <div key={index} className='col-3 mb-4'>
+                    <NavLink
+                        style={{ textDecoration: 'none' }}
+                        to={`/productdetail/${product.product_id}`}
+                    >
+                        <ProductItem product={product}></ProductItem>
+                    </NavLink>
+                </div>
+                )}
             </div>
         </div>
-
     </>
-
 }
 
 

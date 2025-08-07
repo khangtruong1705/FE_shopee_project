@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { useState, useEffect } from 'react'
-import styles from './InfoUser.module.css'
+import styles from './InfoUser.module.scss'
 import { DOMAIN } from '../../../util/config';
 import { Button, message, Modal, Input, Upload, Flex } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
@@ -131,22 +131,12 @@ const InfoUser = () => {
     };
 
     return <>
-        <div className="container p-5">
-            <div className="card mx-auto" style={{ width: '50rem' }}>
-                <div className="card-header" style={{ position: 'relative', textAlign: 'center' }}>
-                    <i
-                        style={{
-                            fontSize: '4vw',
-                            color: '#fb5530',
-                            position: 'absolute',
-                            left: '10px',
-                            top: '50%',
-                            transform: 'translateY(-50%)'
-                        }}
-                        className="fa-solid fa-address-card"
-                    />
-                    <p style={{ color: '#fb5530', fontSize: '2vw' }}><strong>{t('myprofile')}</strong></p>
-                    <p>{t('manageaccount')}</p>
+        <div className={`${styles.profileContainer} container p-5`}>
+            <div className={`${styles.profileCard} card mx-auto`}>
+                <div className={`${styles.headerCard} card-header`}>
+                    <i className="fa-solid fa-address-card"/>
+                    <p className={styles.headerTitle}><strong>{t('myprofile')}</strong></p>
+                    <p >{t('manageaccount')}</p>
                 </div>
                 <div className="card-body d-flex justify-content-around">
                     <div>

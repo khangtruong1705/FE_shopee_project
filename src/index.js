@@ -38,7 +38,6 @@ import EnterPhoneNumber from './pages/EnterPhoneNumber/EnterPhoneNumber';
 import NotificationSetting from './pages/AccountUser/NotificationSetting/NotificationSetting';
 import MyVoucher from './pages/AccountUser/MyVoucher/MyVoucher';
 import FlashSale from './pages/FlashSale/FlashSale';
-
 import ManageShop from './pages/SellerCenter/ManageShop';
 import BecomeSeller from './pages/SellerCenter/BecomeSeller';
 import RegisterShop from './pages/SellerCenter/RegisterShop';
@@ -69,7 +68,6 @@ root.render(
             </Route>
             <Route path="/manageshop">
               <Route path=':email' element={<ManageShop />}></Route>
-              <Route path='chart/:email' element={<Chart />}></Route>
             </Route>
             <Route path="/category">
               <Route path=':name' element={<Category />} ></Route>
@@ -94,12 +92,11 @@ root.render(
             </Route>
             <Route path='*' element={<Navigate to="" />}></Route>
           </Route>
+          <Route path="/chart">
+            <Route path=':email' element={<Chart />}></Route>
+          </Route>
           <Route element={<BecomeSeller />} path="/becomeseller"></Route>
           <Route element={<RegisterShop />} path="/registershop"></Route>
-          {/* <Route path="/manageshop">
-            <Route path=':email' element={<ManageShop />}></Route>
-            <Route path='chart/:email' element={<Chart />}></Route>
-          </Route> */}
           <Route element={<Notification />} path="/notification"></Route>
           <Route element={<ShopeeHelp />} path="/shopeehelp"></Route>
           <Route element={<ShopeePolicy />} path="/shopeepolicy">

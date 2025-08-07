@@ -1,7 +1,7 @@
-import styles from './ProductDetail.module.css'
+import styles from './ProductDetail.module.scss'
 import { useParams, useNavigate, NavLink } from 'react-router-dom';
 import axios from 'axios';
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import { getAmountCartApi } from '../../redux/reducers/getAmountCart'
@@ -9,17 +9,33 @@ import { useFormik } from 'formik'
 import { DOMAIN } from '../../util/config';
 import { Button, notification } from 'antd';
 import { useTranslation } from 'react-i18next';
+import {productInfoDetail} from './productDetailRawData'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
+import 'swiper/css/effect-fade';
+import { FreeMode, Navigation, Pagination, Thumbs, EffectFade } from 'swiper/modules';
+
 
 
 const ProductDetail = () => {
+    const dispatch = useDispatch();
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const { t } = useTranslation();
     const token = localStorage.getItem('token');
     const navigate = useNavigate()
     const { productid } = useParams();
-    const [product, setProduct] = useState({});
     const [shopName, setShopName] = useState({});
     const [comments, setComments] = useState([]);
-    const dispatch = useDispatch();
+    const [product, setProduct] = useState({});
+    const images = [
+        product.image,
+        'https://picsum.photos/id/1015/600/400',
+        'https://picsum.photos/id/1019/600/400',
+        'https://picsum.photos/id/1020/600/400',
+    ];
     let user_id = null;
     notification.config({
         placement: 'topLeft',
@@ -73,12 +89,7 @@ const ProductDetail = () => {
             });
         }
     };
-    const productInfo = [
-        { label: 'Danh Mục', value: <>Shopee<i className="fa-solid fa-arrow-right mx-1" />Sắc Đẹp<i className="fa-solid fa-arrow-right mx-1" />Nước hoa Nam</> },
-        { label: 'Kho', value: '163' }, { label: 'Thương Hiệu', value: 'Dior' },
-        { label: 'Giới Tính', value: 'Nam' }, { label: 'Nồng Độ Hương', value: 'EDP' },
-        { label: 'Thể tích', value: '10ml' }, { label: 'Công thức', value: 'Dạng xịt' },
-        { label: 'Nhà Sản Xuất', value: 'Moyar Perfume' }, { label: 'Gửi từ', value: 'TP. Hồ Chí Minh' }];
+
     const fetchData = async () => {
         try {
             const response = await axios.get(`${DOMAIN}/api/products/get-product-by-productid/${productid}`);
@@ -93,58 +104,66 @@ const ProductDetail = () => {
     };
     useEffect(() => {
         fetchData()
-
     }, [productid])
-
     return <>
         <div className='mb-4' style={{ height: '1rem' }}></div>
         <div className={`${styles.card1} card w-75 mx-auto`}>
             <div className='card-body d-flex justify-content-between'>
-                <div className={styles.itemimages}>
-                    <div className='card'>
-                        <img className={styles.image} src={`${process.env.PUBLIC_URL} ${product.image}`} />
-                    </div>
+                <div className={styles.galleryWrapper}>
+                    {thumbsSwiper && !thumbsSwiper.destroyed && (
+                        <Swiper
+                            spaceBetween={10}
+                            effect="fade"
+                            navigation={true}
+                            pagination={{ clickable: true }}
+                            thumbs={{ swiper: thumbsSwiper }}
+                            modules={[Thumbs, Pagination, EffectFade, Navigation, FreeMode]}
+                            className={styles.mainSwiper}
+                        >
+                            {images.map((img, idx) => (
+                                <SwiperSlide key={idx}>
+                                    <img
+                                        src={img}
+                                        alt={`image-${idx}`}
+                                        className={styles.mainImage}
+                                    />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    )}
+                    <Swiper
+                        onSwiper={setThumbsSwiper}
+                        spaceBetween={10}
+                        slidesPerView={4}
+                        watchSlidesProgress={true}
+                        modules={[Thumbs, Navigation, FreeMode]}
+                        className={styles.thumbsSwiper}
+                    >
+                        {images.map((img, idx) => (
+                            <SwiperSlide key={idx}>
+                                <img src={img} alt={`thumb-${idx}`} className={styles.thumbImage} />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
-                <div className={styles.itempolicy}>
-                    <div className=''>
-                        <div className='d-flex' style={{ fontSize: '0.65vw' }}>
-                            <div style={{
-                                padding: '2px',
-                                color: '#d93843',
-                                backgroundColor: '#fff0f1',
-                                borderRadius: '10px'
-                            }}
-                                className='me-2'
-                            >
+                <div className={styles.itemInfoContainer}>
+                    <div className={styles.itemInfo}>
+                        <div className={styles.itemInfo1}>
+                            <div className={`${styles.itemInfo11} me-2`}>
                                 <i className="fa-solid fa-thumbs-up me-1" />
                                 <strong>TOP DEAL</strong>
                             </div>
-                            <div style={{
-                                padding: '2px',
-                                color: '#0a68ff',
-                                backgroundColor: '#ffe880',
-                                borderRadius: '10px'
-                            }}
-                                className='me-2'
-                            >
+                            <div className={`${styles.itemInfo12} me-2`}>
                                 <i className="fa-solid fa-box me-1" />
                                 <strong>30 NGÀY ĐỔI TRẢ</strong>
                             </div>
-                            <div style={{
-                                padding: '2px',
-                                color: '#0157e0',
-                                backgroundColor: '#f2f7ff',
-                                borderRadius: '10px'
-                            }}
-
-                            >
+                            <div className={`${styles.itemInfo13} me-2`}>
                                 <i className="fa-solid fa-circle-check me-1" />
                                 <strong>CHÍNH HÃNG</strong>
                             </div>
                         </div>
                         <div>
-                            <span className={styles.favourite}>{t('favorite')}</span>
-                            <strong style={{ fontSize: '1.2vw' }}>{product.description}</strong>
+                            <span style={{ fontSize: '1.2vw', fontWeight: '500' }}>{product.description}</span>
                         </div>
                         <div className="p-1 d-flex left ">
                             <div className="border-end pe-3">{product.rating}
@@ -156,66 +175,20 @@ const ProductDetail = () => {
                             <div className="border-end px-3" >{product.sold} {t('sold')}</div>
                         </div>
                     </div>
-                    <div className={styles.price}
-                        style={{ fontSize: '1.4vw' }}
-                    >
+                    <div className={styles.price}>
                         <strong>{product.price?.toLocaleString('vi-VN')}₫</strong>
-                        <span
-                            className={styles.discount}
-                            style={{ fontSize: '0.9vw' }}
-                        >{t('discount')} {t('price')} 9%</span>
                     </div>
-                    <div className='d-flex align-items-center' style={{ fontSize: '1vw' }}>
-                        <div >{t('shopvouchers')} : </div>
-                        {[ 15,25, 30, 35].map((amount, index) => (
-                            <div key={index}
-                                style={{ fontSize: '0.9vw' }}
-                                className={styles.discount}>
-                                {t('discount')} {amount}k
-                            </div>
+                    <div className={styles.infoGrid}>
+                        {productInfoDetail.map((item, index) => (
+                            <React.Fragment key={index}>
+                                <div className={styles.label}>{item.label}</div>
+                                <div className={styles.value}>{item.value}</div>
+                            </React.Fragment>
                         ))}
                     </div>
-                    <div className='d-flex align-items-center justify-content-between'>
-                        <div>{t('returnpolicy')} :</div>
-                        <strong style={{ color: '#de4384' }}>
-                            {t('15dayreturns')}
-                            <i className="fa-solid fa-rotate ms-1" />
-                        </strong>
-                        <strong style={{ color: '#4babff' }}>
-
-                            {t('freeexchanges')}
-                            <i className="fa-solid fa-arrow-right-arrow-left ms-1" />
-                        </strong>
-                    </div>
-                    <div className='d-flex align-items-center justify-content-between'>
-                        <div>{t('hotdeal')}</div>
-                        <strong
-                            style={{ fontSize: '0.9vw',color:'#6556fd' }}>
-                            <i className="fa-solid fa-bolt me-1" />
-                            {t('attackhotdeal')}
-                        </strong>
-                    </div>
-                    <div className='d-flex align-items-center justify-content-between'>
-                        <div>{t('insurance')} :</div>
-                        <strong style={{color:'#fe0d1b'}}>
-                            <i className="fa-solid fa-truck-medical me-1" />
-                            {t('consumerprotection')}
-                        </strong>
-                    </div>
-                    <div className='d-flex align-items-center justify-content-between'>
-                        <div>{t('shipping')} : </div>
-                        <div style={{ color: '#01ab57' }}>
-                            <i className="fa-solid fa-truck me-1" />
-                            <strong>{t('freeship')}</strong>
-                        </div>
-                        <div style={{
-                            color: '#ff424e'
-                        }}><strong>NOW</strong></div>
-                    </div>
-                    <div>
+                    <div className={`${styles.buttonContainer} my-3`} >
                         <Button
-                            className='p-2 me-3'
-                            style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68', fontSize: '1vw' }}
+                            className={`${styles.addToCardButton} p-4 me-3`}
                             onClick={async () => {
                                 if (user_id === null) {
                                     notification.warning({
@@ -241,11 +214,10 @@ const ProductDetail = () => {
                                     navigate('/')
                                 }, 1000);
                             }}> {t('addtocart')}
-                            <i style={{ color: '#f9502f' }} className='fa-solid fa-cart-shopping' />
+                            <i  className='fa-solid fa-cart-shopping' />
                         </Button>
                         <Button
-                            style={{ backgroundColor: '#ffeee8', borderColor: '#f37f68', fontSize: '1vw' }}
-                            className='p-2'
+                            className={`${styles.buttonBuyNow} p-4`}
                             onClick={async () => {
                                 if (user_id === null) {
                                     notification.warning({
@@ -270,28 +242,31 @@ const ProductDetail = () => {
                                 }, 1000);
                             }}
                         > {t('buynow')}
-                            <i style={{ color: '#f9502f' }} className="fa-solid fa-money-bill-trend-up" />
+                            <i className="fa-solid fa-money-bill-trend-up" />
                         </Button>
                     </div>
                 </div>
             </div>
         </div>
-        <div className='shopName card w-75 mx-auto mb-5'>
-            <div className='d-flex align-items-center'>
-                <div className='d-flex align-items-center' >
-                    <div className='p-3' style={{ width: '22vw', height: '9vw' }}>
-                        <img style={{ width: '100%', height: '100%', borderRadius: '200px', objectFit: 'cover' }} src={`${process.env.PUBLIC_URL}${shopName.image}`} />
+        <div className={`${styles.card2} card mb-5`}>
+            <div className={`${styles.card2Container}`}>
+                <div className={`${styles.shopName}`} >
+                    <div className={`${styles.shopNameLogo} p-3`}>
+                        <img src={`${process.env.PUBLIC_URL}${shopName.image}`} />
                     </div>
-                    <div>
-                        <h5 style={{ fontSize: '1.3vw' }}>{shopName.name}</h5>
-                        <NavLink style={{ textAlign: 'center', fontSize: '1vw' }} to={`/shopname/${shopName.shop_name_id}`} className='border border-primary' state={{ fromProductId: productid }} >{t('view')} Shop</NavLink>
+                    <div className={`${styles.shopNameName}`}>
+                        <h5 >{shopName.name}</h5>
+                        <NavLink className={`${styles.viewshopName} border border-primary`}  to={`/shopname/${shopName.shop_name_id}`} state={{ fromProductId: productid }} >
+                            {t('view')} Shop
+                            <i className="fa-solid fa-hand-point-left mx-2" />
+                        </NavLink>
                     </div>
                 </div>
-                <h5 className='text-center' style={{ width: '30%', fontSize: '1.4vw' }}>{t('rating')} :{shopName.rating}<i style={{ color: '#f7d22c' }} className='fa-solid fa-star' /></h5>
-                <h5 className='text-center' style={{ width: '30%', fontSize: '1.4vw' }}>{t('joindate')}:{shopName.created_at}</h5>
+                <h5 className='text-center'>{t('rating')} :{shopName.rating}<i style={{ color: '#fbff00' }} className='fa-solid fa-star' /></h5>
+                <h5 className='text-center'>{t('joindate')}:{shopName.created_at}</h5>
             </div>
         </div>
-        <div className='detailinfo card w-75 mx-auto' style={{ fontSize: '1vw' }}>
+        {/* <div className='detailinfo card w-75 mx-auto' style={{ fontSize: '1vw' }}>
             <div className='iteminfo w-50'>
                 {productInfo.map((item, index) => (
                     <div key={index} className='d-flex justify-content-between'>
@@ -314,13 +289,13 @@ const ProductDetail = () => {
                     Không chỉ xứng đáng sở hữu vì mùi hương mà độ bám tỏa của Sauvage chắc chắn cũng sẽ làm bạn hài lòng. Đảm bảo Sauvage sẽ mang lại cho bạn một trải nghiệm, hình ảnh của một người đàn ông nam tính, lịch lãm và có đôi phần hoang dã, phong trần như Johnny Depp trong chiến dịch quảng cáo cho mùi hương này.
                 </div>
             </div>
-        </div>
-        <div className={`${styles.itemratecontainer} itemrate card`}>
-            <h2 style={{ fontSize: '2vw' }}>{t('rating')} {t('product')}</h2>
+        </div> */}
+        <div className={`${styles.itemratecontainer} card`}>
+            <h2>{t('rating')} {t('product')}</h2>
             <div className={styles.itemrateparent}>
-                <div style={{ fontSize: '1vw' }}>
+                <div className={styles.itemrateLeft}>
                     {product.rating} / 5
-                    <div style={{ fontSize: '1vw' }}>
+                    <div className={styles.starContainer}>
                         {[...Array(5)].map((_, index) => (
                             <i
                                 key={index}
@@ -335,10 +310,10 @@ const ProductDetail = () => {
                 ))}
             </div>
             <div className={styles.commentcontainer}>
-                <div className=''>
+                
                     <div className={styles.commentcontent}>
                         {comments?.map((comment, index) => {
-                            return <>
+                            return <div key={index}>
                                 <div className='avatar d-flex'>
                                     <img className={styles.avatarimage} src={process.env.PUBLIC_URL + '/asset/images/ngau1.jpg'} />
                                     <div>khang123</div>
@@ -348,10 +323,10 @@ const ProductDetail = () => {
                                     {comment.comment_content}
                                 </div>
                                 <hr></hr>
-                            </>
+                            </div>
                         })}
                         <form onSubmit={frm.handleSubmit} className="mb-3">
-                            <label style={{ fontSize: '1vw' }} htmlFor="exampleFormControlTextarea1" className="form-label">{t('comment')}</label>
+                            <label  htmlFor="exampleFormControlTextarea1" className="form-label">{t('comment')}</label>
                             <textarea id='comment'
                                 name='comment'
                                 className="form-control"
@@ -359,14 +334,10 @@ const ProductDetail = () => {
                                 onBlur={frm.handleBlur}
                                 rows={3}
                                 value={frm.values.comment} />
-                            <button
-                                className='mt-4 px-3'
-                                style={{ fontSize: '1vw', border: '1px solid #f84a2e', borderRadius: '20px', background: '#fffbf8' }}
-                            >{t('submit')}
+                            <button className='mt-4 px-3'>{t('submit')}
                             </button>
                         </form>
-                    </div>
-                </div>
+                    </div>        
             </div>
         </div>
         <div className='py-5' style={{ background: '#f5f5f5' }}></div>

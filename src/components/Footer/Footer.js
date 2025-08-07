@@ -9,7 +9,7 @@ const Footer = () => {
         </NavLink>
     );
     return <div className='container'>
-        <hr style={{ height: '5px', backgroundColor: '#f6442d' }}></hr>
+        <hr style={{ height: '5px', backgroundColor: '#1250dc' }}></hr>
         <div className="footer w-100">
             <div className={`${styles.service} w-100 row`}>
                 <div className='col-lg-2 col-md-4 col-sm-6 text-center' >

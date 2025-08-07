@@ -6,8 +6,7 @@ import _ from "lodash";
 import { DOMAIN } from '../../util/config'
 import { Segmented } from 'antd';
 import { useTranslation } from 'react-i18next';
-import ProductCard from '../../components/ProductCard/ProductCard';
-
+import ProductItem from '../../components/ProductItem/ProductItem';
 
 
 
@@ -76,13 +75,15 @@ const Search = () => {
                         </div>
                     </div>
                     <div className='row'>
-                        {arrMain?.map((product, index) => (
-                            <ProductCard
-                                key={index}
-                                product={product}
-                                t={t}
-                            />
-                        ))}
+                        {arrMain?.map((product, index) => <div key={index} className='col-3 mb-4'>
+                            <NavLink
+                                style={{ textDecoration: 'none' }}
+                                to={`/productdetail/${product.product_id}`}
+                            >
+                                <ProductItem product={product}></ProductItem>
+                            </NavLink>
+                        </div>
+                        )}
                     </div>
                 </div>
             </div>

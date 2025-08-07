@@ -1,0 +1,21 @@
+.profileContainer{
+    .profileCard{
+        width: 50rem;
+        .headerCard{
+            position: relative;
+            text-align: center;
+            i{
+                font-size: 4vw;
+                color: #256bdf;
+                position: absolute;
+                left: 0.8vw;
+                top:50%;
+                transform: translateY(-50%);
+            }
+            .headerTitle{
+               font-size: 2vw;
+                color: #256bdf;
+            }
+        }
+    }
+}

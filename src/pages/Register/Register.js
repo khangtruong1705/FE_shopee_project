@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import axios from "axios";
-import styles from './Register.module.css'
+import styles from './Register.module.scss'
 import { DOMAIN } from '../../util/config'
 import { Button, message, Form, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -56,27 +56,25 @@ const Register = () => {
     const navigate = useNavigate();
     return <>
         <div>
-            <div className="header">
-                <div className='d-flex justify-content-between align-items-center w-75 mx-auto'>
-                     <NavLink to='/' className='d-flex align-items-center'>
-                        <img className="w-25" src={process.env.PUBLIC_URL + '/asset/images/shopeelogo.png'} />
-                    </NavLink>
-                    <NavLink to='/shopeehelp' style={{ color: '#ee4d2d', textDecoration: 'none' }}>
-                        {t('areyouhelp')}
-                    </NavLink>
-                </div>
+            <div className={`${styles.registerHeader}`}>
+                <NavLink to='/' className='d-flex align-items-center'>
+                    <img className="w-25" src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} />
+                </NavLink>
+                <NavLink to='/shopeehelp' style={{ color: '#1677ff', textDecoration: 'none' }}>
+                    {t('areyouhelp')}
+                </NavLink>
             </div>
-            <div className="body p-5 d-flex justify-content-around" style={{ backgroundColor: '#ee4d2d' }}>
+            <div className={`${styles.registerBody} p-5`}>
                 <div>
-                    <h1 className="text-white">Shopee</h1>
+                    <h1 className="text-white">E-Commerce-Shop</h1>
                     <div className={styles.tagmarquee}>
                         <div className={styles.tagtrack}>
                             <p>Nền tảng thương mại điện tử yêu thích ở Đông Nam Á & Đài Loan</p>
                         </div>
                     </div>
                 </div>
-                <div className="card w-25 mx-auto ">
-                    <div className="card-header text-center">
+                <div className={`${styles.card} card`}>
+                    <div className={`${styles.cardHeader} card-header`}>
                         {t('signup')}
                     </div>
                     <div className="card-body">

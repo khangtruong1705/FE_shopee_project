@@ -586,14 +586,12 @@ const ManageShop = () => {
                 />
                 <i className={`${styles.sidebaricons} fas fa-chart-simple`}
                     onClick={() => {
-                        navigate(`/manageshop/chart/${shopInfo.email_owner}`, {
+                        navigate(`/chart/${shopInfo.email_owner}`, {
                             state: {
                                 shop_id: shopInfo.shop_name_id
                             }
                         })
                     }}
-
-
                 />
             </div>
         </div>

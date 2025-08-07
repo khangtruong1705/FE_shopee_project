@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import styles from './Cart.module.css' // Import CSS Module
+import styles from './Cart.module.scss' // Import CSS Module
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { useState, useEffect } from 'react'
@@ -47,10 +47,10 @@ const Cart = () => {
             console.log(response.data);
             const ordersWithQuantity = response.data.map(order => ({
                 ...order,
-                quantity: 1 // Khởi tạo quantity mặc định là 1
+                quantity: 1
             }));
 
-            setOrderList(ordersWithQuantity); // Gán dữ liệu vào arrMain
+            setOrderList(ordersWithQuantity);
         } catch (error) {
             console.error('Error fetching products:', error);
         }
@@ -108,7 +108,6 @@ const Cart = () => {
             }
         }
     }, [scrollToProductId])
-
     return <>
         <div className='w-75 mx-auto pt-5 '>
             <div className='card' style={{ backgroundColor: '#ffffff' }}>

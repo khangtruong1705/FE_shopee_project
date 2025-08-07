@@ -1,0 +1,324 @@
+/* Active thumbnail - override Swiper class inside CSS module */
+.thumbsSwiper :global(.swiper-slide-thumb-active) img {
+  opacity: 1;
+  border: 2px solid #007aff;
+}
+
+.thumbsSwiper :global(.swiper-slide) img {
+  opacity: 0.5;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+
+.card1 {
+  margin-bottom: 3rem;
+  display: flex;
+}
+
+
+.galleryWrapper {
+  width: 100%;
+  height: 100%;
+  max-width: 39vw;
+  margin-right: 1.2vw;
+}
+
+.mainSwiper {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 20px;
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position:center;
+  border-radius: 8px;
+}
+
+.thumbsSwiper {
+  height: 100px;
+}
+
+.thumbImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.star {
+  color: #fbff00;
+}
+
+
+
+.itemInfoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 1vw;
+
+  .itemInfo {
+    .itemInfo1 {
+      display: flex;
+      font-size: 0.65vw;
+
+      .itemInfo11 {
+        padding: 0.15vw;
+        color: #d93843;
+        background-color: #fff0f1;
+        border-radius: 99px;
+      }
+
+      .itemInfo12 {
+        padding: 0.15vw;
+        color: #0a68ff;
+        background-color: #ffe880;
+        border-radius: 99px;
+      }
+
+      .itemInfo13 {
+        padding: 0.15vw;
+        color: #0157e0;
+        background-color: #f2f7ff;
+        border-radius: 99px;
+      }
+    }
+  }
+
+  .price {
+    font-size: 1.4vw;
+    color: #256bde;
+  }
+
+  .infoGrid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    row-gap: 1vw;
+    column-gap: 0.1vw;
+    align-items: start;
+
+    .label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .value {
+      color: #222;
+      line-height: 1.5;
+      font-size: 0.9vw;
+    }
+  }
+
+  .buttonContainer {
+    text-align: center;
+
+    .addToCardButton {
+      background: #367ce5;
+      color: white;
+      font-size: 1vw;
+
+      border-radius: 3vw;
+      width: 40%;
+
+      &:hover {
+        background: white;
+        color: #367ce5;
+        border: 1px solid #1250dc;
+      }
+
+      i {
+        color: white;
+      }
+
+      &:hover i {
+        color: #367ce5;
+      }
+    }
+  }
+
+  .buttonBuyNow {
+    color: #367ce5;
+    background: white;
+    font-size: 1vw;
+    border: 1px solid #1250dc;
+    border-radius: 99px;
+    width: 40%;
+
+    &:hover {
+      background: #367ce5 !important;
+      color: white !important;
+      border: 1px solid #1250dc !important;
+    }
+
+    i {
+      color: #367ce5;
+    }
+
+    &:hover i {
+      color: white;
+    }
+  }
+}
+
+
+
+
+.card2 {
+  width: 75%;
+  margin: 0 auto;
+
+  .card2Container {
+    display: flex;
+    align-items: center;
+
+    .shopName {
+      display: flex;
+      align-items: center;
+
+      .shopNameLogo {
+        width: 22vw;
+        height: 9vw;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 99px;
+          object-fit: cover;
+        }
+      }
+
+      .shopNameName {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        h5 {
+          font-size: 1.4vw;
+          white-space: nowrap;
+        }
+
+        .viewshopName {
+          text-align: center;
+          font-size: 1vw;
+          padding: 0.3vw;
+          text-decoration: none;
+          border-radius: 99px;
+          width: 100%;
+
+          &:hover {
+            background: #1250dc;
+            color: white;
+            border: 1px solid #1250dc;
+          }
+
+          &:hover i {
+            color: white;
+          }
+        }
+      }
+    }
+
+    h5 {
+      width: 30%;
+      font-size: 1.4vw;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+.itemratecontainer {
+  margin-top: 3rem;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+
+  h2 {
+    font-size: 2vw;
+  }
+
+  .itemrateparent {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    padding: 0.5rem;
+    border: #1250dc solid 1px;
+
+    .itemrateLeft {
+      font-size: 1vw;
+
+      .starContainer {
+        font-size: 1vw;
+      }
+    }
+
+    .itemratechild {
+      border: #1250dc solid 1px;
+      padding: 1rem;
+      font-size: 1vw;
+
+    }
+  }
+
+  .commentcontainer {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 90%;
+
+    .commentcontent {
+      text-align: left;
+    }
+
+    form {
+      label {
+        font-size: 1vw;
+        color: #1250dc;
+        font-weight: 500;
+      }
+
+      button {
+        font-size: 1vw;
+        color: white;
+        border-radius: 20px;
+        background: #367ce5;
+        border: 1px solid #1250dc;
+
+        &:hover {
+          background: white;
+          color: #1250dc;
+          border: 1px solid #1250dc;
+        }
+      }
+    }
+  }
+}
+
+
+.avatarimage {
+  border-radius: 100rem;
+  width: 3rem;
+  height: 3rem;
+}

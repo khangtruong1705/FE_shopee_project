@@ -22,7 +22,7 @@
 }
 
 .title {
-  color: #ee4d2d;
+  color: #1250dc;
   font-size: 20px;
   font-weight: bold;
 }
@@ -32,8 +32,8 @@
 }
 
 .label {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 0.75vw;
+  font-weight: 600;
 }
 
 .countdown {
@@ -43,7 +43,7 @@
 }
 
 .timeBox {
-  background-color: black;
+  background-color:#1250dc;
   color: white;
   padding: 4px 6px;
   border-radius: 4px;

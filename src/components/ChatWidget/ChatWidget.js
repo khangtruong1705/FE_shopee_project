@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Drawer, Input, Button, List } from 'antd';
-import {AndroidOutlined } from '@ant-design/icons';
+import { AndroidOutlined } from '@ant-design/icons';
 import styles from './ChatWidge.module.css';
 
 
@@ -13,7 +13,7 @@ const ChatWidget = () => {
   const [input, setInput] = useState('');
 
   const toggleDrawer = () => {
-    console.log('abc',HF_API_URL)
+    console.log('abc', HF_API_URL)
     setVisible(!visible);
   };
   const sendMessageToAI = async (message, retries = 3) => {
@@ -73,18 +73,21 @@ const ChatWidget = () => {
     <>
       <Button
         type="primary"
-        className={styles.chatwidgetant}
-        icon={<AndroidOutlined />}
         onClick={toggleDrawer}
         style={{
-          backgroundColor: '#ee6d77',
+          backgroundColor: '#246ade',
           position: 'fixed',
-          bottom: 20,
-          left: 20,
+          bottom: '6.6rem',
+          right: '2rem',
+          width:'2.5vw',
+          height:'2.5vw',
+          padding:'0.4vw',
+          borderRadius:'999px',
           zIndex: visible ? 0 : 1000,
         }}
       >
-        Chat Bot
+        <img src={process.env.PUBLIC_URL + '/asset/images/chatbot.png'} style={{ width: '100%', height: '100%' }} />
+
       </Button>
       <Drawer
         title="💬 Hỗ trợ trực tuyến"

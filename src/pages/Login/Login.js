@@ -3,7 +3,7 @@ import Footer from "../../components/Footer/Footer";
 import axios from 'axios';
 import { DOMAIN } from "../../util/config";
 import { Button, message, Checkbox, Form, Input } from 'antd';
-import styles from './Login.module.css'
+import styles from './Login.module.scss'
 import { useTranslation } from 'react-i18next';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -63,7 +63,7 @@ const Login = () => {
                 'token': credentialResponse.credential
 
             }
-            const response = await axios.post(`${DOMAIN}/api/users/auth/google`,token);
+            const response = await axios.post(`${DOMAIN}/api/users/auth/google`, token);
             localStorage.setItem('token', response.data);
             const data = {
                 'message': t('loginsuccessful'),
@@ -89,27 +89,25 @@ const Login = () => {
 
     return <>
         <div>
-            <div className="header">
-                <div className='d-flex justify-content-between align-items-center w-75 mx-auto'>
-                    <NavLink to='/' className='d-flex align-items-center'>
-                        <img className="w-25" src={process.env.PUBLIC_URL + '/asset/images/shopeelogo.png'} />
-                    </NavLink>
-                    <NavLink to='/shopeehelp' style={{ color: '#ee4d2d', textDecoration: 'none' }}>
-                        {t('areyouhelp')}
-                    </NavLink>
-                </div>
+            <div className={`${styles.loginHeader}`}>
+                <NavLink to='/' className='d-flex align-items-center'>
+                    <img className="w-25" src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} />
+                </NavLink>
+                <NavLink to='/shopeehelp' style={{ color: '#1677ff', textDecoration: 'none' }}>
+                    {t('areyouhelp')}
+                </NavLink>
             </div>
-            <div className="body p-5 d-flex justify-content-around" style={{ backgroundColor: '#ee4d2d' }}>
-                <div>
-                    <h1 className="text-white">Shopee</h1>
+            <div className={`${styles.loginBody} p-5`}>
+                <div className={`${styles.loginBodyLeft}`}>
+                    <h1 className="text-white">E-Commerce-Shop</h1>
                     <div className={styles.tagmarquee}>
                         <div className={styles.tagtrack}>
-                            <p>Nền tảng thương mại điện tử yêu thích ở Đông Nam Á & Đài Loan</p>
+                            <p>Mua sắm thông minh - Giao tận tay, nhanh từng giây !!!</p>
                         </div>
                     </div>
                 </div>
-                <div className="card w-25 mx-auto">
-                    <div className="card-header text-center">
+                <div className={`${styles.card} card`}>
+                    <div className={`${styles.cardHeader} card-header`}>
                         {t('login')}
                     </div>
                     <div className="card-body">
@@ -159,7 +157,7 @@ const Login = () => {
                     </div>
                     <hr></hr>
                     <div className="d-flex justify-content-around">
-                        <div className="p-2" style={{ border: '1px solid #e7e9eb',borderRadius:'4px' }}>
+                        <div className="p-2" style={{ border: '1px solid #e7e9eb', borderRadius: '4px' }}>
                             <i className="fa-brands fa-facebook mx-1" style={{ color: '#1877f2' }}></i>
                             <span>Facebook</span>
                         </div>

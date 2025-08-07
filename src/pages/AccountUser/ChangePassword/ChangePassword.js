@@ -4,7 +4,7 @@ import { DOMAIN } from '../../../util/config';
 import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import { useTranslation } from 'react-i18next';
-
+import styles from './ChangePassword.module.scss'
 
 
 
@@ -61,14 +61,10 @@ const ChangePassword = () => {
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
     };
-
-    // useEffect(() => {
-
-    // }, [])
     return <>
-        <div className=' w-50 mx-auto mt-5 d-flex flex-column align-items-center' style={{ border: '1px solid', borderRadius: '20px' }}>
-            <div className='mt-4'>
-                <i className="fa-solid fa-shield-virus" style={{ fontSize: '3rem', color: '#fb5530' }} />
+        <div className={`${styles.ChangePasswordContainer} mt-5 `} >
+            <div className={`${styles.ChangePasswordIcon} mt-4 `}>
+                <i className="fa-solid fa-shield-virus"  />
             </div>
             <Form
                 className='mt-5'
@@ -114,7 +110,7 @@ const ChangePassword = () => {
                     {contextHolder}
                     <Button type="primary"
                         htmlType="submit"
-                        style={{ backgroundColor: '#fa5130', borderColor: '#fa5130' }}
+                        style={{ backgroundColor: '#266cdf', borderColor: '#266cdf' }}
                     >
                         Submit
                     </Button>
