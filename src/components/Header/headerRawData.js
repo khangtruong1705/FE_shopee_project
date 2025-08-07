@@ -12,7 +12,7 @@ export const categoriesData = [
 ];
 
 export const tagsData = [
-    'mensfashion', 'watch', 'beauty', 'bicycle',
+    'mensfashion', 'watch', 'beauty',
     'health', 'Laptop', 'shoe', 'jacket',
     'camera', 'womensfashion'];
 

@@ -1,4 +1,4 @@
-import styles from './Search.module.css'
+import styles from './Search.module.scss'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { NavLink, useParams } from 'react-router-dom';
@@ -51,7 +51,10 @@ const Search = () => {
     }, [keyword])
     return <>
         <div>
-            <div className='container w-75 mx-auto'>
+            <div style={{ background: '#eaeffb' }}>
+                <img style={{ height: '31vw', width: '100%' }} src={process.env.PUBLIC_URL + '/asset/images/carousel3.webp'} className="d-block w-100" alt="..." />
+            </div>
+            <div  className='w-75 mx-auto'>
                 <div>
                     <p className='pt-3'>{t('searchresults')} "{keyword}"</p>
                     <div className='d-flex justify-content-around my-4 p-3' style={{ backgroundColor: '#ededed' }}>

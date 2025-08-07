@@ -18,8 +18,10 @@ export const productInfoDetail = [
 
 
 export const productInfo = [
-        { label: 'Danh Mục', value: <>Shopee<i className="fa-solid fa-arrow-right mx-1" />Sắc Đẹp<i className="fa-solid fa-arrow-right mx-1" />Nước hoa Nam</> },
-        { label: 'Kho', value: '163' }, { label: 'Thương Hiệu', value: 'Dior' },
-        { label: 'Giới Tính', value: 'Nam' }, { label: 'Nồng Độ Hương', value: 'EDP' },
-        { label: 'Thể tích', value: '10ml' }, { label: 'Công thức', value: 'Dạng xịt' },
-        { label: 'Nhà Sản Xuất', value: 'Moyar Perfume' }, { label: 'Gửi từ', value: 'TP. Hồ Chí Minh' }];
+    { label: 'Danh Mục', value: <>Shopee<i className="fa-solid fa-arrow-right mx-1" />Sắc Đẹp<i className="fa-solid fa-arrow-right mx-1" />Nước hoa Nam</> },
+    { label: 'Kho', value: '163' }, { label: 'Thương Hiệu', value: 'Dior' },
+    { label: 'Giới Tính', value: 'Nam' }, { label: 'Nồng Độ Hương', value: 'EDP' },
+    { label: 'Thể tích', value: '10ml' }, { label: 'Công thức', value: 'Dạng xịt' },
+    { label: 'Nhà Sản Xuất', value: 'Moyar Perfume' }, { label: 'Gửi từ', value: 'TP. Hồ Chí Minh' }];
+
+

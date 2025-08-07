@@ -14,6 +14,8 @@
 .card1 {
   margin-bottom: 3rem;
   display: flex;
+  border: none;
+  border-radius: 0.75rem;
 }
 
 
@@ -172,8 +174,8 @@
 
 
 .card2 {
-  width: 75%;
-  margin: 0 auto;
+  border: none;
+  border-radius: 0.75rem;
 
   .card2Container {
     display: flex;
@@ -234,6 +236,10 @@
 }
 
 
+.card3{
+  border: none;
+  border-radius: 0.75rem;
+}
 
 
 
@@ -241,12 +247,14 @@
 
 
 
-
-.itemratecontainer {
+.card4 {
+  border-radius: 0.75rem;
   margin-top: 3rem;
   width: 75%;
   margin-left: auto;
   margin-right: auto;
+  padding: 1vw;
+  border: none;
 
   h2 {
     font-size: 2vw;
@@ -281,10 +289,7 @@
   }
 
   .commentcontainer {
-    margin-top: 2rem;
     margin-bottom: 2rem;
-    margin-left: auto;
-    margin-right: auto;
     text-align: center;
     width: 90%;
 
