@@ -310,7 +310,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className={`${styles.flashsale} my-5`}>
-                            <img src={process.env.PUBLIC_URL + 'asset/images/flashsale.webp'} className="d-block w-100 h-100" alt="carousel" />
+                            <img src={process.env.PUBLIC_URL + '/asset/images/flashsale.webp'} className="d-block w-100 h-100" alt="carousel" />
                             <div className={styles.flashSellContainer} >
                                 <div className={styles.flashSellContent}>
                                     <div className={styles.flashSellTitle}>

@@ -25,7 +25,7 @@ const Header = ({ count, setCount }) => {
     const amountCart = useSelector((state) => state.getAmountCart.amountCart);
     const avatarUrl = useSelector((state) => state.getAvatarUrl.avatarUrl);
     const [userInfo, setUserInfo] = useState({});
-    const [language, setLanguage] = useState('English');
+    const [language, setLanguage] = useState('Tiếng Việt');
     const [isFocused, setIsFocused] = useState(false);
     const handleFocus = () => setIsFocused(true);
     const handleBlur = () => setIsFocused(false);
