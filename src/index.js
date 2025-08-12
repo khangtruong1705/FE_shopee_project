@@ -38,12 +38,17 @@ import EnterPhoneNumber from './pages/EnterPhoneNumber/EnterPhoneNumber';
 import NotificationSetting from './pages/AccountUser/NotificationSetting/NotificationSetting';
 import MyVoucher from './pages/AccountUser/MyVoucher/MyVoucher';
 import FlashSale from './pages/FlashSale/FlashSale';
-import ManageShop from './pages/SellerCenter/ManageShop';
-import BecomeSeller from './pages/SellerCenter/BecomeSeller';
-import RegisterShop from './pages/SellerCenter/RegisterShop';
-import Chart from './pages/SellerCenter/Chart';
-
+import ManageProducts from './pages/SellerCenter/ManageProducts/ManageProducts';
+import BecomeSeller from './pages/BecomeSeller/BecomeSeller';
+import RegisterShop from './pages/BecomeSeller/RegisterShop';
+import ViewsProductsChart from './pages/SellerCenter/ViewsProductsChart/ViewsProductsChart';
 import ChatWidget from './components/ChatWidget/ChatWidget';
+import DownloadApp from './pages/DownloadApp/DownloadApp';
+import SellerCenter from './pages/SellerCenter/SellerCenter';
+import PaymentMethodChart from './pages/SellerCenter/PaymentMethodChart/PaymentMethodChart';
+import Revenue from './pages/SellerCenter/Revenue/RevenueChart';
+import RevenueChart from './pages/SellerCenter/Revenue/RevenueChart';
+import ShippingAreaChart from './pages/SellerCenter/ShippingArea/ShippingAreaChart';
 
 
 
@@ -66,9 +71,6 @@ root.render(
             <Route path="/productdetail">
               <Route path=':productid' element={<ProductDetail />}></Route>
             </Route>
-            <Route path="/manageshop">
-              <Route path=':email' element={<ManageShop />}></Route>
-            </Route>
             <Route path="/category">
               <Route path=':name' element={<Category />} ></Route>
             </Route>
@@ -81,6 +83,7 @@ root.render(
               <Route path=':shopnameid' element={<ShopName />}></Route>
             </Route>
             <Route element={<FlashSale />} path="/flashsale"></Route>
+            <Route element={<DownloadApp />} path="/downloadapp"></Route>
             <Route element={<AccountUser />} path="/accountuser">
               <Route path='infouser' element={<InfoUser />}></Route>
               <Route path='bankuser' element={<BankUser />}></Route>
@@ -90,10 +93,16 @@ root.render(
               <Route path='purchaseorder' element={<PurchaseOrder />}></Route>
               <Route path='shopeecoin' element={<ShopeeCoin />}></Route>
             </Route>
+            <Route path="/sellercenter">
+              <Route path=':email/' element={<SellerCenter />} >
+                <Route path='manageproduct' element={<ManageProducts />}></Route>
+                <Route path='viewsproductschart' element={<ViewsProductsChart />}></Route>
+                <Route path='paymentmethodchart' element={<PaymentMethodChart />}></Route>
+                <Route path='revenue' element={<RevenueChart />}></Route>
+                <Route path='shippingarea' element={<ShippingAreaChart />}></Route>
+              </Route>
+            </Route>
             <Route path='*' element={<Navigate to="" />}></Route>
-          </Route>
-          <Route path="/chart">
-            <Route path=':email' element={<Chart />}></Route>
           </Route>
           <Route element={<BecomeSeller />} path="/becomeseller"></Route>
           <Route element={<RegisterShop />} path="/registershop"></Route>
@@ -120,11 +129,6 @@ root.render(
       </HistoryRouter>
     </GoogleOAuthProvider>
   </Provider>
-
-
-
-
-
 );
 
 

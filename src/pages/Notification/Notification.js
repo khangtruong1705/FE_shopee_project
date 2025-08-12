@@ -1,105 +1,133 @@
-import { NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './Notification.module.scss'
 import { Button } from 'antd';
-const Notification = () => {
+import CountUp from 'react-countup';
+import { useInView } from 'react-intersection-observer';
+import Marquee from 'react-fast-marquee';
+import { items, vouchers, stats } from './NotificationRawData';
 
+
+
+const Notification = () => {
+    const { ref, inView } = useInView({ triggerOnce: true });
+    const StatItem = ({ end, suffix, label, inView, duration }) => {
+        return (
+            <div className="text-center">
+                <div style={{ fontSize: '3vw', fontWeight: '700', color: '#1250dc' }}>
+                    {inView ? (
+                        <CountUp end={end} duration={duration} separator="." suffix={suffix} />
+                    ) : (
+                        '0'
+                    )}
+                </div>
+                <div style={{ fontSize: '1.2vw', fontWeight: '500', color: '#515263' }}>
+                    {label}
+                </div>
+            </div>
+        );
+    };
     return <>
-        <div className=''>
+        <div className='' style={{ color: '#ffffff' }}>
             <div className={styles.header}>
                 <div className='d-flex align-items-center'>
                     <NavLink to='/'><img className={styles.shopeelogo} src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} /></NavLink>
-                    <div style={{color:'#2469df',fontWeight:'500',fontSize:'1.2vw'}}>Kho lưu trữ thông báo</div>
+                    <div style={{ color: '#2469df', fontWeight: '500', fontSize: '1.2vw' }}>Kho lưu trữ thông báo</div>
                 </div>
-                <NavLink to='/shopeepolicy/generalinfo' style={{color:'#2469df',fontWeight:'500',fontSize:'1.2vw',textDecoration:'none'}}>
-                    Shopee Policies
+                <NavLink to='/shopeepolicy/generalinfo' style={{ color: '#2469df', fontWeight: '500', fontSize: '1.2vw', textDecoration: 'none' }}>
+                    Shop Policies
                 </NavLink>
             </div>
             <div className={styles.shopeewelcome}>
                 <p className={styles.child}>Xin chào,Đây là kho lưu trữ thông báo của bạn?</p>
             </div>
-            <div className='card container mt-5' >
-                <div className="d-flex align-items-center">
-                    <div className="w-25 text-center">
-                        <img className='w-50 h-50' src={process.env.PUBLIC_URL + '/asset/images/notification/gift.jpg'} />
-                    </div>
-                    <div className="w-100 voucher-text">
-                        <h4>MÃ SHOPEE CHOICE VỀ VÍ</h4>
-                        <p>🎉 Bạn đã nhận voucher giảm đến 40K khi mua hàng tại Shopee Choice!
-                            Hiệu lực từ ngày: 17-05-2025 👉 Bấm để xem Shopee Choice!
-                        </p>
-                        <small>17:40 16-05-2025</small>
-                    </div>
-                    <Button danger>
-                        Xem Chi Tiết
-                    </Button>
+            <div className='w-75 mx-auto mt-2' >
+                <div style={{ color: 'black', textAlign: 'center' }}>
+                    <p style={{ fontSize: '4vw', fontWeight: '700' }}>Những con số ấn tượng</p>
+                    <p style={{ color: '#4a5673', fontSize: '1.5vw' }}>Tự hào về số lượng khách hàng và sự hài lòng của khách hàng đã phục vụ tính đến hiện tại</p>
                 </div>
-                <hr></hr>
-                <div className="d-flex align-items-center">
-                    <div className="w-25 text-center">
-                        <img className='w-50 h-50' src={process.env.PUBLIC_URL + '/asset/images/notification/gift.jpg'} />
+
+                <div
+                    ref={ref}
+                    style={{
+                        background: '#f6f7f9',
+                        border: 'none',
+                        display: 'flex',
+                        borderRadius: '0.7rem',
+                    }}
+                    className="card p-4"
+                >
+                    <div className="card-body d-flex justify-content-around">
+                        {stats.map((stat, index) => (
+                            <StatItem
+                                key={index}
+                                end={stat.end}
+                                suffix={stat.suffix}
+                                label={stat.label}
+                                inView={inView}
+                                duration={stat.duration}
+                            />
+                        ))}
                     </div>
-                    <div className="w-100 voucher-text">
-                        <h4>🎁 Voucher giảm ngay 10K dành riêng bạn!</h4>
-                        <p>🤩 Giảm đến 10K cho đơn 0Đ!
-                            ⏰ Mã hết hạn vào 21-05-2025. Dùng ngay!
-                            🛒 Dùng ngay thôi!
-                        </p>
-                        <small>15:09 16-05-2025</small>
-                    </div>
-                    <Button danger>
-                        Xem Chi Tiết
-                    </Button>
                 </div>
-                <hr></hr>
-                <div className="d-flex align-items-center">
-                    <div className="w-25 text-center">
-                        <img className='w-50 h-50' src={process.env.PUBLIC_URL + '/asset/images/notification/gift.jpg'} />
-                    </div>
-                    <div className="w-100 voucher-text">
-                        <h4>Voucher đầy ví chẳng ngại chốt đơn!</h4>
-                        <p>💛Voucher Điện tử giảm đến 2 Triệu
-                            🧡Voucher Tiêu dùng giảm đến 250.000Đ
-                            💚Voucher Thời trang giảm đến 100.000Đ
-                            💙Giảm giá ngập tràn - Deal sale đầy sàn!
-                        </p>
-                        <small>21:05 15-05-2025</small>
-                    </div>
-                    <Button danger>
-                        Xem Chi Tiết
-                    </Button>
+            </div>
+            <div className='w-75 mx-auto'>
+                <div style={{ color: 'black', textAlign: 'center' }}>
+                    <p style={{ fontSize: '4vw', fontWeight: '700' }}>Khác nói, Shop lắng nghe</p>
+                    <p style={{ color: '#4a5673', fontSize: '1.5vw' }}>Lắng nghe những lời chia sẻ và góp ý của những vị khách đã trải nghiệm ứng dụng của Shop</p>
                 </div>
-                <hr></hr>
-                <div className="d-flex align-items-center">
-                    <div className="w-25 text-center">
-                        <img className='w-50 h-50' src={process.env.PUBLIC_URL + '/asset/images/notification/gift.jpg'} />
+                <Marquee speed={50} pauseOnHover={true} gradient={false}>
+                    {items.map((item, index) => (
+                        <div
+
+                            className='card'
+                            key={index}
+                            style={{
+                                background: '#f6f7f9',
+                                border: 'none',
+                                borderRadius: 12,
+                                padding: 20,
+                                margin: '0 10px',
+                                width: '25vw',
+                                height: '22vw',
+                                textAlign: 'center'
+                            }}
+                        >
+                            <div className='card-body' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                <p style={{ color: '#54596c', fontSize: '1.2vw' }}>"{item.text}"</p>
+                                <div style={{ marginTop: 10 }}>
+                                    <strong>{item.name}</strong>
+                                    <div>
+                                        <img style={{ width: '4vw', height: '4vw' }} src={process.env.PUBLIC_URL + `${item.avatar}`}></img>
+                                        <div>{item.city}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </Marquee>
+            </div>
+
+            <div className='card w-75  mx-auto mt-5' >
+                {vouchers.map((voucher, index) => (
+                    <div key={index}>
+                        <div className="d-flex align-items-center p-2">
+                            <div className="w-25 text-center">
+                                <img
+                                    className="w-50 h-50"
+                                    src={process.env.PUBLIC_URL + "/asset/images/notification/gift.jpg"}
+                                    alt="Voucher"
+                                />
+                            </div>
+                            <div className="w-100 voucher-text">
+                                <h4 style={{ color: '#1250dc' }}>{voucher.title}</h4>
+                                <p style={{ color: '#54586c' }}>{voucher.description}</p>
+                                <small>{voucher.time}</small>
+                            </div>
+                            <Button style={{ borderColor: '#1890ff', color: '#1890ff' }}>Xem Chi Tiết</Button>
+                        </div>
+                        {index < vouchers.length - 1 && <hr />}
                     </div>
-                    <div className="w-100 voucher-text">
-                        <h4>21H LÊN SÓNG LIVE SĂN DEAL 50%</h4>
-                        <p>💙Cùng rất nhiều deal giảm đến 50%
-                            🧡Mã giảm 40K, 25K, 20K,...nạp đầy lần cuối
-                            💖
-                        </p>
-                        <small>20:46 15-05-2025</small>
-                    </div>
-                    <Button danger>
-                        Xem Chi Tiết
-                    </Button>
-                </div>
-                <hr></hr>
-                 <div className="d-flex align-items-center">
-                    <div className="w-25 text-center">
-                        <img className='w-50 h-50' src={process.env.PUBLIC_URL + '/asset/images/notification/gift.jpg'} />
-                    </div>
-                    <div className="w-100 voucher-text">
-                        <h4>ƯU ĐÃI ĐẾN 45K KHI KÍCH HOẠT SHOPEEPAY 😱</h4>
-                        <p>⏰ ƯU ĐÃI 45K sẽ hết hạn vào 20-05-2025 đó 😱! Áp dụng cho đơn hàng đầu tiên thanh toán bằng ShopeePay.
-                        </p>
-                        <small>18:03 15-05-2025</small>
-                    </div>
-                    <Button danger>
-                        Xem Chi Tiết
-                    </Button>
-                </div>
+                ))}
             </div>
 
 

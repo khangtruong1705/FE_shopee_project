@@ -70,7 +70,9 @@ const ProductDetail = () => {
                     message: 'Cảnh báo',
                     description: t('needlogin'),
                 });
-                alert(t('needlogin'))
+                setTimeout(() => {
+                    navigate(`/login`)
+                }, 1200);
             }
         }
     });
@@ -304,8 +306,8 @@ const ProductDetail = () => {
                     <div className="accordion-item">
                         <h2 className="accordion-header">
                             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <span className='me-2' style={{background:'#6a7888',padding:'0.2vw 0.4vw',borderRadius:'99px',color:'white'}}>
-                                <i className="fa-solid fa-question" />
+                                <span className='me-2' style={{ background: '#6a7888', padding: '0.2vw 0.4vw', borderRadius: '99px', color: 'white' }}>
+                                    <i className="fa-solid fa-question" />
                                 </span>
                                 Nguồn Gốc Sản Phẩm?
                             </button>
@@ -317,10 +319,10 @@ const ProductDetail = () => {
                     <div className="accordion-item">
                         <h2 className="accordion-header">
                             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                <span className='me-2' style={{background:'#6a7888',padding:'0.2vw 0.4vw',borderRadius:'99px',color:'white'}}>
-                                <i className="fa-solid fa-question" />
+                                <span className='me-2' style={{ background: '#6a7888', padding: '0.2vw 0.4vw', borderRadius: '99px', color: 'white' }}>
+                                    <i className="fa-solid fa-question" />
                                 </span>
-                               Quốc Gia Sản Xuất?
+                                Quốc Gia Sản Xuất?
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -330,8 +332,8 @@ const ProductDetail = () => {
                     <div className="accordion-item">
                         <h2 className="accordion-header">
                             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                 <span className='me-2' style={{background:'#6a7888',padding:'0.2vw 0.4vw',borderRadius:'99px',color:'white'}}>
-                                <i className="fa-solid fa-question" />
+                                <span className='me-2' style={{ background: '#6a7888', padding: '0.2vw 0.4vw', borderRadius: '99px', color: 'white' }}>
+                                    <i className="fa-solid fa-question" />
                                 </span>
                                 Chính Sách Bảo Hành?
                             </button>
@@ -343,8 +345,8 @@ const ProductDetail = () => {
                     <div className="accordion-item">
                         <h2 className="accordion-header">
                             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                 <span className='me-2' style={{background:'#6a7888',padding:'0.2vw 0.4vw',borderRadius:'99px',color:'white'}}>
-                                <i className="fa-solid fa-question" />
+                                <span className='me-2' style={{ background: '#6a7888', padding: '0.2vw 0.4vw', borderRadius: '99px', color: 'white' }}>
+                                    <i className="fa-solid fa-question" />
                                 </span>
                                 Chính Sách Vận Chuyển?
                             </button>

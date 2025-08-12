@@ -38,7 +38,7 @@ const ChatWithUser = () => {
         <Badge
           style={{
             backgroundColor: 'white',
-            color: '#f84b2e',
+            color: '#276ddf',
           }}
           count={count}
           showZero
@@ -53,7 +53,7 @@ const ChatWithUser = () => {
               setCount(0);
             }}
             style={{
-              backgroundColor: "#ee6d77",
+              backgroundColor: "#276ddf",
             }}
           >
             Chat User

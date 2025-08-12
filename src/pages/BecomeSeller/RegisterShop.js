@@ -3,7 +3,7 @@ import Footer from "../../components/Footer/Footer";
 import axios from 'axios';
 import { DOMAIN } from "../../util/config";
 import { Button, Form, Input,message} from 'antd';
-import styles from './SellerCenter.module.css'
+import styles from '../SellerCenter/SellerCenter.module.css'
 import { useTranslation } from 'react-i18next';
 import { jwtDecode } from 'jwt-decode';
 

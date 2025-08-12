@@ -4,38 +4,63 @@ import axios from 'axios';
 import { NavLink, useParams } from 'react-router-dom';
 import _ from "lodash";
 import { DOMAIN } from '../../util/config'
-import { Segmented } from 'antd';
+import { Menu, Button, Select, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import ProductItem from '../../components/ProductItem/ProductItem';
-
+import { getFilterItems } from './SearchRawData'
+import { getLevelKeys, handleOpenChange } from '../../antdesignhook/useAntdesign'
+import { jwtDecode } from 'jwt-decode';
 
 
 const Search = () => {
     const { keyword } = useParams();
-    const [arrMain, setArrMain] = useState();
+    const [arrMain, setArrMain] = useState([]);
     const { t } = useTranslation();
-    const [isDropdownSelected, setIsDropdownSelected] = useState(false);
-    const handleSortChange = (value) => {
-        if (value === 'Newest' || value === 'Mới Nhất') {
-            const sortedItems = _.sortBy(arrMain, ["created_at"], ["desc"]);
-            setArrMain(sortedItems)
-        } else if (value === 'Best Seller' || value === 'Bán Chạy') {
-            const sortedItems = _.orderBy(arrMain, ["sold"], ["desc"]);
-            setArrMain(sortedItems)
-        }
+    const token = localStorage.getItem('token');
+    const onChange = e => {
+        console.log(`checked = ${e.target.checked}`);
     };
-    const handleDropdownChange = (event) => {
-        const selectedValue = parseInt(event.target.value, 10);
-        setIsDropdownSelected(true);
-        let sortedarrMain;
-        if (selectedValue === 1) {
+    const filterItems = getFilterItems(t, onChange);
+    const [stateOpenKeys, setStateOpenKeys] = useState([]);
+    const levelKeys = getLevelKeys(filterItems);
+    const onOpenChange = (openKeys) => {
+        handleOpenChange(openKeys, stateOpenKeys, setStateOpenKeys, levelKeys);
+    };
+    const sortOptions = [
+        { id: 2, label: t('bestseller') },
+        { id: 3, label: t('newest') },
+        { id: 4, label: t('featured') },
+    ];
+    const [selectedSort, setSelectedSort] = useState(null);
+    const handleChange = value => {
+        let sortedarrMain
+        if (value === 'lowtohigh') {
             sortedarrMain = _.orderBy(arrMain, ["price"], ["asc"]);
-        } else if (selectedValue === 2) {
+        } else if (value === 'hightolow') {
             sortedarrMain = _.orderBy(arrMain, ["price"], ["desc"]);
         } else {
             sortedarrMain = [...arrMain];
         }
         setArrMain(sortedarrMain);
+    };
+    const handleSortChange = (value) => {
+if (value === 2) {
+            const sortedItems = _.orderBy(arrMain, ["sold"], ["desc"]);
+            setSelectedSort(value);
+            setArrMain(sortedItems)
+        } if (value === 3) {
+            const sortedItems = _.sortBy(arrMain, ["created_at"], ["desc"]);
+            setSelectedSort(value);
+            setArrMain(sortedItems)
+        } if (value === 4) {
+            const sortedItems = _.orderBy(
+                arrMain,
+                [item => new Date(item.created_at)],
+                ['desc']
+            );
+            setSelectedSort(value);
+            setArrMain(sortedItems)
+        }
     };
     const fetchData = async () => {
         try {
@@ -54,39 +79,118 @@ const Search = () => {
             <div style={{ background: '#eaeffb' }}>
                 <img style={{ height: '31vw', width: '100%' }} src={process.env.PUBLIC_URL + '/asset/images/carousel3.webp'} className="d-block w-100" alt="..." />
             </div>
-            <div  className='w-75 mx-auto'>
+            <div className='w-75 mx-auto' style={{minHeight:'35vw'}}>
                 <div>
-                    <p className='pt-3'>{t('searchresults')} "{keyword}"</p>
-                    <div className='d-flex justify-content-around my-4 p-3' style={{ backgroundColor: '#ededed' }}>
-                        <div><strong>{t('sortby')}</strong> </div>
-                        <div>
-                            <Segmented options={[t('newest'), t('bestseller'),]}
-                                block
-                                style={{ minWidth: 350 }}
-                                onChange={handleSortChange}
+                    <div className={styles.mainProducts}>
+                        <div className={styles.filter}>
+                            <div className={styles.filterTitle}>
+                                <i className={`${styles.filterIcon} fa-solid fa-filter`} />
+                                <span className={styles.filterContent}>{t('filter')}</span>
+                            </div>
+                            <hr></hr>
+                            <Menu
+                                mode="inline"
+                                defaultSelectedKeys={['1']}
+                                openKeys={stateOpenKeys}
+                                onOpenChange={onOpenChange}
+                                style={{ width: '16vw' }}
+                                items={filterItems}
                             />
                         </div>
-                        <div>
-                            <select className={`form-select ${isDropdownSelected ? "dropdown-selected" : ""}  text-center`}
-                                aria-label="Default select example"
-                                onChange={handleDropdownChange}
-                            >
-                                <option defaultValue="1">{t('price')}</option>
-                                <option value={1}>{t('lowtohigh')}</option>
-                                <option value={2}>{t('hightolow')}</option>
-                            </select>
+                        <div className={styles.products}>
+                            <div className={styles.productsFilter}>
+                                <strong className={styles.productsFilterLeft}>{t('productlist')}</strong>
+                                <div className={styles.productsFilterRight} >
+                                    <span className={styles.productsFilterRightTitle}>{t('sortby')}</span>
+                                    {sortOptions.map(({ id, label }) => (
+                                        <Button
+                                            key={id}
+                                            style={{ fontSize: '0.9vw', width: '4.9vw' }}
+                                            onClick={() => handleSortChange(id)}
+                                            className={selectedSort === id ? 'border border-primary' : 'btn-outline-primary'}
+                                        >
+                                            {label}
+                                            {selectedSort === id && (
+                                                <span className={styles.cornerCheck}>
+                                                    <i
+                                                        className="fa-solid fa-check"
+                                                        style={{
+                                                            fontSize: '0.5vw',
+                                                            color: 'white',
+                                                            position: 'absolute',
+                                                            top: '3px',
+                                                        }}
+                                                    />
+                                                </span>
+                                            )}
+                                        </Button>
+                                    ))}
+                                    <Space wrap>
+                                        <Select
+                                            style={{ textAlign: 'center', width: '8.3vw', fontSize: '0.9vw' }}
+                                            defaultValue='lowtohigh'
+                                            onChange={handleChange}
+                                            options={[
+                                                { value: 'lowtohigh', label: <span style={{ fontSize: '0.9vw' }} >{t('lowtohigh')}</span> },
+                                                { value: 'hightolow', label: <span style={{ fontSize: '0.9vw' }}>{t('hightolow')}</span> },
+
+                                            ]}
+                                        />
+                                    </Space>
+                                </div>
+                            </div>
+                            <div className={styles.arrayProducts}>
+                                <div className='row'>
+                                    <div style={{ fontSize: '0.9vw' }}>{t('searchresults')} "{keyword}"</div>
+                                    {arrMain?.map((product, index) => {
+                                        return <div className='col-6 col-sm-6 col-md-4 col-lg-3' key={index}>
+                                            <NavLink
+                                                style={{ textDecoration: 'none' }}
+                                                to={`/productdetail/${product.product_id}`}
+                                                onClick={async () => {
+                                                    try {
+                                                        let data = {};
+                                                        if (token == null) {
+                                                            data = {
+                                                                user_id: 0,
+                                                                product_id: product.product_id,
+                                                                name: product.name
+                                                            };
+                                                        } else {
+                                                            const { user_id } = jwtDecode(token);
+                                                            data = {
+                                                                user_id: user_id,
+                                                                product_id: product.product_id,
+                                                                name: product.name
+                                                            };
+                                                        }
+                                                        await axios.post(`${DOMAIN}/api/view-product/add-view-by-productid`, data);
+                                                    } catch (error) {
+                                                        console.log('error', error)
+                                                    }
+                                                }}
+                                            >
+                                                <div className={`${styles.carditem} card`}>
+                                                    <div className='card-body'>
+                                                        <img className={styles.productImage} src={`${process.env.PUBLIC_URL} ${product.image}`} />
+                                                        <div className={styles.dealSock}  >
+                                                            <i className={`${styles.dealsockicon} fa-solid fa-fire mx-1`} />
+                                                            <span className={styles.dealsockcontent}>Giá cực sốc</span>
+                                                        </div>
+                                                        <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontSize: '0.9vw' }}><strong>{product.description}</strong></div>
+                                                        <div className={styles.price}>
+                                                            <strong className='text-center' >{product.price.toLocaleString('vi-VN')}₫</strong>
+                                                            <div className={styles.oldPrice}>399.000₫ -10%</div>
+                                                        </div>
+                                                        <button className={styles.cardButton}>Mua Ngay</button>
+                                                    </div>
+                                                </div>
+                                            </NavLink>
+                                        </div>
+                                    })}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div className='row'>
-                        {arrMain?.map((product, index) => <div key={index} className='col-3 mb-4'>
-                            <NavLink
-                                style={{ textDecoration: 'none' }}
-                                to={`/productdetail/${product.product_id}`}
-                            >
-                                <ProductItem product={product}></ProductItem>
-                            </NavLink>
-                        </div>
-                        )}
                     </div>
                 </div>
             </div>

@@ -1,0 +1,93 @@
+.topPageContainer {
+     display: flex;
+        justify-content: space-around;
+        align-items: center;
+    .topPage {
+       .topPageText1{
+        font-size: 4vw;
+        font-weight: 700;
+        color: #1250dc;
+      
+       }
+       .topPageText2{
+        color:   #51586a;
+        font-size: 1.5vw;
+       }
+    }
+
+    .imgGroup {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 1vw;
+        align-items: center;
+        width: 50%;
+        .qrImg {
+            padding: 0.5vw;
+            background: white;
+            border-radius: 0.5rem;
+            img {
+                width: 100%;
+            }
+        }
+
+        .logoGroup {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            a {
+                // background: black;
+                margin: 1vw;
+                img {
+                    border:'1px solid black';
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+
+
+        }
+
+    }
+}
+
+
+.bottomHome {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &Item {
+    border-radius: 10px;
+    padding: 1.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6vw;
+    background-color: #ffffff;
+    margin: 2vw 0;
+    width: 19vw;
+    height: 7vw;
+
+    &Title {
+      font-size: 1.1vw;
+      font-weight: 500;
+    }
+
+    &Content {
+      font-size: 0.8vw;
+      color: #a7b0b8;
+    }
+
+    &Icon {
+      font-size: 1.4vw;
+      color: white;
+      padding: 0.5vw;
+      background: #1250dc;
+      border-radius: 99px;
+    }
+  }
+}

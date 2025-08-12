@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from './Home.module.scss' // Import CSS Module
 import { serviceItemData, bannerItemsData, carouselItemsData } from './homeRawData'
 import axios from 'axios';
@@ -14,8 +14,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation } from 'swiper/modules';
 import { useTranslation } from 'react-i18next';
+import { notification} from 'antd';
 import ProductItem from '../../components/ProductItem/ProductItem';
-
 
 
 const Home = () => {
@@ -256,11 +256,25 @@ const Home = () => {
                             </div>
                             <div className={`${styles.itemparent} row service mt-4`}>
                                 {serviceItems.map((item, index) => (
-                                    <NavLink to='/accountuser/myvoucher' key={index} className={`${styles.itemchildContainer}`}>
+                                    <div key={index}
+                                        onClick={() => {
+                                            if (token == null) {
+                                                notification.warning({
+                                                    message: 'Cảnh báo',
+                                                    description: 'Bạn cần đăng nhập để xem dịch vụ!',
+                                                });
+                                                setTimeout(() => {
+                                                    navigate(`/login`)
+                                                }, 1200);
+                                            } else {
+                                                    navigate(`/accountuser/myvoucher`)                                      
+                                            }
+                                        }}
+                                        className={`${styles.itemchildContainer}`}>
                                         <div className={`${styles.itemchild}`}
                                             style={{ backgroundImage: `url(${process.env.PUBLIC_URL + item.background})`, }}></div>
                                         <p>{item.label}</p>
-                                    </NavLink>
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -375,9 +389,9 @@ const Home = () => {
                                 <div className={styles.favouriteItem3}>
                                     <div className={styles.item3Gird}>
                                         {['Child1', 'Child2', 'Child3', 'Child4'].map((child, index) => (
-                                            <div key={index} 
-                                            className={styles[child]}
-                                            onClick={()=>navigate('/flashsale')}
+                                            <div key={index}
+                                                className={styles[child]}
+                                                onClick={() => navigate('/flashsale')}
                                             ></div>
                                         ))}
                                     </div>

@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import styles from './ShopeeHelp.module.css'
+import styles from './ShopeeHelp.module.scss'
 import { Carousel } from 'antd';
 
 
@@ -19,17 +19,16 @@ const ShopeeHelp = () => {
         <div className=''>
             <div className={styles.header}>
                 <div className='d-flex align-items-center'>
-                    <NavLink to='/'><img alt="..." className={styles.shopeelogo} src={process.env.PUBLIC_URL + '/asset/images/shopeelogo.png'} /></NavLink>
-                    <div>Trung tâm sợ giúp Shopee VN</div>
+                    <NavLink to='/'><img alt="..." className={styles.shopeelogo} src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} /></NavLink>
+                    <div style={{fontSize:'1.1vw',fontWeight:'500',color:'#1250dc'}}>Trung tâm sợ giúp Shopee VN</div>
                 </div>
-                <NavLink to='/shopeepolicy/generalinfo' style={{ color: 'black', textDecoration: 'none' }}>
-                    Shopee Policies
+                <NavLink to='/shopeepolicy/generalinfo' style={{fontSize:'1.1vw',fontWeight:'500',color:'#1250dc',textDecoration:'none'}}>
+                    Shop Policies
                 </NavLink>
             </div>
             <div className={styles.shopeewelcome}>
-                <p className={styles.child}>Xin chào,Shoppe có thể giúp gì cho bạn?</p>
+                <p className={styles.child}>Xin chào,Shop có thể giúp gì cho bạn?</p>
             </div>
-
             <div className='body mt-5'>
                 <div className='container w-75'>
                     <Carousel style={{ border: '2px solid #ffecbf' }} autoplay={{ dotDuration: true }} autoplaySpeed={3500}>

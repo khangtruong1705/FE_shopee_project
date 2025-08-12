@@ -12,37 +12,53 @@ export const categoriesData = [
 ];
 
 export const tagsData = [
-    'mensfashion', 'watch', 'beauty',
-    'health', 'Laptop', 'shoe', 'jacket',
-    'camera', 'womensfashion'];
+    { categoryName: 'nhasachonline', fixName: 'bookshop' },
+    { categoryName: 'bachhoaonline', fixName: 'grocery' },
+    { categoryName: 'thethaodulich', fixName: 'travel' },
+    { categoryName: 'dongho', fixName: 'watch' },
+    { categoryName: 'maytinhvalaptop', fixName: 'Laptop' },
+    { categoryName: 'giaydepnam', fixName: 'menshoe' },
+    { categoryName: 'phukientrangsucnu', fixName: 'accessories' },
+    { categoryName: 'mayanh', fixName: 'camera' },
+    { categoryName: 'giaydepnu', fixName: 'womenshoe' }
+]
 
-export const downloadAppContent = <>
+export const downloadAppContent = () => (
     <div className={styles.downloadAppContent}>
         <img className='w-100' src={process.env.PUBLIC_URL + '/asset/images/qrcode.png'}></img>
     </div>
-</>;
+)
 
 export const getNotificationsContent = (t, navigate) => (
     <div>
-        <div>
-            <p>🎉 Voucher đầy ví chần chừ gì nữa!</p>
-            <p>⚡Voucher điện tử giảm đến 2 triệu 💖Voucher thời trang giảm 100k</p>
+        <div className='card'
+            style={{ width: '100%', height: '6vw', borderRadius: '0.7vw' }}>
+            <div className='card-body'>
+                <p style={{ fontSize: '1.1vw', fontWeight: '500', color: '#1250dc' }}>🎉 Voucher đầy ví chần chừ gì nữa!</p>
+                <p>Voucher điện tử giảm đến 2 triệu.💗Voucher thời trang giảm 100k</p>
+            </div>
         </div>
         <hr />
-        <div>
-            <p>21H LÊN SÓNG LIVE SĂN DEAL 50%</p>
-            <p>💗 Deal giảm sốc, quà tặng hấp dẫn cho Bạn</p>
+        <div className='card'
+            style={{ width: '100%', height: '6vw', borderRadius: '0.7vw' }}>
+            <div className='card-body'>
+                <p style={{ fontSize: '1.1vw', fontWeight: '500', color: '#1250dc' }}>💖 21H LÊN SÓNG LIVE SĂN DEAL 50%</p>
+                <p>Deal giảm sốc, quà tặng hấp dẫn cho Bạn</p>
+            </div>
         </div>
         <hr />
-        <div>
-            <p>🎁 ƯU ĐÃI SHOPEEPAY</p>
-            <p>Nhận ngay 45k khi kích hoạt ShopeePay trước 20/05/2025</p>
+        <div className='card'
+            style={{ width: '100%', height: '6vw', borderRadius: '0.7vw' }}>
+            <div className='card-body'>
+                <p style={{ fontSize: '1.1vw', fontWeight: '500', color: '#1250dc' }}>🎁 ƯU ĐÃI SHOPEEPAY</p>
+                <p>Nhận ngay 45k khi kích hoạt ShopeePay trước 20/05/2025</p>
+            </div>
         </div>
         <hr />
         <div>
             <button
                 className='p-2 h-100 w-100'
-                style={{ border: 'none', background: '#1250dc', color: 'white' }}
+                style={{ border: 'none', background: '#1250dc', color: 'white', borderRadius: '99px' }}
                 onClick={() => navigate('/notification')}
             >
                 {t('viewall')}
@@ -102,14 +118,18 @@ export const getLoginContent = (t, navigate) => (
     </div>
 );
 
-export const getInputContent = () => (
+export const getInputContent = (setIsFocused,t,handleBlur,setIsPopoverOpen) => (
     <div className='w-100'>
         <p style={{ fontSize: '1.1vw', fontWeight: '500' }}>Tra cứu hàng đầu</p>
-        {[
-            'Đồng hồ', 'Máy ảnh', 'Xe đạp', 'Thời trang nam', 'Giày',
-            'Laptop', 'Túi xách nữ', 'Sách', 'Áo Khoát',
-        ].map((item, index) => (
-            <span
+        {tagsData.map((item, index) => (
+            <NavLink
+            
+                to={`/category/${item.categoryName}`}
+                onClick={()=>{
+                    setIsFocused(false)
+                    setIsPopoverOpen()
+                    handleBlur()
+                }}
                 key={index}
                 className="py-1 px-3 m-3"
                 style={{
@@ -119,10 +139,11 @@ export const getInputContent = () => (
                     border: '1px solid #dfdfdf',
                     borderRadius: '99px',
                     cursor: 'pointer',
+                    textDecoration:'none'
                 }}
             >
-                {item}
-            </span>
+                {t(item.fixName)}
+            </NavLink>
         ))}
     </div>
 );

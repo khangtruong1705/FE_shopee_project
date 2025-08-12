@@ -7,15 +7,22 @@ import { DOMAIN } from '../../util/config';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { notification, Popover } from 'antd';
-import { categoriesData, tagsData, getLoginContent, downloadAppContent, getNotificationsContent, getContentLanguage, getInputContent,getCartContent  } from './headerRawData'
+import {
+    categoriesData, tagsData, getLoginContent,
+    downloadAppContent, getNotificationsContent, getContentLanguage,
+    getInputContent, getCartContent
+} from './headerRawData'
 
 
 
-const Header = ({ count, setCount }) => {
+const Header = ({ setCount }) => {
     const [categoryProducts, setCategoryProducts] = useState({});
     const [cartArray, setCartArray] = useState([]);
     const { t, i18n } = useTranslation();
-    const tags = tagsData.map(item => t(item));
+    const tags = tagsData.map(item => ({
+        ...item,
+        fixName: t(item.fixName)
+    }))
     const categories = categoriesData.map(item => ({ name: item.name, label: t(item.label) }));
     const navigate = useNavigate();
     const searchKeyword = useRef();
@@ -26,8 +33,13 @@ const Header = ({ count, setCount }) => {
     const avatarUrl = useSelector((state) => state.getAvatarUrl.avatarUrl);
     const [userInfo, setUserInfo] = useState({});
     const [language, setLanguage] = useState('Tiếng Việt');
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
-    const handleFocus = () => setIsFocused(true);
+    const handleFocus = () => {
+        setIsFocused(true)
+        setIsPopoverOpen(true)
+    }
+    ;
     const handleBlur = () => setIsFocused(false);
     const inputRef = useRef(null);
     const limitCharacters = (text, limit = 6) => {
@@ -68,6 +80,7 @@ const Header = ({ count, setCount }) => {
             console.log('error', error)
         }
         handleBlur()
+        setIsPopoverOpen(false)
     };
     const fetchData = async (token) => {
         try {
@@ -126,7 +139,46 @@ const Header = ({ count, setCount }) => {
     const cartContent = getCartContent(cartArray, navigate);
     const notificationsContent = getNotificationsContent(t, navigate);
     const contentLanguage = getContentLanguage(setLanguage, changeLanguage);
-    const inputContent = getInputContent();
+    const inputContent = getInputContent(setIsFocused,t,handleBlur,setIsPopoverOpen);
+    const handleShopAction = async (mode) => {
+        if (!token) {
+            notification.warning({
+                message: 'Cảnh báo',
+                description: 'Bạn cần đăng nhập trước !!',
+            });
+            setTimeout(() => navigate(`/login`), 1000);
+            return;
+        }
+        const { email } = jwtDecode(token);
+        const data = { email };
+        const response = await axios.post(`${DOMAIN}/api/shop-name/check-existing-shop`, data);
+        if (mode === 'sellerCenter') {
+            if (response.data === true) {
+                navigate(`/sellercenter/${email}/manageproduct`);
+                setCount(0);
+            } else {
+                notification.warning({
+                    message: 'Cảnh báo',
+                    description: 'Bạn chưa có shop !!',
+                });
+                setTimeout(() => navigate(`/becomeseller`), 1000);
+            }
+        }
+        if (mode === 'startSelling') {
+            if (response.data === true) {
+                notification.info({
+                    message: 'Thông báo',
+                    description: 'Bạn đã sở hữu shop rồi !!!',
+                });
+                setTimeout(() => {
+                    navigate(`/sellercenter/${email}/manageproduct`);
+                    setCount(0);
+                }, 1000);
+            } else {
+                navigate(`/becomeseller`);
+            }
+        }
+    };
     const renderLogin = () => {
         if (token == null) {
             return <>
@@ -161,32 +213,14 @@ const Header = ({ count, setCount }) => {
                 <div className={styles.containerHeader} >
                     <div className={`${styles.topHeader}`}>
                         <div className={`${styles.topHeaderLeft}`}>
-                            <div className={styles.sellerCenter} onClick={async () => {
-                                if (token == null) {
-                                    notification.warning({
-                                        message: 'Cảnh báo',
-                                        description: 'Bạn cần đăng nhập để vào trung tâm bán hàng!',
-                                    });
-                                    setTimeout(() => {
-                                        navigate(`/login`)
-                                    }, 1200);
-                                } else {
-                                    const { email } = jwtDecode(token);
-                                    const data = {
-                                        'email': email
-                                    }
-                                    const response = await axios.post(`${DOMAIN}/api/shop-name/check-existing-shop`, data);
-                                    if (response.data === true) {
-                                        navigate(`/manageshop/${email}`)
-                                        setCount(0)
-                                    } if (response.data === false)
-                                        navigate(`/becomeseller`)
-                                }
-                            }}>
+                            <div className={styles.sellerCenter} onClick={() => handleShopAction('sellerCenter')}>
                                 {t('sellercenter')}
                             </div>
-                            <div className={styles.startSelling}>{t('startselling')}</div>
-                            <div className={styles.downloadApp} >
+
+                            <div className={styles.startSelling} onClick={() => handleShopAction('startSelling')}>
+                                {t('startselling')}
+                            </div>
+                            <div className={styles.downloadApp} onClick={() => navigate('/downloadapp')}>
                                 <Popover content={downloadAppContent}>
                                     <span>{t('download')}</span>
                                     <i className='fa-solid fa-clipboard mx-1' />
@@ -228,8 +262,9 @@ const Header = ({ count, setCount }) => {
                             <form id="frm" className={styles.inputForm}>
                                 <Popover
                                     arrow={false}
-                                    trigger="focus"
+                                    trigger="click"
                                     content={inputContent}
+                                    open={isPopoverOpen}
                                     styles={{
                                         root: {
                                             width: '45%',
@@ -242,6 +277,7 @@ const Header = ({ count, setCount }) => {
                                         style={{ border: 'none', borderRadius: '99px' }}
                                         onChange={handleChange}
                                         onFocus={handleFocus}
+                                        onBlur={()=>setIsPopoverOpen(false)}
                                     />
                                     {!isFocused && (
                                         <span className={styles.animatedPlaceholder}>
@@ -271,9 +307,12 @@ const Header = ({ count, setCount }) => {
                                 {tags.map((tag, index) => (
                                     <div key={index}
                                         className={`m-2`}
-                                        style={{ fontSize: '0.9vw' }}
+                                        style={{ fontSize: '0.9vw', cursor: 'pointer' }}
+                                        onClick={() => {
+                                            navigate(`/category/${tag.categoryName}`)
+                                        }}
                                     >
-                                        {tag}
+                                        {tag.fixName}
                                     </div>
                                 ))}
                             </div>
@@ -306,7 +345,7 @@ const Header = ({ count, setCount }) => {
                                     }}>
                                     <i className={`fa-solid fa-cart-shopping my-auto ${styles.carticon}`} />
                                     <div className={`rounded-circle ${styles.cartamount}`}>{amount}</div>
-                                    <div className='mx-2' style={{ fontSize: '0.82vw',minWidth:'3.4vw',textAlign:'center' }}>{t('cart')}</div>
+                                    <div className='mx-2' style={{ fontSize: '0.82vw', minWidth: '3.4vw', textAlign: 'center' }}>{t('cart')}</div>
                                 </Popover>
                             </div>
                         </div>
