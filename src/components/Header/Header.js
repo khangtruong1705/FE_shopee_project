@@ -39,7 +39,7 @@ const Header = ({ setCount }) => {
         setIsFocused(true)
         setIsPopoverOpen(true)
     }
-    ;
+        ;
     const handleBlur = () => setIsFocused(false);
     const inputRef = useRef(null);
     const limitCharacters = (text, limit = 6) => {
@@ -139,7 +139,7 @@ const Header = ({ setCount }) => {
     const cartContent = getCartContent(cartArray, navigate);
     const notificationsContent = getNotificationsContent(t, navigate);
     const contentLanguage = getContentLanguage(setLanguage, changeLanguage);
-    const inputContent = getInputContent(setIsFocused,t,handleBlur,setIsPopoverOpen);
+    const inputContent = getInputContent(setIsFocused, t, handleBlur, setIsPopoverOpen);
     const handleShopAction = async (mode) => {
         if (!token) {
             notification.warning({
@@ -277,7 +277,7 @@ const Header = ({ setCount }) => {
                                         style={{ border: 'none', borderRadius: '99px' }}
                                         onChange={handleChange}
                                         onFocus={handleFocus}
-                                        onBlur={()=>setIsPopoverOpen(false)}
+                                        onBlur={() => setIsPopoverOpen(false)}
                                     />
                                     {!isFocused && (
                                         <span className={styles.animatedPlaceholder}>
@@ -357,6 +357,7 @@ const Header = ({ setCount }) => {
                             className={styles.dropdown} key={index}
                         >
                             <div
+                                onClick={() => navigate(`category/${category.name}`)}
                                 onMouseEnter={() => setIsFocused(true)}
                                 onMouseLeave={() => setIsFocused(false)}
                                 className={styles.dropdownButton}>

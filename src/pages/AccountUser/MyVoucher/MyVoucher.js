@@ -1,6 +1,6 @@
 import {  useEffect } from 'react'
 import styles from './MyVoucher.module.css';
-
+import { vouchers } from './MyVoucherRawData';
 
 
 const MyVoucher = () => {
@@ -14,98 +14,7 @@ const MyVoucher = () => {
 
         }
     };
-    const vouchers = [
-        {
-            logo: 'VOUCHER XTRA',
-            category: 'Toàn Ngành Hàng',
-            discount: 'Giảm 15% Giảm tối đa ₫100k',
-            condition: 'Đơn Tối Thiểu ₫120k',
-            time: 'Hiệu lực sau: 2 ngày',
-            used: '×5',
-            button: 'Dùng Sau',
-        },
-        {
-            logo: 'VOUCHER XTRA',
-            category: 'Thời Trang',
-            discount: 'Giảm 12% Giảm tối đa ₫25k',
-            condition: 'Đơn Tối Thiểu ₫99k',
-            time: 'Hiệu lực sau: 2 ngày',
-            used: '×3',
-            button: 'Dùng Sau',
-        },
-        {
-            logo: 'SHOPEE',
-            category: 'SHOPEE',
-            discount: 'Giảm 15% Giảm tối đa ₫150k',
-            condition: 'Đơn Tối Thiểu ₫750k',
-            time: 'Hiệu lực sau: 1 ngày',
-            used: '×2',
-            button: 'Dùng Sau',
-        },
-        {
-            logo: 'SHOPEE',
-            category: 'SHOPEE',
-            discount: 'Giảm 8% Giảm tối đa ₫200k',
-            condition: 'Đơn Tối Thiểu ₫200k',
-            time: 'Hiệu lực sau: 7 giờ',
-            used: '×3',
-            button: 'Dùng Sau',
-        },
-        {
-            logo: 'VOUCHER XTRA',
-            category: 'Toàn Ngành Hàng',
-            discount: 'Giảm 12% Giảm tối đa ₫150k',
-            condition: 'Đơn Tối Thiểu ₫500k',
-            time: 'Hiệu lực sau: 2 ngày',
-            used: '×5',
-            button: 'Dùng Sau',
-        },
-        {
-            logo: 'SHOPEE',
-            category: 'SHOPEE',
-            discount: 'Giảm 15% Giảm tối đa ₫150k',
-            condition: 'Đơn Tối Thiểu ₫200k',
-            time: 'Hiệu lực sau: 7 giờ',
-            used: '×5',
-            button: 'Dùng Sau',
-        },
-        {
-            logo: 'VOUCHER XTRA',
-            category: 'Thời Trang',
-            discount: 'Giảm 15% Giảm tối đa ₫50k',
-            condition: 'Đơn Tối Thiểu ₫250k',
-            time: 'Hiệu lực sau: 2 ngày',
-            used: '×3',
-            button: 'Dùng Sau',
-        },
-        {
-            logo: 'Thời Trang',
-            category: 'Thời Trang',
-            discount: 'Giảm 12% Giảm tối đa ₫40k',
-            condition: 'Đơn Tối Thiểu ₫250k',
-            time: 'Hiệu lực sau: 2 ngày',
-            used: '×3',
-            button: 'Dùng Sau',
-        },
-        {
-            logo: 'Thời Trang',
-            category: 'Thời Trang',
-            discount: 'Giảm 10% Giảm tối đa ₫20k',
-            condition: 'Đơn Tối Thiểu ₫99k',
-            time: 'Hiệu lực sau: 2 ngày',
-            used: '×3',
-            button: 'Dùng Sau',
-        },
-        {
-            logo: 'SHOPEE',
-            category: 'SHOPEE',
-            discount: 'Giảm 6% Giảm tối đa ₫100k',
-            condition: 'Đơn Tối Thiểu ₫100k',
-            time: 'Hiệu lực sau: 2 ngày',
-            used: '×10',
-            button: 'Dùng Ngay',
-        },
-    ];
+   
     useEffect(() => {
         fetchData()
     }, [])
@@ -117,8 +26,8 @@ const MyVoucher = () => {
                         background: "#f7f7f7",
                     }} className='d-flex justify-content-center p-3 align-items-center' >
                         <div className='mx-2'>Mã Voucher</div>
-                        <input placeholder='Nhập Mã Voucher Tại Đây' className='mx-2 py-2' style={{width:'30vw'}}></input>
-                        <button  style={{color:'white',border:'none',background:'#8e8d8d'}}
+                        <input placeholder='Nhập Mã Voucher Tại Đây' className='mx-2 py-2' style={{width:'30vw',borderRadius:'0.5rem',border:'none'}}></input>
+                        <button  style={{color:'white',border:'none',background:'#1250dc'}}
                         className='mx-2 px-4 py-2'>Lưu</button>
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>

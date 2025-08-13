@@ -72,7 +72,7 @@ const Notification = () => {
             </div>
             <div className='w-75 mx-auto'>
                 <div style={{ color: 'black', textAlign: 'center' }}>
-                    <p style={{ fontSize: '4vw', fontWeight: '700' }}>Khác nói, Shop lắng nghe</p>
+                    <p style={{ fontSize: '4vw', fontWeight: '700' }}>Khách nói, Shop lắng nghe</p>
                     <p style={{ color: '#4a5673', fontSize: '1.5vw' }}>Lắng nghe những lời chia sẻ và góp ý của những vị khách đã trải nghiệm ứng dụng của Shop</p>
                 </div>
                 <Marquee speed={50} pauseOnHover={true} gradient={false}>

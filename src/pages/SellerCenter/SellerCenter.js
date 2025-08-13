@@ -11,7 +11,7 @@ import styles from './ManageProducts/ManageProducts.module.css'
 
 
 const SellerCenter = () => {
-    const navigate =useNavigate();
+    const navigate = useNavigate();
     const [count, setCount] = useState(0);
     const [uploadProduct, setUploadProduct] = useState(false);
     const [shopInfo, setShopInfo] = useState({});
@@ -104,7 +104,6 @@ const SellerCenter = () => {
         try {
 
             const res = await axios.get(`${DOMAIN}/api/shop-name/get-shop-by-email-owner/${email}`);
-            const shopData = res.data;
             setShopInfo(res.data);
         } catch (error) {
 
@@ -165,7 +164,7 @@ const SellerCenter = () => {
         fetchData()
     }, [])
     return <>
-        <div className="header py-5" style={{ backgroundColor: '#276ddf', }}>
+        <div className="header py-5" style={{ backgroundColor: '#eaeffb', }}>
             <div className='d-flex justify-content-between align-items-center w-75 mx-auto'>
                 <div className="d-flex align-items-center justify-content-start w-50">
                     <Flex gap="middle" wrap>
@@ -202,19 +201,19 @@ const SellerCenter = () => {
                         </Upload>
                     </Flex>
                     <div className='ms-1'>
-                        <div className="w-100" style={{ fontSize: '2.4vw', color: 'white' }}>
+                        <div className="w-100" style={{ fontSize: '2.4vw' }}>
                             <strong>
                                 Tên Shop:
                                 {shopInfo.name}
                             </strong>
                         </div>
-                        <div className="w-100" style={{ fontSize: '1.1vw', color: 'white' }}>
+                        <div className="w-100" style={{ fontSize: '1.1vw' }}>
                             <strong style={{ whiteSpace: 'nowrap' }}>
                                 Chủ Shop:{shopInfo.email_owner}
                             </strong>
 
                         </div>
-                        <div className="w-100" style={{ fontSize: '1vw', color: 'white' }}>
+                        <div className="w-100" style={{ fontSize: '1vw' }}>
                             <strong>
                                 Số điện thoại:
                             </strong>
@@ -272,16 +271,31 @@ const SellerCenter = () => {
         </div>
         <div className='row container-fluid text-center'>
             <div className='col-2 text-start pt-5' style={{ borderRight: "3px solid #276ddf" }}>
-                <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/manageproduct`}><i style={{ color: '#0d6efd' }} className="fas fa-user me-2"></i>Quản Lý Sản Phẩm</NavLink>
-                <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/viewsproductschart`}><i style={{ color: '#0d6efd' }} className="fas fa-user me-2"></i>Lượt Xem Sản Phẩm</NavLink>
-                <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/paymentmethodchart`}><i style={{ color: '#0d6efd' }} className="fas fa-user me-2"></i>Phương Thức Thanh Toán</NavLink>
-                <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/revenue`}><i style={{ color: '#0d6efd' }} className="fas fa-user me-2"></i>Doanh Thu</NavLink>
-                <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/shippingarea`}><i style={{ color: '#0d6efd' }} className="fas fa-user me-2"></i>Khu Vực Vận Chuyển</NavLink>
+                <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/manageproduct`}>
+                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/list.png'}></img>
+                    <span className='mx-2' style={{fontSize:'0.9vw'}}>Quản Lý Sản Phẩm</span>
+                </NavLink>
+                <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/viewsproductschart`}>
+                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
+                    <span className='mx-2' style={{fontSize:'0.9vw'}}>Lượt Xem Sản Phẩm</span>
+                </NavLink>
+                <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/paymentmethodchart`}>
+                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
+                    <span className='mx-2' style={{fontSize:'0.9vw'}}>Phương Thức Thanh Toán</span>
+                </NavLink>
+                <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/revenue`}>
+                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
+                    <span className='mx-2' style={{fontSize:'0.9vw'}}> Doanh Thu</span>
+                </NavLink>
+                <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/shippingarea`}>
+                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
+                    <span className='mx-2' style={{fontSize:'0.9vw'}}> Khu Vực Vận Chuyển</span>
+                </NavLink>
             </div>
             <div className='col-10'>
                 <div className='' style={{ minHeight: '700px' }}>
 
-                    <Outlet context={{ count, setCount,uploadProduct,shopInfo}} />
+                    <Outlet context={{ count, setCount, uploadProduct, shopInfo }} />
                 </div>
             </div>
         </div>
