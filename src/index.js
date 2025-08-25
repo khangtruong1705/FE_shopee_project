@@ -46,7 +46,6 @@ import ChatWidget from './components/ChatWidget/ChatWidget';
 import DownloadApp from './pages/DownloadApp/DownloadApp';
 import SellerCenter from './pages/SellerCenter/SellerCenter';
 import PaymentMethodChart from './pages/SellerCenter/PaymentMethodChart/PaymentMethodChart';
-import Revenue from './pages/SellerCenter/Revenue/RevenueChart';
 import RevenueChart from './pages/SellerCenter/Revenue/RevenueChart';
 import ShippingAreaChart from './pages/SellerCenter/ShippingArea/ShippingAreaChart';
 import SetupAccount from './pages/Login/SetupAccount';
@@ -119,9 +118,6 @@ root.render(
           </Route>
           <Route element={<Register />} path="/register"></Route>
           <Route element={<SetupAccount />} path="/setupaccount"></Route>
-           {/* <Route path="/setupaccount">
-            <Route path=':email' element={<SetupAccount />}></Route>
-          </Route> */}
           <Route element={<Login />} path="/login"></Route>
           <Route element={<ForgotPassword />} path="/forgotpassword"></Route>
           <Route element={<EnterCodePassword />} path="/entercodepassword"></Route>
