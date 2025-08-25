@@ -1,4 +1,4 @@
-import React from 'react';
+
 import styles from './DownloadApp.module.scss'
 import {bottomItems} from './DownloadAppRawData'
 

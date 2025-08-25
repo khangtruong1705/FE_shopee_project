@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
-import styles from './Home.module.scss' // Import CSS Module
+import styles from './Home.module.scss'
 import { serviceItemData, bannerItemsData, carouselItemsData } from './homeRawData'
 import axios from 'axios';
 import { DOMAIN } from '../../util/config';

@@ -61,17 +61,17 @@ const EnterCodePassword = () => {
                 <div className='d-flex justify-content-between align-items-center w-75 mx-auto'>
                     <div className="d-flex align-items-center justify-content-start w-50">
                         <NavLink to='/' >
-                            <img className="w-75" src={process.env.PUBLIC_URL + '/asset/images/shopeelogo.png'} />
+                            <img className="w-75" src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} />
                         </NavLink>
                         <span className="w-100" style={{ fontSize: '1.5vw' }}><strong>{t('resetpassword')}</strong></span>
                     </div>
 
-                    <NavLink to='/shopeehelp' style={{ color: '#ee4d2d', textDecoration: 'none' }}>
+                    <NavLink to='/shopeehelp' style={{ color: '#3076e3', textDecoration: 'none' }}>
                         {t('areyouhelp')}
                     </NavLink>
                 </div>
             </div>
-            <div className="body p-5 d-flex justify-content-around" style={{ backgroundColor: '#ee4d2d' }}>
+            <div className="body p-5 d-flex justify-content-around" style={{ backgroundColor: '#3076e3' }}>
 
                 <div className="card mx-auto" style={{width:'30vw'}}>
                     <div className="card-header d-flex" style={{ fontSize: '1.2vw' }}>

@@ -32,8 +32,8 @@ import Notification from './pages/Notification/Notification';
 import './i18n';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import ForgotPassword from './pages/FogotPassword/ForgotPassword';
-import ResetPassword from './pages/ResetPassword/ResetPassword';
-import EnterCodePassword from './pages/EnterCodePassword/EnterCodePassword';
+import ResetPassword from './pages/FogotPassword/ResetPassword';
+import EnterCodePassword from './pages/FogotPassword/EnterCodePassword';
 import EnterPhoneNumber from './pages/EnterPhoneNumber/EnterPhoneNumber';
 import NotificationSetting from './pages/AccountUser/NotificationSetting/NotificationSetting';
 import MyVoucher from './pages/AccountUser/MyVoucher/MyVoucher';
@@ -49,6 +49,7 @@ import PaymentMethodChart from './pages/SellerCenter/PaymentMethodChart/PaymentM
 import Revenue from './pages/SellerCenter/Revenue/RevenueChart';
 import RevenueChart from './pages/SellerCenter/Revenue/RevenueChart';
 import ShippingAreaChart from './pages/SellerCenter/ShippingArea/ShippingAreaChart';
+import SetupAccount from './pages/Login/SetupAccount';
 
 
 
@@ -117,6 +118,10 @@ root.render(
             <Route path='refund' element={<Refund />}></Route>
           </Route>
           <Route element={<Register />} path="/register"></Route>
+          <Route element={<SetupAccount />} path="/setupaccount"></Route>
+           {/* <Route path="/setupaccount">
+            <Route path=':email' element={<SetupAccount />}></Route>
+          </Route> */}
           <Route element={<Login />} path="/login"></Route>
           <Route element={<ForgotPassword />} path="/forgotpassword"></Route>
           <Route element={<EnterCodePassword />} path="/entercodepassword"></Route>

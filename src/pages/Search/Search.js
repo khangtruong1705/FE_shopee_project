@@ -6,7 +6,6 @@ import _ from "lodash";
 import { DOMAIN } from '../../util/config'
 import { Menu, Button, Select, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
-import ProductItem from '../../components/ProductItem/ProductItem';
 import { getFilterItems } from './SearchRawData'
 import { getLevelKeys, handleOpenChange } from '../../antdesignhook/useAntdesign'
 import { jwtDecode } from 'jwt-decode';

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import axios from 'axios';
 import { DOMAIN } from "../../../util/config";
 import styles from './ManageProducts.module.css'
