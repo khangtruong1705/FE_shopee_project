@@ -21,7 +21,7 @@ const SetupAccount = () => {
             const newValue = {
                 'email': values.email,
                 'password': values.password,
-                'name': values.username,
+                'name': values.name,
                 'phone': values.phone,
                 'address': values.address,
             }
@@ -88,7 +88,6 @@ const SetupAccount = () => {
                 </div>
                 <div className={`${styles.card} card`}>
                     <div className={`${styles.cardHeader} card-header`}>
-                        {/* {t('login')} */}
                         Setup Account
                     </div>
                     <div className="card-body">
@@ -113,9 +112,9 @@ const SetupAccount = () => {
                             </Form.Item>
 
                             <Form.Item
-                                label={t('username')}
-                                name="username"
-                                rules={[{ required: true, message: 'Please create your username!' }]}
+                                label={t('name')}
+                                name="name"
+                                rules={[{ required: true, message: 'Please create your name!' }]}
                             >
                                 <Input />
                             </Form.Item>

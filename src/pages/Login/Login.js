@@ -13,7 +13,6 @@ const Login = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const onFinish = async (values) => {
-        console.log('Success:', values);
         try {
             const newValue = {
                 'email': values.email,
@@ -27,7 +26,7 @@ const Login = () => {
             }
             openMessage(data)
             setTimeout(() => {
-                navigate('/setupaccount')
+                navigate('/')
             }, 2000);
         } catch (error) {
             const data = {
@@ -67,6 +66,7 @@ const Login = () => {
             const response = await axios.post(`${DOMAIN}/api/users/auth/google`, token);
             localStorage.setItem('token', response.data);
             const { name } = jwtDecode(response.data);
+            console.log('name',name)
             let data
             if (name === null || name === '') {
                 data = {

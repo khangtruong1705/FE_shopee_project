@@ -1,6 +1,4 @@
 
-
-
 export const getLevelKeys = (items1) => {
     const key = {};
     const func = (items2, level = 1) => {

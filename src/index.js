@@ -34,7 +34,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import ForgotPassword from './pages/FogotPassword/ForgotPassword';
 import ResetPassword from './pages/FogotPassword/ResetPassword';
 import EnterCodePassword from './pages/FogotPassword/EnterCodePassword';
-import EnterPhoneNumber from './pages/EnterPhoneNumber/EnterPhoneNumber';
+import EnterPhoneNumber from './pages/FogotPassword/EnterPhoneNumber';
 import NotificationSetting from './pages/AccountUser/NotificationSetting/NotificationSetting';
 import MyVoucher from './pages/AccountUser/MyVoucher/MyVoucher';
 import FlashSale from './pages/FlashSale/FlashSale';

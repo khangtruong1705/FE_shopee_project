@@ -112,7 +112,8 @@
           align-items: center;
           text-align: center;
           text-decoration: none;
-          color:#205de1;
+          color: #205de1;
+
           &:hover {
             transform: translateY(-3px);
           }
@@ -212,7 +213,7 @@
       }
     }
 
-    .flashsale {
+    .goldensale {
       .flashSellContainer {
         width: 100%;
         background-color: #1981f5;
@@ -435,7 +436,7 @@
       grid-template-rows: repeat(2, auto);
       width: 50%;
       box-sizing: border-box;
-      
+
 
       .Child1 {
         background-image: url('../../../public/asset/images/medicine1.png');
@@ -449,7 +450,7 @@
         background-image: url('../../../public/asset/images/medicine2.webp');
         background-size: cover;
         background-position: center;
-    
+
 
       }
 
@@ -457,7 +458,7 @@
         background-image: url('../../../public/asset/images/medicine3.webp');
         background-size: cover;
         background-position: center;
-       width: 100%;
+        width: 100%;
         height: 17vw;
 
       }
@@ -466,7 +467,7 @@
         background-image: url('../../../public/asset/images/medicine4.webp');
         background-size: cover;
         background-position: center;
-      
+
 
       }
     }

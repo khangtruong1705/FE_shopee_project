@@ -1,6 +1,5 @@
 .service {
     font-size: 0.8rem;
-    /* display: flex; */
     justify-content: center;
 }
 
@@ -21,11 +20,8 @@
 .gridcontainer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* Tạo 3 cột với kích thước đều nhau */
     gap: 10px;
-    /* Khoảng cách giữa các phần tử */
     padding: 10px;
-    /* Khoảng cách bên trong lưới */
 }
 
 .griditem1 {
@@ -34,10 +30,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/visalogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/visalogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 
@@ -47,10 +43,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/mastercardlogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/mastercardlogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 
@@ -60,10 +56,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/jcblogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/jcblogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 .griditem4 {
     background-color: #FFFFFF;
@@ -71,10 +67,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/americanexpress.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/americanexpress.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .griditem5 {
@@ -83,10 +79,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/paypallogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/paypallogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .griditem6 {
@@ -95,10 +91,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/applecard.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/applecard.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .griditem7 {
@@ -107,10 +103,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/hsbclogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/hsbclogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .griditem8 {
@@ -119,23 +115,20 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/googlepaylogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/googlepaylogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 /*---------------------------- transport------------------------- */
 
 .transportcontainer {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tạo 3 cột có chiều rộng bằng nhau */
+    grid-template-columns: repeat(3, 1fr); 
     grid-template-rows: repeat(4, 1fr);
-    /* Tạo 3 cột với kích thước đều nhau */
     gap: 10px;
-    /* Khoảng cách giữa các phần tử */
     padding: 10px;
-    /* Khoảng cách bên trong lưới */
 }
 
 .transportitem1 {
@@ -144,10 +137,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/airborneexpresslogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/airborneexpresslogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 
@@ -157,10 +150,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/airindialogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/airindialogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 
@@ -170,10 +163,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/fedexlogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/fedexlogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 .transportitem4 {
     background-color: #FFFFFF;
@@ -181,10 +174,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/oltexpresslogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/oltexpresslogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .transportitem5 {
@@ -193,10 +186,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/oracleexpresslogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/oracleexpresslogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .transportitem6 {
@@ -205,10 +198,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/upslogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/upslogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .transportitem7 {
@@ -217,10 +210,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/vietjetairlogo.png'); /* Đường dẫn đến ảnh nền */
+    background-image: url('/public/asset/images/vietjetairlogo.png'); 
     background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .transportitem8 {
@@ -229,10 +222,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/vietnamairlineslogo.png'); /* Đường dẫn đến ảnh nền */
+    background-image: url('/public/asset/images/vietnamairlineslogo.png'); 
     background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .transportitem9 {
@@ -241,10 +234,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/airasialogo.png'); /* Đường dẫn đến ảnh nền */
+    background-image: url('/public/asset/images/airasialogo.png'); 
     background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .transportitem10 {
@@ -253,10 +246,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/bombardiertransportationlogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/bombardiertransportationlogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .transportitem11 {
@@ -265,10 +258,10 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/faiveleytransportlogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/faiveleytransportlogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 
@@ -290,10 +283,10 @@
     border-radius: 5px;
     grid-row: span 3;
     grid-column: 1;
-    background-image: url('/public/asset/images/qrcode.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
+    background-image: url('/public/asset/images/qrcode.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat;
 }
 
 .downloadappitem2 {
@@ -302,9 +295,9 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 12px;
-    background-image: url('/public/asset/images/googleplaylogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
+    background-image: url('/public/asset/images/googleplaylogo.png'); 
+    background-size: contain;
+    background-position: center; 
     background-repeat: no-repeat; 
 
 }
@@ -316,9 +309,9 @@
     border: 1px solid #ccc;
     padding: 12px;
     border-radius: 5px;
-    background-image: url('/public/asset/images/amazonlogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
+    background-image: url('/public/asset/images/amazonlogo.png'); 
+    background-size: contain; 
+    background-position: center;
     background-repeat: no-repeat; 
 }
 
@@ -329,9 +322,9 @@
     border: 1px solid #ccc;
     padding: 12px;
     border-radius: 5px;
-    background-image: url('/public/asset/images/applewatchlogo.png'); /* Đường dẫn đến ảnh nền */
-    background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
-    background-position: center; /* Căn giữa ảnh nền */
+    background-image: url('/public/asset/images/applewatchlogo.png'); 
+    background-size: contain; 
+    background-position: center; 
     background-repeat: no-repeat; 
 }
 

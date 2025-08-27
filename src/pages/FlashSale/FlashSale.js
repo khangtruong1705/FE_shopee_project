@@ -1,18 +1,18 @@
-import styles from './FlashSale.module.css'
+import styles from './FlashSale.module.scss'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { NavLink, useParams } from 'react-router-dom';
 import _ from "lodash";
 import { DOMAIN } from '../../util/config';
-import { useTranslation } from 'react-i18next';
 import ProductItem from '../../components/ProductItem/ProductItem';
+
+
+
 
 const FlashSale = () => {
     const [timeLeft, setTimeLeft] = useState(7200);
     const [arrMain, setArrMain] = useState([]);
     const { name } = useParams();
-    const { t } = useTranslation();
-
     const fetchData = async () => {
         try {
             const response = await axios.get(`${DOMAIN}/api/products/get-all-products`);

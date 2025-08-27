@@ -1,8 +1,7 @@
 
 import { useState } from 'react';
 import { Drawer, Input, Button, List } from 'antd';
-import { AndroidOutlined } from '@ant-design/icons';
-import styles from './ChatWidge.module.css';
+
 
 
 const HF_API_URL = process.env.REACT_APP_HF_API_URL;

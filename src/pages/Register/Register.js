@@ -102,6 +102,25 @@ const Register = () => {
                             >
                                 <Input.Password />
                             </Form.Item>
+                            <Form.Item
+                                label={t('confirmpassword')}
+                                name="confirmPassword"
+                                dependencies={['password']}
+                                hasFeedback
+                                rules={[
+                                    { required: true, message: 'Please confirm your password!' },
+                                    ({ getFieldValue }) => ({
+                                        validator(_, value) {
+                                            if (!value || getFieldValue('password') === value) {
+                                                return Promise.resolve();
+                                            }
+                                            return Promise.reject(new Error('The two passwords do not match!'));
+                                        },
+                                    }),
+                                ]}
+                            >
+                                <Input.Password />
+                            </Form.Item>
                             <Form.Item label={null}>
                                 {contextHolder}
                                 <Button type="primary" htmlType="submit">
@@ -111,16 +130,6 @@ const Register = () => {
                         </Form>
                     </div>
                     <hr></hr>
-                    <div className="d-flex justify-content-around">
-                        <div className="p-2" style={{ border: '1px solid' }}>
-                            <i className="fa-brands fa-facebook mx-1" style={{ color: '#1877f2' }}></i>
-                            <span>Facebook</span>
-                        </div>
-                        <div className="p-2" style={{ border: '1px solid' }}>
-                            <i className="fa-brands fa-google mx-1" style={{ color: '#ea4335' }}></i>
-                            <span>Google</span>
-                        </div>
-                    </div>
                     <div className="text-center p-4" style={{ fontSize: '0.82rem' }}>
                         {t('byregistering')} <NavLink to='/policy' style={{ color: '#ee4d2d' }}>{t('termsofservice')}</NavLink> & <NavLink to='/policy' style={{ color: '#ee4d2d' }}>{t('privacypolicy')}</NavLink>
                     </div>

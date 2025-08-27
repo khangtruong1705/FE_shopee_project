@@ -7,6 +7,8 @@ import { DOMAIN } from '../../util/config';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Button, Popconfirm } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { headers } from './CartRawData';
+
 
 const Cart = () => {
     const { t } = useTranslation();
@@ -65,14 +67,11 @@ const Cart = () => {
             console.error('Error fetching products:', error);
         }
     };
-
-
     const handleCheckboxChange = (index) => {
         const updatedOrderList = [...orderList];
         updatedOrderList[index].isChecked = !updatedOrderList[index].isChecked;
         setOrderList(updatedOrderList);
     };
-
     const handleSelectAll = () => {
         const newValue = !isSelectAll;
         setIsSelectAll(newValue);
@@ -85,7 +84,7 @@ const Cart = () => {
     };
     const handleBuy = () => {
         const orderDetails = orderList
-            .filter(order => order.isChecked) // Chỉ lấy các đơn hàng được check
+            .filter(order => order.isChecked)
             .map(order => ({
                 product_id: order.product_id,
                 product_name: order.product_name,
@@ -96,8 +95,6 @@ const Cart = () => {
 
         return orderDetails;
     };
-
-
     useEffect(() => {
         fetchData()
         console.log('sdsadasd', scrollToProductId)
@@ -121,11 +118,11 @@ const Cart = () => {
                             onChange={handleSelectAll}
                         />
                     </div>
-                    <div className={styles.item}><strong>{t('product')}</strong></div>
-                    <div className={styles.item}><strong>{t('unitprice')}</strong></div>
-                    <div className={styles.item}><strong>{t('quantity')}</strong></div>
-                    <div className={styles.item}><strong>{t('totalprice')}</strong></div>
-                    <div className={styles.item}><strong>{t('actions')}</strong></div>
+                    {headers.map((key, idx) => (
+                        <div key={idx} className={styles.item}>
+                            <strong>{t(key)}</strong>
+                        </div>
+                    ))}
                 </div>
             </div>
             <div>
@@ -139,10 +136,10 @@ const Cart = () => {
                         <div className={styles.coupontopbefore}>
 
                         </div>
-                        <div className='card-header' style={{ borderRadius: '0' }}>
+                        <div className='card-header' style={{ borderRadius: '0', color: 'white', fontSize: '1.2vw', fontWeight: '500' }}>
                             {order.shop_name}
                         </div>
-                        <div className='card-body d-flex justify-content-between'>
+                        <div className='card-body d-flex justify-content-between align-items-center' style={{ color: 'white' }}>
                             <div className={styles.item}>
                                 <div className="form-check">
                                     <input
@@ -152,11 +149,13 @@ const Cart = () => {
                                         checked={order.isChecked}
                                         onChange={() => handleCheckboxChange(index)}
                                     />
-                                    <label className="form-check-label" htmlFor="flexCheckDefault">
-                                        Default checkbox
-                                    </label>
+                                    <div className='d-flex justify-content-between align-items-center'>
+
+                                        <img style={{ width: '4.5vw', height: '4.5vw', borderRadius: '0.5vw' }} src={process.env.PUBLIC_URL + order.product_image} />
+
+                                        <span> {order.product_name}  </span>
+                                    </div>
                                 </div>
-                                {order.product_name}
                             </div>
                             <div className={styles.item}>₫{order.price.toLocaleString('vi-VN')}</div>
                             <div className={styles.item}>
@@ -178,7 +177,7 @@ const Cart = () => {
                                 </Popconfirm>
                             </div>
                         </div>
-                        <div className='card-footer'>
+                        <div className='card-footer' style={{ color: 'white' }}>
                             Giảm ₫300.000 phí vận chuyển đơn tối thiểu ₫0; Giảm ₫500.000 phí vận chuyển đơn tối thiểu ₫500.000
                         </div>
                         <div className={styles.coupontopafter}>

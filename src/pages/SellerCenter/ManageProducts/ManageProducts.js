@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react'
 import { useOutletContext } from "react-router-dom";
 import axios from 'axios';
 import { DOMAIN } from "../../../util/config";
-import styles from './ManageProducts.module.css'
+import styles from './ManageProducts.module.scss'
 import { useTranslation } from 'react-i18next';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { jwtDecode } from 'jwt-decode';
-import { Button, Col, Form, Input, Row, Select, Space, message, Upload, Flex, Popconfirm } from 'antd';
+import { Button, Col, Form, Row, message, Upload, Popconfirm } from 'antd';
 import useOpenMessage from '../../../customhook/useOpenMessage';
 import ChatWithUser from '../../../components/ChatWithUser/ChatWithUser';
-
-
+import { formFields } from '../SellerCenterRawData';
+import { columns, thStyle } from './ManageProductsRawData'
 
 
 const ManageProducts = () => {
@@ -24,8 +24,7 @@ const ManageProducts = () => {
     const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const [form2] = Form.useForm();
-    const { Option } = Select;
-    const { openMessage, contextHolder } = useOpenMessage();
+    const { openMessage } = useOpenMessage();
     const confirm = async (product) => {
         try {
             const res = await axios.delete(`${DOMAIN}/api/products/delete-product-by-productid`, {
@@ -46,6 +45,42 @@ const ManageProducts = () => {
         console.log(e);
         message.error('Click on No');
     };
+    const handleSubmit = async (values) => {
+        try {
+            const data = {
+                'shop_name_id': shopInfo.shop_name_id,
+                'product_name': values.product_name,
+                'product_id': selectedProduct.product_id,
+                'price': values.price,
+                'description': values.description,
+                'category_id': values.type,
+
+                'description_detail': values.description_detail
+            }
+            await axios.put(`${DOMAIN}/api/products/edit-product-by-productid`, data);
+            fetchData()
+            const modalElement = document.getElementById('staticBackdrop');
+            const modalInstance = window.bootstrap.Modal.getInstance(modalElement);
+            modalInstance?.hide();
+            const message = {
+                'message': 'Edit Product successfully!!',
+                'type': 'success'
+            }
+            setTimeout(() => {
+                openMessage(message)
+            }, 300);
+        } catch (error) {
+            console.error('Error sending token to backend:', error);
+            setOpen(false);
+            const message = {
+                'message': 'Create New Product Failed!!',
+                'type': 'error'
+            }
+            setTimeout(() => {
+                openMessage(message)
+            }, 300);
+        }
+    }
     const uploadButton = (isLoading = false) => (
         <button style={{ border: '1px dashed black', borderRadius: '50px', background: 'none' }} type="button">
             {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -85,14 +120,12 @@ const ManageProducts = () => {
             } else if (info.file.status === 'error') {
                 message.error('Tải ảnh sản phẩm thất bại!');
             }
-
             setProductLoading(prev => ({ ...prev, [id]: false }));
             fetchData();
         }
     };
     const fetchData = async () => {
         try {
-
             const res = await axios.get(`${DOMAIN}/api/shop-name/get-shop-by-email-owner/${email}`);
             const shopData = res.data;
             setShopInfo(res.data);
@@ -107,56 +140,6 @@ const ManageProducts = () => {
             console.error('Error fetching products:', error);
         }
     };
-    const categories = ["Thời Trang Nam", "Thiết Bị Điện Tử", "Máy Tính Và Laptop",
-        "Máy Ảnh", "Đồng Hồ", "Giày Dép Nam", "Thiết Bị Điện Gia Dụng", "Thể Thao Và Du Lịch",
-        "Ôtô, Xe Máy, Xe Đạp", "Thời Trang Nữ", "Mẹ Và Bé", "Nhà Cửa Và Đời Sống", "Sắc Đẹp",
-        "Sức Khỏe", "Túi, Ví Nữ", "Giày Dép Nữ", "Phụ kiện, Trang Sức Nữ", "Bách Khoa Online",
-        "Nhà Sách Online", "Điện Thoại"];
-    const formFields = [
-        {
-            name: 'product_name',
-            label: 'Product Name',
-            rules: [{ required: true, message: 'Please enter product name' }],
-            component: <Input placeholder="Please enter product name" />,
-            span: 12,
-        },
-        {
-            name: 'price',
-            label: 'Price',
-            rules: [{ required: true, message: 'Please enter price' }],
-            component: <Input type="number" addonAfter="VNĐ" placeholder="Please enter price" />,
-            span: 12,
-        },
-        {
-            name: 'description',
-            label: 'Description',
-            rules: [{ required: true, message: 'Please enter description' }],
-            component: <Input placeholder="Please enter description" />,
-            span: 12,
-        },
-        {
-            name: 'type',
-            label: 'Type (category)',
-            rules: [{ required: true, message: 'Please choose the type' }],
-            component: (
-                <Select placeholder="Please choose the type">
-                    {categories.map((category, index) => (
-                        <Option key={index + 1} value={index + 1}>
-                            {category}
-                        </Option>
-                    ))}
-                </Select>
-            ),
-            span: 12,
-        },
-        {
-            name: 'description_detail',
-            label: 'Description Detail',
-            rules: [{ required: true, message: 'Please enter description detail' }],
-            component: <Input.TextArea rows={4} placeholder="Please enter description detail" />,
-            span: 24,
-        },
-    ];
     useEffect(() => {
         fetchData()
     }, [uploadProduct])
@@ -169,31 +152,24 @@ const ManageProducts = () => {
                     </div>
                 ) : (
                     <div>
-                        <div className='my-3' style={{fontSize:'1.7vw',fontWeight:'700',color:'#1250dc'}}>Sản Phẩm của Shop</div>
-                        <table
-                            style={{
-                                fontSize: '1vw',
-                                borderCollapse: 'collapse',
-                                width: '100%',
-                            }}
-                        >
+                        <div className='my-3' style={{ fontSize: '1.7vw', fontWeight: '700', color: '#1250dc' }}>Sản Phẩm của Shop</div>
+                        <table style={{ fontSize: '1vw', borderCollapse: 'collapse', width: '100%', }}>
                             <thead>
                                 <tr>
-                                    <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'left', }}>STT</th>
-                                    <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'left', width: '20%' }}>Hình ảnh</th>
-                                    <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'left', width: '30%' }}>Name</th>
-                                    <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right', width: '20%' }}>Price</th>
-                                    <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center', width: '20%' }}>Create_at</th>
-                                    <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center', width: '10%' }}></th>
+                                    {columns.map((col, idx) => (
+                                        <th key={idx} style={{ ...thStyle, width: col.width }}>
+                                            {col.label}
+                                        </th>
+                                    ))}
                                 </tr>
                             </thead>
                             <tbody>
                                 {arrProducts.map((product, index) => (
                                     <tr key={product.product_id}>
-                                        <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>
+                                        <td style={{ ...thStyle }}>
                                             {index + 1}
                                         </td>
-                                        <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}>
+                                        <td style={{ ...thStyle }}>
                                             <Upload
                                                 name="avatar"
                                                 className={styles.avatarproduct}
@@ -236,8 +212,8 @@ const ManageProducts = () => {
                                         >
                                             {product.name}
                                         </td>
-                                        <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'right' }}>
-                                            {product.price}
+                                        <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}>
+                                            {product.price.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}
                                         </td>
                                         <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}>
                                             {product.created_at}
@@ -271,110 +247,15 @@ const ManageProducts = () => {
                                                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                                                                     </div>
                                                                     <div className="modal-body">
-                                                                        <Form form={form2} layout="vertical" onFinish={async (values) => {
-                                                                            try {
-                                                                                const data = {
-                                                                                    'shop_name_id': shopInfo.shop_name_id,
-                                                                                    'product_name': values.product_name,
-                                                                                    'product_id': selectedProduct.product_id,
-                                                                                    'price': values.price,
-                                                                                    'description': values.description,
-                                                                                    'category_id': values.type,
-
-                                                                                    'description_detail': values.description_detail
-                                                                                }
-                                                                                console.log('xxxx', data)
-                                                                                const res = await axios.put(`${DOMAIN}/api/products/edit-product-by-productid`, data);
-                                                                                fetchData()
-                                                                                const modalElement = document.getElementById('staticBackdrop');
-                                                                                const modalInstance = window.bootstrap.Modal.getInstance(modalElement);
-                                                                                modalInstance?.hide();
-                                                                                const message = {
-                                                                                    'message': 'Edit Product successfully!!',
-                                                                                    'type': 'success'
-                                                                                }
-                                                                                setTimeout(() => {
-                                                                                    openMessage(message)
-                                                                                }, 300);
-                                                                            } catch (error) {
-                                                                                console.error('Error sending token to backend:', error);
-                                                                                setOpen(false);
-                                                                                const message = {
-                                                                                    'message': 'Create New Product Failed!!',
-                                                                                    'type': 'error'
-                                                                                }
-                                                                                setTimeout(() => {
-                                                                                    openMessage(message)
-                                                                                }, 300);
-                                                                            }
-                                                                        }}>
+                                                                        <Form form={form2} layout="vertical" onFinish={handleSubmit}>
                                                                             <Row gutter={16}>
-                                                                                <Col span={12}>
-                                                                                    <Form.Item
-                                                                                        name="product_name"
-                                                                                        label="Product Name"
-                                                                                        rules={[{ required: true, message: 'Please enter product name' }]}
-                                                                                    >
-                                                                                        <Input placeholder="Please enter product name" />
-                                                                                    </Form.Item>
-                                                                                </Col>
-                                                                                <Col span={12}>
-                                                                                    <Form.Item
-                                                                                        name="price"
-                                                                                        label="Price"
-                                                                                        rules={[{ required: true, message: 'Please enter price' }]}
-                                                                                    >
-                                                                                        <Input
-                                                                                            type="number"
-                                                                                            addonAfter="VNĐ"
-                                                                                            placeholder="Please enter price"
-                                                                                        />
-                                                                                    </Form.Item>
-                                                                                </Col>
-                                                                            </Row>
-                                                                            <Row gutter={16}>
-                                                                                <Col span={12}>
-                                                                                    <Form.Item
-                                                                                        name="description"
-                                                                                        label="Description"
-                                                                                        rules={[{ required: true, message: 'Please enter description' }]}
-                                                                                    >
-                                                                                        <Input
-                                                                                            placeholder="Please enter price"
-                                                                                        />
-                                                                                    </Form.Item>
-                                                                                </Col>
-                                                                                <Col span={12}>
-                                                                                    <Form.Item
-                                                                                        name="type"
-                                                                                        label="Type (category)"
-                                                                                        rules={[{ required: true, message: 'Please choose the type' }]}
-                                                                                    >
-                                                                                        <Select placeholder="Please choose the type">
-                                                                                            {categories.map((category, index) => (
-                                                                                                <Option key={index + 1} value={index + 1}>
-                                                                                                    {category}
-                                                                                                </Option>
-                                                                                            ))}
-                                                                                        </Select>
-                                                                                    </Form.Item>
-                                                                                </Col>
-                                                                            </Row>
-                                                                            <Row gutter={16}>
-                                                                                <Col span={24}>
-                                                                                    <Form.Item
-                                                                                        name="description_detail"
-                                                                                        label="Description Detail"
-                                                                                        rules={[
-                                                                                            {
-                                                                                                required: true,
-                                                                                                message: 'please enter url description detail',
-                                                                                            },
-                                                                                        ]}
-                                                                                    >
-                                                                                        <Input.TextArea rows={4} placeholder="please enter description detail" />
-                                                                                    </Form.Item>
-                                                                                </Col>
+                                                                                {formFields.map((field, idx) => (
+                                                                                    <Col span={field.span} key={idx}>
+                                                                                        <Form.Item name={field.name} label={field.label} rules={field.rules}>
+                                                                                            {field.component}
+                                                                                        </Form.Item>
+                                                                                    </Col>
+                                                                                ))}
                                                                             </Row>
                                                                             <Form.Item className="modal-footer">
                                                                                 <Button danger data-bs-dismiss="modal" className='mx-2'>Close</Button>

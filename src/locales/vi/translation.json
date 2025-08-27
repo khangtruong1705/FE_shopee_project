@@ -60,7 +60,7 @@
   "username": "Tên Đăng Nhập",
   "phonenumber": "Số Điện Thoại",
   "gender": "Giới Tính",
-  "male": "Name",
+  "male": "Nam",
   "female": "Nữ",
   "other": "Khác",
   "dateofbirth": "Ngày Sinh",
@@ -210,5 +210,6 @@
   "bookshop": "Nhà Sách",
   "travel": "Du Lịch",
   "grocery": "Tạp Hóa",
-  "accessories": "Phụ Kiện"
+  "accessories": "Phụ Kiện",
+    "confirmpassword":"Xác Nhận MK"
 }

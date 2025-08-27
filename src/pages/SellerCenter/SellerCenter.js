@@ -1,17 +1,16 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import { DOMAIN } from "../../util/config";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { jwtDecode } from 'jwt-decode';
-import { Button, Col, Drawer, Form, Input, Row, Select, Space, message, Upload, Flex, Popconfirm } from 'antd';
+import { Button, Col, Drawer, Form, Row, Space, message, Upload, Flex } from 'antd';
 import useOpenMessage from '../../customhook/useOpenMessage';
 import axios from 'axios';
-import styles from './ManageProducts/ManageProducts.module.css'
-
+import styles from './ManageProducts/ManageProducts.module.scss'
+import { formFields } from './SellerCenterRawData';
 
 const SellerCenter = () => {
-    const navigate = useNavigate();
     const [count, setCount] = useState(0);
     const [uploadProduct, setUploadProduct] = useState(false);
     const [shopInfo, setShopInfo] = useState({});
@@ -21,7 +20,6 @@ const SellerCenter = () => {
     const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const [form] = Form.useForm();
-    const { Option } = Select;
     const { openMessage, contextHolder } = useOpenMessage();
     const showDrawer = () => {
         setOpen(true);
@@ -110,56 +108,6 @@ const SellerCenter = () => {
             console.error('Error fetching products:', error);
         }
     };
-    const categories = ["Thời Trang Nam", "Thiết Bị Điện Tử", "Máy Tính Và Laptop",
-        "Máy Ảnh", "Đồng Hồ", "Giày Dép Nam", "Thiết Bị Điện Gia Dụng", "Thể Thao Và Du Lịch",
-        "Ôtô, Xe Máy, Xe Đạp", "Thời Trang Nữ", "Mẹ Và Bé", "Nhà Cửa Và Đời Sống", "Sắc Đẹp",
-        "Sức Khỏe", "Túi, Ví Nữ", "Giày Dép Nữ", "Phụ kiện, Trang Sức Nữ", "Bách Khoa Online",
-        "Nhà Sách Online", "Điện Thoại"];
-    const formFields = [
-        {
-            name: 'product_name',
-            label: 'Product Name',
-            rules: [{ required: true, message: 'Please enter product name' }],
-            component: <Input placeholder="Please enter product name" />,
-            span: 12,
-        },
-        {
-            name: 'price',
-            label: 'Price',
-            rules: [{ required: true, message: 'Please enter price' }],
-            component: <Input type="number" addonAfter="VNĐ" placeholder="Please enter price" />,
-            span: 12,
-        },
-        {
-            name: 'description',
-            label: 'Description',
-            rules: [{ required: true, message: 'Please enter description' }],
-            component: <Input placeholder="Please enter description" />,
-            span: 12,
-        },
-        {
-            name: 'type',
-            label: 'Type (category)',
-            rules: [{ required: true, message: 'Please choose the type' }],
-            component: (
-                <Select placeholder="Please choose the type">
-                    {categories.map((category, index) => (
-                        <Option key={index + 1} value={index + 1}>
-                            {category}
-                        </Option>
-                    ))}
-                </Select>
-            ),
-            span: 12,
-        },
-        {
-            name: 'description_detail',
-            label: 'Description Detail',
-            rules: [{ required: true, message: 'Please enter description detail' }],
-            component: <Input.TextArea rows={4} placeholder="Please enter description detail" />,
-            span: 24,
-        },
-    ];
     useEffect(() => {
         fetchData()
     }, [])
@@ -244,7 +192,6 @@ const SellerCenter = () => {
                             extra={
                                 <Space>
                                     <Button onClick={onClose}>Cancel</Button>
-
                                 </Space>
                             }
                         >
@@ -273,23 +220,23 @@ const SellerCenter = () => {
             <div className='col-2 text-start pt-5' style={{ borderRight: "3px solid #276ddf" }}>
                 <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/manageproduct`}>
                     <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/list.png'}></img>
-                    <span className='mx-2' style={{fontSize:'0.9vw'}}>Quản Lý Sản Phẩm</span>
+                    <span className='mx-2' style={{ fontSize: '0.9vw' }}>Quản Lý Sản Phẩm</span>
                 </NavLink>
                 <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/viewsproductschart`}>
                     <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
-                    <span className='mx-2' style={{fontSize:'0.9vw'}}>Lượt Xem Sản Phẩm</span>
+                    <span className='mx-2' style={{ fontSize: '0.9vw' }}>Lượt Xem Sản Phẩm</span>
                 </NavLink>
                 <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/paymentmethodchart`}>
                     <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
-                    <span className='mx-2' style={{fontSize:'0.9vw'}}>Phương Thức Thanh Toán</span>
+                    <span className='mx-2' style={{ fontSize: '0.9vw' }}>Phương Thức Thanh Toán</span>
                 </NavLink>
                 <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/revenue`}>
                     <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
-                    <span className='mx-2' style={{fontSize:'0.9vw'}}> Doanh Thu</span>
+                    <span className='mx-2' style={{ fontSize: '0.9vw' }}> Doanh Thu</span>
                 </NavLink>
                 <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/shippingarea`}>
                     <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
-                    <span className='mx-2' style={{fontSize:'0.9vw'}}> Khu Vực Vận Chuyển</span>
+                    <span className='mx-2' style={{ fontSize: '0.9vw' }}> Khu Vực Vận Chuyển</span>
                 </NavLink>
             </div>
             <div className='col-10'>

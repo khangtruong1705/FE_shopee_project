@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
-import styles from '../SellerCenter/SellerCenter.module.css'
+import styles from '../SellerCenter/SellerCenter.module.scss'
 import { useTranslation } from 'react-i18next';
 
 

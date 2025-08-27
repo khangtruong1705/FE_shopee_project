@@ -13,7 +13,6 @@ const ForgotPassword = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const onFinish = async (values) => {
-        console.log('Success:', values);
         try {
             const newValue = {
                 'email': values.email
