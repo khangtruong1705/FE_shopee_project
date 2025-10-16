@@ -49,7 +49,7 @@ const Home = () => {
             console.log('data', data)
             await axios.post(apiUrl, data);
         } catch (error) {
-            console.error('Lỗi khi gửi view sản phẩm:', error);
+            console.error(error);
         }
     };
     const scrollToTop = () => {
