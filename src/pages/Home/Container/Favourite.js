@@ -11,7 +11,7 @@ const Favourite = () => {
     const navigate = useNavigate();
     return <div className={`${styles.favourite} my-5`}>
         <div className='d-flex my-3 align-items-center'>
-            <img style={{ width: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/shieldicon.webp'} />
+            <img style={{ width: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/shieldicon.webp'} alt="..." />
             <strong className='mx-2'>{t('heal&beauty')}</strong>
         </div>
         <div className={`${styles.favouriteGrid}`}>

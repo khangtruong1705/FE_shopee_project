@@ -412,7 +412,7 @@ const ProductDetail = () => {
                     {comments?.map((comment, index) => {
                         return <div key={index}>
                             <div className='avatar d-flex align-items-center'>
-                                <img className={`${styles.avatarimage}`} src={process.env.PUBLIC_URL + '/asset/images/ngau1.jpg'} />
+                                <img className={`${styles.avatarimage}`} src={process.env.PUBLIC_URL + '/asset/images/ngau1.webp'} />
                                 <div className='mx-2' style={{ fontWeight: '500', color: '#225fe0' }}>khang123</div>
                             </div>
                             <div>{comment.created_at}</div>

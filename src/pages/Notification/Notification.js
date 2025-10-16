@@ -30,7 +30,7 @@ const Notification = () => {
         <div className='' style={{ color: '#ffffff' }}>
             <div className={styles.header}>
                 <div className='d-flex align-items-center'>
-                    <NavLink to='/'><img className={styles.shopeelogo} src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} /></NavLink>
+                    <NavLink to='/'><img className={styles.shopeelogo} src={process.env.PUBLIC_URL + '/asset/images/logoeco.webp'} /></NavLink>
                     <div style={{ color: '#2469df', fontWeight: '500', fontSize: '1.2vw' }}>Kho lưu trữ thông báo</div>
                 </div>
                 <NavLink to='/shopeepolicy/generalinfo' style={{ color: '#2469df', fontWeight: '500', fontSize: '1.2vw', textDecoration: 'none' }}>
@@ -114,7 +114,7 @@ const Notification = () => {
                             <div className="w-25 text-center">
                                 <img
                                     className="w-50 h-50"
-                                    src={process.env.PUBLIC_URL + "/asset/images/notification/gift.jpg"}
+                                    src={process.env.PUBLIC_URL + "/asset/images/notification/gift.webp"}
                                     alt="Voucher"
                                 />
                             </div>

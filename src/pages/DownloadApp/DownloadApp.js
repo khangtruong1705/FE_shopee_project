@@ -19,14 +19,14 @@ const DownloadApp = () => {
                     </div>
                     <div className={styles.imgGroup} >
                         <div className={styles.qrImg}>
-                            <img src={process.env.PUBLIC_URL + '/asset/images/qrcode.png'} alt="QR Code" />
+                            <img src={process.env.PUBLIC_URL + '/asset/images/qrcode.webp'} alt="QR Code" />
                         </div>
                         <div className={styles.logoGroup}>
                             <a href="#" className="google-play">
-                                <img src={process.env.PUBLIC_URL + '/asset/images/googleplaylogo2.png'} alt="Google Play" />
+                                <img src={process.env.PUBLIC_URL + '/asset/images/googleplaylogo2.webp'} alt="Google Play" />
                             </a>
                             <a href="#" className="app-store">
-                                <img src={process.env.PUBLIC_URL + '/asset/images/applestorelogo.png'} alt="App Store" />
+                                <img src={process.env.PUBLIC_URL + '/asset/images/applestorelogo.webp'} alt="App Store" />
                             </a>
                         </div>
 

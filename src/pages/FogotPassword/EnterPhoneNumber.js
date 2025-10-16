@@ -1,30 +1,32 @@
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import axios from 'axios';
 import { DOMAIN } from "../../util/config";
 import { Button, message, Form, Input } from 'antd';
-// import styles from './ForgotPassword.module.css'
+
 
 
 const EnterPhoneNumber = () => {
+    const navigate = useNavigate();
     const onFinish = async (values) => {
         console.log('Success:', values);
         try {
             const newValue = {
-                'phone_number': values.phonenumber
+                'phone_number': `+84${values.phonenumber}`
             }
             let res = await axios.post(`${DOMAIN}/api/users/send-sms-otp`, newValue);
+            console.log('res:', res.data.otp);
             if (res.data !== null) {
                 const data = {
                     'message': 'Token Hợp Lệ !!!',
                     'type': 'success'
                 }
                 openMessage(data)
-                // setTimeout(() => {
-                //    navigate(`/resetpassword/${res.data}`)
-                // }, 2000);
+                setTimeout(() => {
+                    navigate(`/enterverifycode`)
+                }, 2000);
             }
-          
+
         } catch (error) {
             const data = {
                 'message': 'Token Không Hợp Lệ!!!',
@@ -59,7 +61,7 @@ const EnterPhoneNumber = () => {
                 <div className='d-flex justify-content-between align-items-center w-75 mx-auto'>
                     <div className="d-flex align-items-center justify-content-start w-50">
                         <NavLink to='/' >
-                            <img className="w-75" alt="..." src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} />
+                            <img className="w-75" alt="..." src={process.env.PUBLIC_URL + '/asset/images/logoeco.webp'} />
                         </NavLink>
                         <span className="w-100" style={{ fontSize: '1.5vw' }}><strong>Đặt Lại Mật Khẩu</strong></span>
                     </div>
@@ -73,7 +75,7 @@ const EnterPhoneNumber = () => {
 
                 <div className="card w-25 mx-auto">
                     <div className="card-header d-flex" style={{ fontSize: '1.2vw' }}>
-                        <div className="w-25"><i className="fa-solid fa-arrow-left" /></div>
+                        <NavLink to='/' className="w-25"><i className="fa-solid fa-arrow-left" /></NavLink>
 
                         <div className="w-100 mx-auto">Nhập Số Điện Thoại</div>
                     </div>
@@ -94,7 +96,10 @@ const EnterPhoneNumber = () => {
                                 name="phonenumber"
                                 rules={[{ required: true, message: 'Please input your email!' }]}
                             >
-                                <Input />
+                                <Input
+                                    addonBefore="+84"
+                                    maxLength={9}
+                                />
                             </Form.Item>
                             <Form.Item label={null}>
                                 {contextHolder}

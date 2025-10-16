@@ -78,13 +78,13 @@ const Category = () => {
             <div id="carouselExampleAutoplaying" className="carousel slide " data-bs-ride="carousel">
                 <div className="carousel-inner">
                     <div className="carousel-item active">
-                        <img src={process.env.PUBLIC_URL + '/asset/images/carousel11.jpg'} className="d-block w-100" alt="..." />
+                        <img src={process.env.PUBLIC_URL + '/asset/images/carousel11.webp'} className="d-block w-100" alt="..." />
                     </div>
                     <div className="carousel-item">
-                        <img src={process.env.PUBLIC_URL + '/asset/images/carousel22.png'} className="d-block w-100" alt="..." />
+                        <img src={process.env.PUBLIC_URL + '/asset/images/carousel22.webp'} className="d-block w-100" alt="..." />
                     </div>
                     <div className="carousel-item">
-                        <img src={process.env.PUBLIC_URL + '/asset/images/carousel33.png'} className="d-block w-100" alt="..." />
+                        <img src={process.env.PUBLIC_URL + '/asset/images/carousel33.webp'} className="d-block w-100" alt="..." />
                     </div>
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">

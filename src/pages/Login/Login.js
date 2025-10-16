@@ -105,7 +105,7 @@ const Login = () => {
         <div>
             <div className={`${styles.loginHeader}`}>
                 <NavLink to='/' className='d-flex align-items-center'>
-                    <img className="w-25" src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} />
+                    <img className="w-25" src={process.env.PUBLIC_URL + '/asset/images/logoeco.webp'} alt="..." />
                 </NavLink>
                 <NavLink to='/shopeehelp' style={{ color: '#1677ff', textDecoration: 'none' }}>
                     {t('areyouhelp')}
@@ -164,7 +164,7 @@ const Login = () => {
                                 </Button>
                             </Form.Item>
                             <div className="d-flex justify-content-between mt-2" style={{ fontSize: '0.8rem', color: '#1877f2' }}>
-                                <NavLink to={`/forgotpassword`}>{t('forgotpassword')}</NavLink>
+                                <NavLink to={`/enteremail`}>{t('forgotpassword')}</NavLink>
                                 <NavLink to={`/enterphonenumber`}>{t('loginwithsms')}</NavLink>
                             </div>
                         </Form>

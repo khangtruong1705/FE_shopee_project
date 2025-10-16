@@ -55,12 +55,12 @@ const TopProductsContainer = () => {
     }, [])
     return <div className={styles.topproductsContainer} >
         <div className={`${styles.topproductsTitle}`}>
-            <img src={process.env.PUBLIC_URL + '/asset/images/checkicon.webp'} />
+            <img src={process.env.PUBLIC_URL + '/asset/images/checkicon.webp'} alt="..." />
             <strong className='mx-2'>{t('topproducts')}</strong>
         </div>
         <div className={styles.topviews} >
             <div className={styles.topviewsContent}>{t('bestsellingproducts')}</div>
-            <img className={styles.topviewsImage} src={process.env.PUBLIC_URL + '/asset/images/topproduct.webp'} />
+            <img className={styles.topviewsImage} src={process.env.PUBLIC_URL + '/asset/images/topproduct.webp'} alt="..." />
             <div className='p-3'>
                 <Swiper
                     style={{ padding: '0.4vw' }}

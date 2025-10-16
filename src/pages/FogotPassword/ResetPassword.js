@@ -62,7 +62,7 @@ const ResetPassword = () => {
                 <div className='d-flex justify-content-between align-items-center w-75 mx-auto'>
                     <div className="d-flex align-items-center justify-content-start w-50">
                         <NavLink to='/' >
-                            <img className="w-75" src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} />
+                            <img className="w-75" src={process.env.PUBLIC_URL + '/asset/images/logoeco.webp'} />
                         </NavLink>
                         <span className="w-100" style={{ fontSize: '1.5vw' }}><strong>{t('resetpassword')}</strong></span>
                     </div>
@@ -84,7 +84,7 @@ const ResetPassword = () => {
                         <Form
 
                             name="basic"
-                            labelCol={{ span: 8 }}
+                            labelCol={{ span: 10 }}
                             wrapperCol={{ span: 16 }}
                             style={{ width: '100%', maxWidth: 400 }}
                             initialValues={{ remember: true }}
@@ -97,7 +97,7 @@ const ResetPassword = () => {
                                 name="newpassword"
                                 rules={[{ required: true, message: 'Please input your email!' }]}
                             >
-                                <Input />
+                                <Input.Password />
                             </Form.Item>
                             <Form.Item label={null}>
                                 {contextHolder}

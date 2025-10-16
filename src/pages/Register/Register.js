@@ -58,7 +58,7 @@ const Register = () => {
         <div>
             <div className={`${styles.registerHeader}`}>
                 <NavLink to='/' className='d-flex align-items-center'>
-                    <img className="w-25" src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} />
+                    <img className="w-25" src={process.env.PUBLIC_URL + '/asset/images/logoeco.webp'} />
                 </NavLink>
                 <NavLink to='/shopeehelp' style={{ color: '#1677ff', textDecoration: 'none' }}>
                     {t('areyouhelp')}

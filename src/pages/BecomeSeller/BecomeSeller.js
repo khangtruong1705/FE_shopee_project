@@ -16,7 +16,7 @@ const BecomeSeller = () => {
                 <div className='d-flex justify-content-between align-items-center w-75 mx-auto'>
                     <div className="d-flex align-items-center justify-content-between w-25">
                         <NavLink to='/' >
-                            <img className="w-50" src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} />
+                            <img className="w-50" src={process.env.PUBLIC_URL + '/asset/images/logoeco.webp'} />
                         </NavLink>
                     </div>
 

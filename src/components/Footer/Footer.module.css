@@ -6,7 +6,7 @@
 .title{
     font-size: 1.2rem;
     text-align: center;
-    
+    font-weight: 500;
 }
 
 
@@ -30,7 +30,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/visalogo.png'); 
+    background-image: url('/public/asset/images/visalogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -43,7 +43,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/mastercardlogo.png'); 
+    background-image: url('/public/asset/images/mastercardlogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -56,7 +56,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/jcblogo.png'); 
+    background-image: url('/public/asset/images/jcblogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -67,7 +67,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/americanexpress.png'); 
+    background-image: url('/public/asset/images/americanexpress.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -79,7 +79,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/paypallogo.png'); 
+    background-image: url('/public/asset/images/paypallogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -91,7 +91,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/applecard.png'); 
+    background-image: url('/public/asset/images/applecard.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -103,7 +103,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/hsbclogo.png'); 
+    background-image: url('/public/asset/images/hsbclogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -115,7 +115,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/googlepaylogo.png'); 
+    background-image: url('/public/asset/images/googlepaylogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -137,7 +137,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/airborneexpresslogo.png'); 
+    background-image: url('/public/asset/images/airborneexpresslogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -150,7 +150,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/airindialogo.png'); 
+    background-image: url('/public/asset/images/airindialogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -163,7 +163,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/fedexlogo.png'); 
+    background-image: url('/public/asset/images/fedexlogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -174,7 +174,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/oltexpresslogo.png'); 
+    background-image: url('/public/asset/images/oltexpresslogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -186,7 +186,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/oracleexpresslogo.png'); 
+    background-image: url('/public/asset/images/oracleexpresslogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -198,7 +198,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/upslogo.png'); 
+    background-image: url('/public/asset/images/upslogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -210,7 +210,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/vietjetairlogo.png'); 
+    background-image: url('/public/asset/images/vietjetairlogo.webp'); 
     background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
     background-position: center; 
     background-repeat: no-repeat; 
@@ -222,7 +222,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/vietnamairlineslogo.png'); 
+    background-image: url('/public/asset/images/vietnamairlineslogo.webp'); 
     background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
     background-position: center; 
     background-repeat: no-repeat; 
@@ -234,7 +234,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/airasialogo.png'); 
+    background-image: url('/public/asset/images/airasialogo.webp'); 
     background-size: contain; /* Đảm bảo hình nền bao phủ toàn bộ phần tử */
     background-position: center; 
     background-repeat: no-repeat; 
@@ -246,7 +246,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/bombardiertransportationlogo.png'); 
+    background-image: url('/public/asset/images/bombardiertransportationlogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -258,7 +258,7 @@
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-    background-image: url('/public/asset/images/faiveleytransportlogo.png'); 
+    background-image: url('/public/asset/images/faiveleytransportlogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -283,7 +283,7 @@
     border-radius: 5px;
     grid-row: span 3;
     grid-column: 1;
-    background-image: url('/public/asset/images/qrcode.png'); 
+    background-image: url('/public/asset/images/qrcode.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat;
@@ -295,7 +295,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 12px;
-    background-image: url('/public/asset/images/googleplaylogo.png'); 
+    background-image: url('/public/asset/images/googleplaylogo.webp'); 
     background-size: contain;
     background-position: center; 
     background-repeat: no-repeat; 
@@ -309,7 +309,7 @@
     border: 1px solid #ccc;
     padding: 12px;
     border-radius: 5px;
-    background-image: url('/public/asset/images/amazonlogo.png'); 
+    background-image: url('/public/asset/images/amazonlogo.webp'); 
     background-size: contain; 
     background-position: center;
     background-repeat: no-repeat; 
@@ -322,7 +322,7 @@
     border: 1px solid #ccc;
     padding: 12px;
     border-radius: 5px;
-    background-image: url('/public/asset/images/applewatchlogo.png'); 
+    background-image: url('/public/asset/images/applewatchlogo.webp'); 
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 

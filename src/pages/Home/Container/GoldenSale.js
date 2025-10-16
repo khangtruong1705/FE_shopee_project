@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect} from 'react'
 import styles from '../Home.module.scss'
 import _ from "lodash";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -16,7 +16,6 @@ import ProductItem from '../../../components/ProductItem/ProductItem';
 
 const GoldenSale = () => {
     const token = localStorage.getItem('token');
-    const navigate = useNavigate();
     const [timeLeft, setTimeLeft] = useState(9 * 3600 + 18 * 60 + 28);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [arrTopViewsProduct, setArrTopViewsProduct] = useState([]);

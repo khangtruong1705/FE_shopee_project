@@ -31,9 +31,8 @@ import Promotion from './pages/ShopeePolicy/Child/Promotion';
 import Notification from './pages/Notification/Notification';
 import './i18n';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import ForgotPassword from './pages/FogotPassword/ForgotPassword';
 import ResetPassword from './pages/FogotPassword/ResetPassword';
-import EnterCodePassword from './pages/FogotPassword/EnterCodePassword';
+import EnterCodePassword from './pages/FogotPassword/EnterVerifyCode';
 import EnterPhoneNumber from './pages/FogotPassword/EnterPhoneNumber';
 import NotificationSetting from './pages/AccountUser/NotificationSetting/NotificationSetting';
 import MyVoucher from './pages/AccountUser/MyVoucher/MyVoucher';
@@ -49,6 +48,8 @@ import PaymentMethodChart from './pages/SellerCenter/PaymentMethodChart/PaymentM
 import RevenueChart from './pages/SellerCenter/Revenue/RevenueChart';
 import ShippingAreaChart from './pages/SellerCenter/ShippingArea/ShippingAreaChart';
 import SetupAccount from './pages/Login/SetupAccount';
+import EnterEmail from './pages/FogotPassword/EnterEmail';
+import EnterVerifyCode from './pages/FogotPassword/EnterVerifyCode';
 
 
 
@@ -119,8 +120,8 @@ root.render(
           <Route element={<Register />} path="/register"></Route>
           <Route element={<SetupAccount />} path="/setupaccount"></Route>
           <Route element={<Login />} path="/login"></Route>
-          <Route element={<ForgotPassword />} path="/forgotpassword"></Route>
-          <Route element={<EnterCodePassword />} path="/entercodepassword"></Route>
+          <Route element={<EnterEmail />} path="/enteremail"></Route>
+          <Route element={<EnterVerifyCode />} path="/enterverifycode"></Route>
           <Route path="/resetpassword">
             <Route path=':token' element={<ResetPassword />}></Route>
           </Route>

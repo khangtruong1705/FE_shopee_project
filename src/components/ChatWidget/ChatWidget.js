@@ -85,7 +85,7 @@ const ChatWidget = () => {
           zIndex: visible ? 0 : 1000,
         }}
       >
-        <img src={process.env.PUBLIC_URL + '/asset/images/chatbot.png'} style={{ width: '100%', height: '100%' }} />
+        <img src={process.env.PUBLIC_URL + '/asset/images/chatbot.webp'} style={{ width: '100%', height: '100%' }} />
 
       </Button>
       <Drawer

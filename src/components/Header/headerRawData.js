@@ -25,7 +25,7 @@ export const tagsData = [
 
 export const downloadAppContent = () => (
     <div className={styles.downloadAppContent}>
-        <img className='w-100' src={process.env.PUBLIC_URL + '/asset/images/qrcode.png'}></img>
+        <img className='w-100' src={process.env.PUBLIC_URL + '/asset/images/qrcode.webp'}></img>
     </div>
 )
 

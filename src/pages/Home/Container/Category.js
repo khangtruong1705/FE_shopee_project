@@ -26,7 +26,7 @@ const Category = () => {
     }, [])
     return <div className={styles.category}>
         <div className={`${styles.categoryTitle} my-2`}>
-            <img src={process.env.PUBLIC_URL + '/asset/images/categoriesicon.webp'} />
+            <img src={process.env.PUBLIC_URL + '/asset/images/categoriesicon.webp'} alt="..." />
             <strong className='mx-2'>{t('categories')}</strong>
         </div>
         <div className={styles.gridcategory}>

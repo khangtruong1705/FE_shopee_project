@@ -118,10 +118,10 @@ const BackgroundWrapper = () => {
                             </button>
                         </div>
                         <div className={styles.topRightBanner}>
-                            <img src={process.env.PUBLIC_URL + '/asset/images/banner6.webp'} />
+                            <img src={process.env.PUBLIC_URL + '/asset/images/banner6.webp'} alt="..." />
                         </div>
                         <div className={styles.bottomRightBanner}>
-                            <img src={process.env.PUBLIC_URL + '/asset/images/banner7.webp'} />
+                            <img src={process.env.PUBLIC_URL + '/asset/images/banner7.webp'} alt="..." />
                         </div>
                     </div>
                 </div>

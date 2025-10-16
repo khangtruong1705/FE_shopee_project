@@ -78,7 +78,7 @@ const RegisterShop = () => {
                 <div className='d-flex justify-content-between align-items-center w-75 mx-auto'>
                     <div className="d-flex align-items-center justify-content-start w-50">
                         <NavLink to='/' >
-                            <img className="w-50" src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} />
+                            <img className="w-50" src={process.env.PUBLIC_URL + '/asset/images/logoeco.webp'} />
                         </NavLink>
                         <span className="w-100" style={{ fontSize: '1.5vw' }}><strong>{t('becomeseller')}</strong></span>
                     </div>

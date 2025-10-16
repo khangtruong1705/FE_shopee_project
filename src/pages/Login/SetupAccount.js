@@ -22,13 +22,14 @@ const SetupAccount = () => {
                 'email': values.email,
                 'password': values.password,
                 'name': values.name,
-                'phone': values.phone,
+                'phone': `+84${values.phone}`,
                 'address': values.address,
             }
+            console.log('newValue:', newValue);
             let res = await axios.put(`${DOMAIN}/api/users/update`, newValue);
             console.log('res',res.data)
             const data = {
-                'message': t('loginsuccessful'),
+                'message': t('Thiết lập Tài Khoản'),
                 'type': 'success'
             }
             openMessage(data)
@@ -71,7 +72,7 @@ const SetupAccount = () => {
         <div>
             <div className={`${styles.loginHeader}`}>
                 <NavLink to='/' className='d-flex align-items-center'>
-                    <img className="w-25" src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} />
+                    <img className="w-25" src={process.env.PUBLIC_URL + '/asset/images/logoeco.webp'} />
                 </NavLink>
                 <NavLink to='/shopeehelp' style={{ color: '#1677ff', textDecoration: 'none' }}>
                     {t('areyouhelp')}
@@ -133,7 +134,10 @@ const SetupAccount = () => {
                                     { pattern: /^[0-9]+$/, message: 'Phone must be numbers only!' }
                                 ]}
                             >
-                                <Input />
+                                <Input 
+                                addonBefore='+84'
+                                maxLength={9}
+                                />
                             </Form.Item>
                             <Form.Item
                                 label='Địa Chỉ'

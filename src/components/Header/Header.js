@@ -254,7 +254,7 @@ const Header = ({ setCount }) => {
                     <div className={styles.mainHeader}>
                         <div className={styles.mainHeaderLeft}>
                             <NavLink className={styles.mainHeaderLeftContainer} to='/'>
-                                <img className={styles.mainHeaderLeftLogo} style={{ width: '100%' }} src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'}></img>
+                                <img className={styles.mainHeaderLeftLogo} style={{ width: '100%' }} src={process.env.PUBLIC_URL + '/asset/images/logoeco.webp'} alt="..."></img>
                             </NavLink>
                         </div>
                         <div className={styles.mainHeaderCenter}>

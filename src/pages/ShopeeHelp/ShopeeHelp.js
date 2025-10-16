@@ -19,7 +19,7 @@ const ShopeeHelp = () => {
         <div className=''>
             <div className={styles.header}>
                 <div className='d-flex align-items-center'>
-                    <NavLink to='/'><img alt="..." className={styles.shopeelogo} src={process.env.PUBLIC_URL + '/asset/images/logoeco.png'} /></NavLink>
+                    <NavLink to='/'><img alt="..." className={styles.shopeelogo} src={process.env.PUBLIC_URL + '/asset/images/logoeco.webp'} /></NavLink>
                     <div style={{fontSize:'1.1vw',fontWeight:'500',color:'#1250dc'}}>Trung tâm sợ giúp Shopee VN</div>
                 </div>
                 <NavLink to='/shopeepolicy/generalinfo' style={{fontSize:'1.1vw',fontWeight:'500',color:'#1250dc',textDecoration:'none'}}>

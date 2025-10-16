@@ -4,7 +4,7 @@ import styles from './ProductItem.module.scss';
 const ProductItem = ({ product}) => {
   return <div className={`${styles.carouselCard} card`}>
     <div className={`${styles.carouselCardBody} card-body`}>
-      <img className={styles.productImage} src={`${process.env.PUBLIC_URL} ${product.image}`} />
+      <img className={styles.productImage} src={`${process.env.PUBLIC_URL} ${product.image}`} alt="..." />
       <div className={styles.dealSockContainer} >
         <div className={styles.dealSock}  >
           <i className={`${styles.dealsockIcon} fa-solid fa-fire mx-1`} />

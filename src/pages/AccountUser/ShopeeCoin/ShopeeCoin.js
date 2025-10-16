@@ -7,7 +7,7 @@ const ShopeeCoin = () => {
             <div className="card w-75 mx-auto" style={{minHeight:'600px'}}>
                 <div className="card-header d-flex justify-content-between align-items-center">
                     <div className="d-flex align-items-center justify-content-between">
-                        <img  src={process.env.PUBLIC_URL + '/asset/images/coin.png'}  style={{height:'50px'}}/>
+                        <img  src={process.env.PUBLIC_URL + '/asset/images/coin.webp'}  style={{height:'50px'}} alt="..."/>
                         <div className="px-2" style={{fontSize:'2.5vw',color:'#f6a700'}}>0</div>
                         <div className="text-start">
                             <div style={{color:'#f6a700',fontSize:'0.95vw'}}>Xu đang có</div>

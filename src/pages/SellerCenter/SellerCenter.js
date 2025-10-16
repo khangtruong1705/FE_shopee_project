@@ -219,23 +219,23 @@ const SellerCenter = () => {
         <div className='row container-fluid text-center'>
             <div className='col-2 text-start pt-5' style={{ borderRight: "3px solid #276ddf" }}>
                 <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/manageproduct`}>
-                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/list.png'}></img>
+                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/list.webp'}></img>
                     <span className='mx-2' style={{ fontSize: '0.9vw' }}>Quản Lý Sản Phẩm</span>
                 </NavLink>
                 <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/viewsproductschart`}>
-                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
+                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.webp'}></img>
                     <span className='mx-2' style={{ fontSize: '0.9vw' }}>Lượt Xem Sản Phẩm</span>
                 </NavLink>
                 <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/paymentmethodchart`}>
-                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
+                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.webp'}></img>
                     <span className='mx-2' style={{ fontSize: '0.9vw' }}>Phương Thức Thanh Toán</span>
                 </NavLink>
                 <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/revenue`}>
-                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
+                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.webp'}></img>
                     <span className='mx-2' style={{ fontSize: '0.9vw' }}> Doanh Thu</span>
                 </NavLink>
                 <NavLink className="nav-link mb-3" to={`/sellercenter/${shopInfo.email_owner}/shippingarea`}>
-                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.png'}></img>
+                    <img style={{ width: '1.5vw', height: '1.5vw' }} src={process.env.PUBLIC_URL + '/asset/images/chart.webp'}></img>
                     <span className='mx-2' style={{ fontSize: '0.9vw' }}> Khu Vực Vận Chuyển</span>
                 </NavLink>
             </div>

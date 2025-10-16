@@ -1,0 +1,10 @@
+# Cho phép tất cả các bot truy cập hầu hết website
+User-agent: *
+Disallow: /admin/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /profile/
+Allow: /
+
+# Nếu bạn có sitemap, thêm dòng này để Google hiểu cấu trúc site
+Sitemap: https://e-commerce-shop-6pq3.onrender.com/sitemap.xml

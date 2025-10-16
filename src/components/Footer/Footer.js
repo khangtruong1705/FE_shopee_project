@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="footer w-100">
             <div className={`${styles.service} w-100 row`}>
                 <div className='col-lg-2 col-md-4 col-sm-6 text-center' >
-                    <h1 className={styles.title}>{t('customerservice')}</h1>
+                    <p className={styles.title}>{t('customerservice')}</p>
                     <CustomNavLink to='/shopeehelp'>{t('shopeeblog')}</CustomNavLink>
                     <CustomNavLink to='/shopeepolicy/shoppingwithshopee'>{t('shopeemall')}</CustomNavLink>
                     <CustomNavLink to='/shopeehelp'>{t('howtobuy')}</CustomNavLink>
@@ -27,7 +27,7 @@ const Footer = () => {
 
                 </div>
                 <div className='col-lg-2 col-md-4 col-sm-6 text-center'>
-                    <h1 className={styles.title}>{t('aboutshopee')}</h1>
+                    <p className={styles.title}>{t('aboutshopee')}</p>
                     <p><a href='https://careers.shopee.vn/about' style={{ textDecoration: 'none', color: 'black' }}>{t('aboutus')}</a></p>
                     <p><a href='https://careers.shopee.vn/jobs' style={{ textDecoration: 'none', color: 'black' }}>{t('shopeecareers')}</a></p>
                     <CustomNavLink to='/shopeepolicy/generalinfo'><p>{t('shopeepolicies')}</p></CustomNavLink>
@@ -39,7 +39,7 @@ const Footer = () => {
                     <a href='https://www.facebook.com/ShopeeVN' style={{ textDecoration: 'none', color: 'black' }}>{t('mediacontact')}</a>
                 </div>
                 <div className='col-lg-2 col-md-4 col-sm-6'>
-                    <h1 className={styles.title}>{t('payment').toUpperCase()}</h1>
+                    <p className={styles.title}>{t('payment').toUpperCase()}</p>
                     <div className={styles.gridcontainer}>
                         <div className={styles.griditem1}></div>
                         <div className={styles.griditem2}></div>
@@ -52,7 +52,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className='col-lg-2 col-md-4 col-sm-6'>
-                    <h1 className={styles.title}>{t('logistics')}</h1>
+                    <p className={styles.title}>{t('logistics')}</p>
                     <div className={styles.transportcontainer}>
                         <div className={styles.transportitem1}></div>
                         <div className={styles.transportitem2}></div>
@@ -68,7 +68,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className='col-lg-2 col-md-4 col-sm-6 text-center'>
-                    <h1 className={styles.title}>{t('followus')}</h1>
+                    <p className={styles.title}>{t('followus')}</p>
                     <p>
                         <a href='https://www.facebook.com/ShopeeVN' style={{textDecoration:'none'}}><i className="pe-2 fa-brands fa-facebook" />
                             Facebook
@@ -86,7 +86,7 @@ const Footer = () => {
                     </p>
                 </div>
                 <div className='col-lg-2 col-md-4 col-sm-6'>
-                    <h1 className={styles.title}>{t('shopeeappdownload')}</h1>
+                    <p className={styles.title}>{t('shopeeappdownload')}</p>
                     <div className={styles.downloadapp}>
                         <div className={styles.downloadappitem1}></div>
                         <div className={styles.downloadappitem2}></div>
