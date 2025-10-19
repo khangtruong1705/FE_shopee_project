@@ -18,7 +18,7 @@ const BackgroundWrapper = () => {
         background: item.background,
         label: t(item.label)
     }));
- useEffect(() => {
+    useEffect(() => {
         const timeout = setTimeout(() => {
             if (!carouselRef.current || !bannerRef.current || !backgroundBaseRef.current) return;
             const carouselElement = carouselRef.current;
@@ -50,11 +50,15 @@ const BackgroundWrapper = () => {
                 carouselInstance.dispose();
                 bannerInstance.dispose();
             };
-        }, 600);
+        }, 200);
         return () => clearTimeout(timeout);
     }, [carouselRef.current]);
     return <div className={styles.backgroundWrapper}>
-        <div ref={backgroundBaseRef} className={styles.backgroundBase}></div>
+        <img ref={backgroundBaseRef}
+            alt="Background"
+            src={process.env.PUBLIC_URL + '/asset/images/bannerbackground0.webp'}
+            className={styles.backgroundBase}>
+        </img>
         <div className={`${styles.heroZoneContainer} pt-5`}>
             <div className={`${styles.heroZone}`} >
                 <div

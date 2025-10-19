@@ -1,5 +1,5 @@
 import styles from '../Home.module.scss'
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 
@@ -15,8 +15,14 @@ const Favourite = () => {
             <strong className='mx-2'>{t('heal&beauty')}</strong>
         </div>
         <div className={`${styles.favouriteGrid}`}>
-            <div className={styles.favouriteItem1}></div>
-            <div className={styles.favouriteItem2}></div>
+                <img className={styles.favouriteItem1}
+                    src={process.env.PUBLIC_URL + '/asset/images/slogan1.webp'}
+                    alt="favouriteItem1"
+                />
+             <img className={styles.favouriteItem2}
+                    src={process.env.PUBLIC_URL + '/asset/images/slogan2.webp'}
+                    alt="favouriteItem2"
+                />
             <div className={styles.favouriteItem3}>
                 <div className={styles.item3Gird}>
                     {['Child1', 'Child2', 'Child3', 'Child4'].map((child, index) => (
