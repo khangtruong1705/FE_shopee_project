@@ -19,45 +19,42 @@ const BackgroundWrapper = () => {
         label: t(item.label)
     }));
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            if (!carouselRef.current || !bannerRef.current || !backgroundBaseRef.current) return;
-            const carouselElement = carouselRef.current;
-            const bannerElement = bannerRef.current;
-            const backgroundBaseElement = backgroundBaseRef.current;
-            const handleSlide = (event) => {
-                const index = event.to;
-                if (index === 0) {
-                    backgroundBaseElement.style.opacity = 1;
-                } else {
-                    backgroundBaseElement.style.opacity = 0;
-                }
-            };
-            const carouselInstance = new window.bootstrap.Carousel(carouselElement, {
-                interval: 6000,
-                ride: 'carousel',
-                pause: false,
-                wrap: true,
-            });
-            const bannerInstance = new window.bootstrap.Carousel(bannerElement, {
-                interval: 4000,
-                ride: 'carousel',
-                pause: false,
-                wrap: true,
-            });
-            carouselElement.addEventListener('slide.bs.carousel', handleSlide);
-            return () => {
-                carouselElement.removeEventListener('slide.bs.carousel', handleSlide);
-                carouselInstance.dispose();
-                bannerInstance.dispose();
-            };
-        }, 200);
-        return () => clearTimeout(timeout);
+
+        if (!carouselRef.current || !bannerRef.current || !backgroundBaseRef.current) return;
+        const carouselElement = carouselRef.current;
+        const bannerElement = bannerRef.current;
+        const backgroundBaseElement = backgroundBaseRef.current;
+        const handleSlide = (event) => {
+            const index = event.to;
+            backgroundBaseElement.classList.toggle(styles.hidden, index !== 0);
+        };
+        const carouselInstance = new window.bootstrap.Carousel(carouselElement, {
+            interval: 6000,
+            ride: 'carousel',
+            pause: false,
+            wrap: true,
+        });
+        const bannerInstance = new window.bootstrap.Carousel(bannerElement, {
+            interval: 4000,
+            ride: 'carousel',
+            pause: false,
+            wrap: true,
+        });
+        carouselElement.addEventListener('slide.bs.carousel', handleSlide);
+        return () => {
+            carouselElement.removeEventListener('slide.bs.carousel', handleSlide);
+            carouselInstance.dispose();
+            bannerInstance.dispose();
+        };
     }, [carouselRef.current]);
     return <div className={styles.backgroundWrapper}>
         <img ref={backgroundBaseRef}
             alt="Background"
             src={process.env.PUBLIC_URL + '/asset/images/bannerbackground0.webp'}
-            className={styles.backgroundBase}>
+            className={styles.backgroundBase}
+            loading="eager"
+            fetchpriority="high"
+        >
         </img>
         <div className={`${styles.heroZoneContainer} pt-5`}>
             <div className={`${styles.heroZone}`} >

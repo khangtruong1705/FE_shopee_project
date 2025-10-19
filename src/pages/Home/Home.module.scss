@@ -39,7 +39,13 @@
       transition: opacity 1s ease;
       z-index: 0;
       object-fit: cover;
+      opacity: 1;
+      will-change: opacity;
     }
+    .backgroundBase.hidden {
+        opacity: 0;
+      }
+
 
     .heroZoneContainer {
       width: 70%;

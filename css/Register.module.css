@@ -1,0 +1,47 @@
+.registerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.registerBody {
+  display: flex;
+  justify-content: space-around;
+  background: #3c82e8;
+}
+.registerBody .card {
+  margin: 0 auto;
+  width: 25%;
+}
+.registerBody .card .cardHeader {
+  text-align: center;
+  font-size: 1.2vw;
+  font-weight: 500;
+  color: #3c82e8;
+}
+
+.tagmarquee {
+  width: 100%;
+  overflow: hidden;
+  color: white;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.tagtrack {
+  display: flex;
+  animation: scroll-left 9s linear infinite;
+  padding-left: 100%;
+  font-size: 1vw;
+}
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

@@ -1,0 +1,71 @@
+@charset "UTF-8";
+.avatarshop {
+  width: 13vw;
+  height: 8vw;
+  border-radius: 5px;
+  border: 1px dashed #d9d9d9;
+}
+
+.avatarproduct {
+  display: block;
+  width: 100%;
+  height: 100%; /* ← CHỈNH LẠI TỪ 200px → 100% */
+  border-radius: 0px;
+}
+
+.imageWrapper {
+  position: relative;
+  height: 100%;
+}
+
+.avatarImage {
+  width: 15vw;
+  height: 10vw;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
+.uploadOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.4); /* nền tối mờ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.imageWrapper:hover .uploadOverlay {
+  opacity: 1;
+}
+
+.sidebar {
+  position: absolute;
+  top: 1%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+  height: 100;
+  /* background: white; */
+}
+
+.sidebaricons {
+  font-size: 1.5vw;
+  padding: 0.4vw 0;
+  color: #f53d2d; /* Màu cam giống Shopee */
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.sidebaricons:hover {
+  transform: scale(1.2);
+}
